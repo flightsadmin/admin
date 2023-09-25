@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \Flightsadmin\Admin\Skeleton\SkeletonClass
  */
-class ShopFacade extends Facade
+class AdminFacade extends Facade
 {
     /**
      * Get the registered name of the component.

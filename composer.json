@@ -46,10 +46,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Flightsadmin\\Admin\\ShopServiceProvider"
+                "Flightsadmin\\Admin\\AdminServiceProvider"
             ],
             "aliases": {
-                "Admin": "Flightsadmin\\Admin\\ShopFacade"
+                "Admin": "Flightsadmin\\Admin\\AdminFacade"
             }
         }
     }
