@@ -1,0 +1,56 @@
+{
+    "name": "flightsadmin/admin",
+    "description": "Shooping Cart",
+    "keywords": [
+        "flightsadmin",
+        "admin"
+    ],
+    "homepage": "https://github.com/flightsadmin/admin",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "George Chitechi",
+            "email": "george@flightadmin.info",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7|^8",
+        "dompdf/dompdf": "^2",
+        "laravel/framework": ">9.19",
+        "laravel/ui": "^4",
+        "laravel/socialite": "^5.9",
+        "livewire/livewire": "^3",
+        "spatie/laravel-permission": "^5"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "Flightsadmin\\Admin\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Flightsadmin\\Admin\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Flightsadmin\\Admin\\ShopServiceProvider"
+            ],
+            "aliases": {
+                "Admin": "Flightsadmin\\Admin\\ShopFacade"
+            }
+        }
+    }
+}
