@@ -23,7 +23,7 @@ trait FileHandler
             $spatieRoutes = 
             <<<ROUTES
             // Admin Routes
-            Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix('admin')->group(function () {
+            Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                 Route::view('schedules', 'livewire.schedules.index')->name('admin.schedules');
                 Route::view('delays', 'livewire.delays.index')->name('admin.delays');
                 Route::view('services', 'livewire.services.index')->name('admin.services');
@@ -37,13 +37,14 @@ trait FileHandler
             });
             
             // User Routes
-            Route::middleware(['web'])->prefix('blog')->group(function () {
+            Route::middleware(['web'])->prefix(config("admin.blogRoute", "blog"))->group(function () {
                 Route::get('/', App\Livewire\BlogPosts::class)->name('blog');
                 Route::get('/{post:id}', [App\Livewire\BlogPosts::class, 'show'])->name('blog.show');
                 Route::get('/category/{slug}', [App\Livewire\BlogPosts::class, 'category'])->name('blog.category');
                 Route::get('/archive/{year}/{month}', [App\Livewire\BlogPosts::class, 'archive'])->name('blog.archive');
             });
 
+            // Social Login Routes
             Route::get('/auth/{provider}/redirect', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirect']);
             Route::get('/auth/{provider}/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'callback']);
             ROUTES;
