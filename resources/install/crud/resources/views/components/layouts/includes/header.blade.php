@@ -1,7 +1,5 @@
 <nav class="app-header navbar navbar-expand bg-body">
-    <!--begin::Container-->
     <div class="container-fluid">
-        <!--begin::Start Navbar Links-->
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
@@ -12,8 +10,7 @@
                 <a href="{{ route('home')}}" wire:navigate class="nav-link">@yield('title', config('app.name'))</a>
             </li>
         </ul>
-
-        <!--begin::End Navbar Links-->
+        
         <ul class="navbar-nav ms-auto">
             <!--begin::Messages Dropdown Menu-->
             <li class="nav-item dropdown">

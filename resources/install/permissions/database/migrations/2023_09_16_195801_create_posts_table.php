@@ -37,11 +37,19 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('post_comments', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('comment');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
+            $table->text('content');
+            $table->timestamps();
+        });
+
+        Schema::create('replies', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('comment_id')->constrained('comments')->onDelete('cascade');
+            $table->text('content');
             $table->timestamps();
         });
     }
@@ -54,6 +62,7 @@ return new class extends Migration
         Schema::dropIfExists('posts');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('category_post');
-        Schema::dropIfExists('post_comments');
+        Schema::dropIfExists('comments');
+        Schema::dropIfExists('replies');
     }
 };

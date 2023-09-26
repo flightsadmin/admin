@@ -1,7 +1,7 @@
 @extends('components.layouts.app')
 @section('title', __('Blog Post'))
 @section('content')
-    <div class="container-fluid">
+    <div class="container-fluid px-5">
         <div class="row justify-content-center">
             <div class="container mt-5">
                 <div class="row">
@@ -25,24 +25,7 @@
                             </section>
                         </article>
                         <!-- Comments section-->
-                        @livewire('post-comments', ['postId' => $post->id])
-
-                        <div class="mb-4 h-4">Comments</div>
-                        <div class="mb-4">
-                            @forelse ($comments as $comment)
-                                <div class="d-flex mb-4">
-                                    <div class="flex-shrink-0"><img class="rounded-circle profile-img"
-                                            src="{{ asset('storage/' . $post->author->photo) }}" alt="..." />
-                                    </div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">{{ $comment->user->name }}</div>
-                                        <div>{{ $comment->comment }}</div>
-                                    </div>
-                                </div>
-                            @empty
-                                <p>No Comments for this Post</p>
-                            @endforelse
-                        </div>
+                        @livewire('comment-component', ['post' => $post])
                     </div>
                     <!-- Side widgets-->
                     <div class="col-lg-4">

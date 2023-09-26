@@ -75,13 +75,13 @@
                 <li class="nav-item">
                     <a href="{{ route('admin.posts') }}" wire:navigate class="nav-link">
                         <i class="nav-icon bi bi-file-spreadsheet-fill"></i>
-                        <p>Blog</p>
+                        <p>Blog Admin</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('blog') }}" wire:navigate class="nav-link">
+                    <a href="{{ route('blog') }}" wire:navigate class="nav-link">
                         <i class="nav-icon bi bi-file-spreadsheet-fill"></i>
-                        <p>Blog Front</p>
+                        <p>Blog Page</p>
                     </a>
                 </li>
             </ul>

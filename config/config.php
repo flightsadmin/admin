@@ -11,5 +11,9 @@ return [
     "purpose" => "Flight Management",
 
     // Allow Social Login
-    "sociallogin" => true
+    "sociallogin" => false,
+
+    // Routes
+    "adminRoute" => "admin",
+    "blogRoute"  => "posts"
 ];

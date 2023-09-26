@@ -4,10 +4,9 @@ namespace App\Livewire;
 
 use Carbon\Carbon;
 use App\Models\Post;
+use App\Models\Comment;
 use Livewire\Component;
 use App\Models\Category;
-use App\Models\PostComment;
-use Livewire\Attributes\On;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +17,7 @@ class BlogPosts extends Component
     protected $paginationTheme = 'bootstrap';
 
     public function show(Post $post) {
-        $comments = PostComment::where('post_id', $post->id)->with('user')->get();
+        $comments = Comment::where('post_id', $post->id)->with('user')->get();
         return view('livewire.front.view-post', [
             'post' => $post,
             'comments' => $comments

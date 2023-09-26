@@ -2,7 +2,6 @@
 @section('title', __('Categories'))
 @section('content')
     <div>
-        <!-- Page header with logo and tagline-->
         <header class="py-2 bg-light border-bottom mb-4">
             <div class="container-fluid">
                 <div class="text-center my-3">
@@ -13,8 +12,7 @@
                 </div>
             </div>
         </header>
-        <!-- Page content-->
-        <div class="container-fluid">
+        <div class="container-fluid px-5">
             <div class="col-md-12">
                 <div class="row g-4">
                     @forelse ($posts as $post)
@@ -56,7 +54,7 @@
                             </div>
                         </div>
                     @empty
-                        <p>No Posts</p>
+                        <p>No Posts in this Category</p>
                     @endforelse
                 </div>
             </div>

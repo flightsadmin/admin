@@ -12,8 +12,8 @@
             </div>
         </header>
         <!-- Page content-->
-        <div class="container-fluid p-4">
-            <div class="row g-4">
+        <div class="container-fluid px-5">
+            <div class="row">
                 <div class="col-md-8">
                     <div class="row g-4">
                         @forelse ($posts as $post)
@@ -46,7 +46,8 @@
 
                             <div class="p-4 mb-3 bg-body-tertiary rounded">
                                 <h4 class="fst-italic">About</h4>
-                                <p class="mb-0">{{ config('app.name', 'Laravel') }} is about simplicity. <br> Manage your {{ config('admin.purpose') }}, at the same
+                                <p class="mb-0">{{ config('app.name', 'Laravel') }} is about simplicity. <br> {{ config('admin.purpose') }},
+                                    at the same
                                     time get to know yor world with our blog section.</p>
                             </div>
                             <div>

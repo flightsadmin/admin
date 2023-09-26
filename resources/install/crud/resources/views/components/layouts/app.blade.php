@@ -20,7 +20,7 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container-fluid">
+            <div class="container-fluid px-4">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
@@ -37,6 +37,8 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!--Nav Bar Hooks - Do not delete!!-->
+                        <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ route('blog') }}">Blog</a>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

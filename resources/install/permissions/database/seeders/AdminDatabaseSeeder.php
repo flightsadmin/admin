@@ -18,6 +18,7 @@ class AdminDatabaseSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         $permissions = [
+            'viewPost', 'createPost', 'editPost', 'deletePost',
             'viewRole', 'createRole', 'editRole', 'deleteRole',
             'viewPermission', 'createPermission', 'editPermission', 'deletePermission',
             'viewUser', 'createUser', 'editUser', 'deleteUser',
@@ -31,44 +32,38 @@ class AdminDatabaseSeeder extends Seeder
          }
 
          // create roles and assign created permissions
-        $role1 = Role::create(['name' => 'user'])->givePermissionTo(['viewFlights', 'viewRegistrations', 'viewAirline']);
-        $role2 = Role::create(['name' => 'admin'])->givePermissionTo(['viewSchedule', 'createSchedule', 'viewAirline', 'createAirline','viewRegistrations', 'createRegistrations']);
-        $role3 = Role::create(['name' => 'super-admin'])->givePermissionTo(Permission::all());
+         $roles = [
+            [
+                'name' => 'guest',
+                'permissions' => ['viewPost'],
+            ],
+            [
+                'name' => 'user',
+                'permissions' => ['viewFlights', 'viewRegistrations', 'viewAirline'],
+            ],
+            [
+                'name' => 'admin',
+                'permissions' => ['viewSchedule', 'createSchedule', 'viewAirline', 'createAirline', 'viewRegistrations', 'createRegistrations'],
+            ],
+            [
+                'name' => 'super-admin',
+                'permissions' => Permission::pluck('name')->toArray(),
+            ],
+        ];
         
-        // create User
-        $user1 = User::create([
-            'name'              => 'Site User',
-            'email'             => 'user@flightadmin.info',
-            'password'          => Hash::make('password'),
-            'email_verified_at' => now(),
-            'remember_token'    => Str::random(10),
-            'phone'             => '+2547000002',
-            'title'             => 'Developer',
-            'photo'             => 'users/noimage.jpg',
-        ])->assignRole($role1);
-
-        // create Admin
-        $user2 = User::create([
-            'name'              => 'Site Admin',
-            'email'             => 'admin@flightadmin.info',
-            'password'          => Hash::make('password'),
-            'email_verified_at' => now(),
-            'remember_token'    => Str::random(10),
-            'phone'             => '+2547000001',
-            'title'             => 'Developer',
-            'photo'             => 'users/noimage.jpg',
-        ])->assignRole($role2);
-        
-        // create Super-admin
-        $user3 = User::create([
-            'name'              => 'Super Admin',
-            'email'             => 'super-admin@flightadmin.info',
-            'password'          => Hash::make('password'),
-            'email_verified_at' => now(),
-            'remember_token'    => Str::random(10),
-            'phone'             => '+2547000000',
-            'title'             => 'Developer',
-            'photo'             => 'users/noimage.jpg',
-        ])->assignRole($role3);
+        foreach ($roles as $key => $roleData) {
+            $role = Role::create(['name' => $roleData['name']]);
+            $role->givePermissionTo($roleData['permissions']);
+            User::create([
+                'name'              => ucwords(explode('-', $roleData['name'])[0]).' User',
+                'email'             => $roleData['name'].'@flightadmin.info',
+                'password'          => Hash::make('password'),
+                'email_verified_at' => now(),
+                'remember_token'    => Str::random(30),
+                'phone'             => '+2547000000'. $key,
+                'title'             => 'Developer',
+                'photo'             => 'users/noimage.jpg',
+            ])->assignRole($role);
+        }
     }
 }
