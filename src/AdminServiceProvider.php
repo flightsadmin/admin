@@ -25,21 +25,6 @@ class AdminServiceProvider extends ServiceProvider
                 __DIR__.'/../config/config.php' => config_path('admin.php'),
             ], 'config');
 
-            // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/admin'),
-            ], 'views');*/
-
-            // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/admin'),
-            ], 'assets');*/
-
-            // Publishing the translation files.
-            /*$this->publishes([
-                __DIR__.'/../resources/lang' => resource_path('lang/vendor/admin'),
-            ], 'lang');*/
-
             // Registering package commands.
             $this->commands([
                 Install::class,

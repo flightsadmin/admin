@@ -5,15 +5,22 @@
  */
 return [
     // App Name
-    "appName" => "Flight Admin",
+    "appName" => "My App",
 
     // Purpose
     "purpose" => "Flight Management",
 
     // Allow Social Login
-    "sociallogin" => false,
+    "sociallogin" => true,
 
     // Routes
     "adminRoute" => "admin",
-    "blogRoute"  => "posts"
+    "blogRoute"  => "posts",
+
+    // Modules
+    "modules"   => [
+        'flights' => true,
+        'blog' => true,
+        'shopping' => true,
+    ],
 ];
