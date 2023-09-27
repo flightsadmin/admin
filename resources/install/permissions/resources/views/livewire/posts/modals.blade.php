@@ -9,8 +9,16 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div wire:ignore class="col-md-12 mb-4">
+                    <div class="mb-2" id="editor">{{ $body }}</div>
+                </div>
                 <form>
                     <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="body" class="form-label">Content</label>
+                            <textarea class="form-control" wire:model="body" id="quill-textarea"></textarea>
+                            @error('body') <div class="text-danger">{{ $message }}</div> @enderror
+                        </div>
                         <div class="col-md-6 mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input wire:model="title" type="text" id="title" name="title" class="form-control">
@@ -20,11 +28,6 @@
                             <label for="slug" class="form-label">Slug</label>
                             <input wire:model="slug" type="text" id="slug" name="slug" class="form-control">
                             @error('slug') <div class="text-danger">{{ $message }}</div> @enderror
-                        </div>
-                        <div class="col-md-12 mb-3">
-                            <label for="body" class="form-label">Content</label>
-                            <textarea wire:model="body" id="body" name="body" rows="10" class="form-control"></textarea>
-                            @error('body') <div class="text-danger">{{ $message }}</div> @enderror
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="image" class="form-label">Image</label>

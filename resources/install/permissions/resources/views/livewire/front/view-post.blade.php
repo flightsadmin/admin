@@ -9,10 +9,11 @@
                         <article>
                             <header class="mb-4">
                                 <h1 class="fw-bolder mb-1">{{ $post->title }}</h1>
-                                <div class="text-muted fst-italic mb-2">
+                                <div class="text-muted fst-italic mb-2" style="display: flex; justify-content: space-between; align-items: right;">
                                     Posted on {{ $post->published_at->format('F d, Y') }} by {{ $post->author->name }}
-                                    <p class="float-end bi bi-clock-fill"> {{ $post->getReadingTime() }} min read</p>
-                                    <p class="float-end bi bi-chat-dots-fill me-4"> {{ $comments->count() }} Comments</p>
+                                    <p class="bi bi-chat-dots-fill me-4"> {{ $post->comments->count() }} Comments</p>
+                                    <p class="bi bi-clock-fill"> {{ $post->getReadingTime() }} min read</p>
+                                    <p>@livewire('like-button', ['post' => $post], key($post->id))</p>
                                 </div>
                             </header>
                             <!-- Preview image figure-->
@@ -21,7 +22,8 @@
                                     style="height:400px; width:100%" /></div>
                             <!-- Post content-->
                             <section class="mb-5">
-                                {!! nl2br(e($post->body)) !!}
+                                {{-- {!! nl2br(e($post->body)) !!} --}}
+                                {!! $post->body !!}
                             </section>
                         </article>
                         <!-- Comments section-->

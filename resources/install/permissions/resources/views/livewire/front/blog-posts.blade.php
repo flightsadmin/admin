@@ -24,15 +24,18 @@
                                             style="height:200px; width:100%" alt="{{ $post->id }}">
                                     </a>
                                     <div class="card-body">
-                                        <div class="small text-muted">{{ $post->published_at->format('F d, Y') }}</div>
+                                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                                            <div class="small text-muted">{{ $post->published_at->format('F d, Y') }}</div>
+                                            <span class="float-end"> @livewire('like-button', ['post' => $post], key($post->id)) </span>
+                                        </div>
                                         <div class="h4 mb-3">{{ $post->title }}</div>
                                         <p>{{ $post->getExcerpt() }}</p>
                                         <a href="{{ route('blog.show', $post->id) }}" class="icon-link gap-1 icon-link-hover stretched-link">
                                             Read More... <span class="bi bi-chevron-right"></span>
-                                        </a>
+                                        </a>                                        
                                         <span class="float-end">{{ $post->getReadingTime() }} min read</span>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>
                         @empty
                             <p>No Posts</p>
