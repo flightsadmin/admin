@@ -6,6 +6,7 @@
                 <div class="d-flex gap-4">
                     <form class="col-md-10 mb-4">
                         <textarea wire:model="commentContent" class="form-control" rows="2" placeholder="Join the discussion and leave a comment!"></textarea>
+                        @error('commentContent') <span class="text-danger small">{{ $message }}</span> @enderror
                     </form>
                     <span class="col-md-2">
                         <button wire:click.prevent="addComment" class="btn btn-sm btn-primary"> Save Comment</button>
@@ -43,6 +44,7 @@
                                 <input class="form-control form-control-sm" type="text" wire:model="replyContent" placeholder="Add a reply">
                                 <button class="btn btn-sm btn-info float-end" type="submit"> Reply</button>
                             </div>
+                            @error('replyContent') <span class="text-danger small">{{ $message }}</span> @enderror
                         </form>
                     @endif
                 @endauth

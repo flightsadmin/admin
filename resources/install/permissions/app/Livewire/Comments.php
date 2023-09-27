@@ -23,6 +23,9 @@ class Comments extends Component
 
     public function addComment()
     {
+        $this->validate([
+            'commentContent' => 'required|max:255'
+        ]);
        $comment = Comment::create([
             'user_id' => Auth::user()->id,
             'post_id' => $this->post->id,
@@ -33,6 +36,9 @@ class Comments extends Component
 
     public function addReply($commentId)
     {
+        $this->validate([
+            'replyContent' => 'required|max:255'
+        ]);
         Reply::create([
             'user_id' => Auth::user()->id,
             'comment_id' => $commentId,
