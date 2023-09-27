@@ -5,7 +5,7 @@
  */
 return [
     // App Name
-    "appName" => "My App",
+    "appName" => "Flight Admin",
 
     // Purpose
     "purpose" => "Flight Management",
@@ -15,7 +15,7 @@ return [
 
     // Routes
     "adminRoute" => "admin",
-    "blogRoute"  => "posts",
+    "blogRoute"  => "blog",
 
     // Modules
     "modules"   => [
