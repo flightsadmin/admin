@@ -9,7 +9,8 @@ window.bootstrap = bootstrap;
 import * as adminlte from 'admin-lte/dist/js/adminlte'
 window.adminlte = adminlte;
 
-import Quill from quill
+// Import Quill
+import Quill from 'quill'
 window.quill = Quill
 
 // Import Axios
