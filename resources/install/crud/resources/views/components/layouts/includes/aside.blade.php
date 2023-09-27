@@ -1,9 +1,9 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a href="{{ route('home') }}" wire:navigate class="brand-link">
-            <img src="{{ asset('storage/assets/img/AdminLTELogo.png') }}" alt="{{ config('app.name', 'Laravel') }}"
+            <img src="{{ asset('storage/assets/img/AdminLTELogo.png') }}" alt="{{ config('admin.appName', 'app.name') }}"
                 class="brand-image opacity-75 shadow">
-            <span class="brand-text fw-light">{{ config('app.name', 'Laravel') }}</span>
+            <span class="brand-text fw-light">{{ config('admin.appName', 'app.name') }}</span>
         </a>
     </div>
     <div class="sidebar-wrapper">

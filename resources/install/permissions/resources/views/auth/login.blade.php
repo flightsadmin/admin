@@ -4,7 +4,7 @@
     <div class="container">
         <div class="login-box">
             <div class="login-logo">
-                <a href="{{ route('login') }}">{{ config('app.name', 'Laravel') }}</a>
+                <a href="{{ route('login') }}">{{ config('admin.appName', 'app.name') }}</a>
             </div>
             <div class="card">
                 <div class="card-body login-card-body">

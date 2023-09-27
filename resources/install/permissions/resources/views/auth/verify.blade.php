@@ -3,7 +3,9 @@
 @section('content')
     <div class="container">
         <div class="login-box">
-            <div class="login-logo"> {{ __('Verify Your Email Address') }}</a> </div>
+            <div class="login-logo">
+                {{ __('Verify Your Email Address') }}
+            </div>
             <div class="card-body login-card-body">
                 @if (session('resent'))
                     <div class="alert alert-success" role="alert">

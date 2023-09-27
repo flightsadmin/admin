@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> @hasSection('title') @yield('title') | @endif {{ config('app.name', 'Laravel') }} </title>
+    <title> @hasSection('title') @yield('title') | @endif {{ config('admin.appName', 'app.name') }} </title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -22,7 +22,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container-fluid px-4">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    {{ config('admin.appName', 'app.name') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

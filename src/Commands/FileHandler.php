@@ -37,7 +37,7 @@ trait FileHandler
             });
             
             // User Routes
-            Route::middleware(['web'])->prefix(config("admin.blogRoute", "blog"))->group(function () {
+            Route::middleware(['web', 'role:guest|super-admin|admin|user'])->prefix(config("admin.blogRoute", "blog"))->group(function () {
                 Route::get('/', App\Livewire\BlogPosts::class)->name('blog');
                 Route::get('/{post:id}', [App\Livewire\BlogPosts::class, 'show'])->name('blog.show');
                 Route::get('/category/{slug}', [App\Livewire\BlogPosts::class, 'category'])->name('blog.category');

@@ -4,7 +4,7 @@
     <div class="container">
         <div class="register-box">
             <div class="register-logo">
-                <a href="{{ route('register') }}">{{ config('app.name', 'Laravel') }}</a>
+                <a href="{{ route('register') }}">{{ config('admin.appName', 'app.name') }}</a>
             </div>
             <div class="card">
                 <div class="card-body register-card-body">

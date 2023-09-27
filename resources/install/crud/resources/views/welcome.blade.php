@@ -9,10 +9,10 @@
             <div class="card-body">
               <h5>  
             @guest
-				Welcome to {{ config('app.name', 'Laravel') }} !!! <br>
+				Welcome to {{ config('admin.appName', 'app.name') }} !!! <br>
 				Please contact admin to get your Login Credentials or click "Login" to go to your Dashboard.
 			@else
-				Hi {{ Auth::user()->name }}, Welcome back to {{ config('app.name', 'Laravel') }}.
+				Hi {{ Auth::user()->name }}, Welcome back to {{ config('admin.appName', 'app.name') }}.
             @endif	
 				</h5>
             </div>

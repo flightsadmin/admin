@@ -45,14 +45,14 @@
             <div class="card">
                 <div class="card-body">
                     Dear {{ $name }}, <br>
-                    An account has been created for you on <a href="{{ url('/') }}"> {{ config('app.name', 'Laravel') }}</a> with below Credentials.<br>
+                    An account has been created for you on <a href="{{ url('/') }}"> {{ config('admin.appName', 'app.name') }}</a> with below Credentials.<br>
                     Please Login by clicking <a href="{{ url('/login') }}"> here</a> and change your password<br><br>
                     Email: {{ $email }} <br>
                     Password: {{ $password }} <br>
                     Phone: {{ $phone }} <br>
                     Role(s): <b class="text-danger"> @forelse ($roles as $role) {{ $role }} | @empty No roles Asigned @endforelse</b><br><br>
                     Regards, <br>
-                    {{ config('app.name', 'Laravel') }} Site Administrator.<br>
+                    {{ config('admin.appName', 'app.name') }} Site Administrator.<br>
                     <small class="text-danger"><i>This is an automated message, Do not reply</i></small>
                 </div>
             </div>

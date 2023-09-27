@@ -25,7 +25,7 @@
                             </section>
                         </article>
                         <!-- Comments section-->
-                        @livewire('comment-component', ['post' => $post])
+                        @livewire('comments', ['post' => $post])
                     </div>
                     <!-- Side widgets-->
                     <div class="col-lg-4">

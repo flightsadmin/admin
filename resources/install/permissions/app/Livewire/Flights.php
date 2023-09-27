@@ -261,7 +261,7 @@ class Flights extends Component
                     Find Attached Work-order for ' . $selectedFlight->flight_no .' '.
                     $selectedFlight->origin . ' - ' . $selectedFlight->destination . '</br></br>
                     Regards, <br>'.
-                    config('app.name', 'Laravel') . ' Site Administrator. <br>
+                    config('admin.appName', 'app.name') . ' Site Administrator. <br>
                     <small style="color:red;"><i>This is an automated message, Contact Us incase of any discrepancies </i></small>',
             'pdfData' => $pdfData,
             'selectedFlight' => $selectedFlight,
