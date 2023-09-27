@@ -19,8 +19,8 @@ return [
 
     // Modules
     "modules"   => [
-        'flights' => true,
-        'blog' => true,
-        'shopping' => true,
+        'flights'   => true,
+        'blog'      => true,
+        'shopping'  => true,
     ],
 ];
