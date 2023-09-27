@@ -101,6 +101,36 @@ trait FileHandler
                     $this->warn($userModelFile . ' Updated with <info>' . trim($value). '</info>');
                 }
             }
+            // Update Relationship
+            $userUpdate = 
+            <<<NAV
+            public function likes() {
+                return $this->belongsToMany(Post::class, \'post_like\')->withTimestamps();
+            }
+
+            public function hasLiked(Post $post) {
+                return $this->likes()->where(\'post_id\', $post->id)->exists();
+            }
+            NAV;
+
+            $userHook = "}";
+
+            // Find the position of the last occurrence of "];"
+            $lastPosition = strrpos($fileData, $userHook);
+
+            if (!Str::contains($fileData, $userUpdate)) {
+                // Add the content after the last occurrence of "];"
+                if ($lastPosition !== false) {
+                    $UserModelContents = substr_replace($fileData, PHP_EOL . $userUpdate, $lastPosition, 0);
+                } else {
+                    // If "];" is not found, add the content at the end of the file
+                    $UserModelContents = $fileData . PHP_EOL . $userUpdate;
+                }
+
+                // Write the updated content back to the file
+                $this->filesystem->put($userModelFile, $UserModelContents);
+                $this->warn($userModelFile . ' Updated');
+            }
 
             $this->line('');
             $this->warn('Publishing Laravel Permissions Files');

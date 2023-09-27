@@ -52,6 +52,13 @@ return new class extends Migration
             $table->text('content');
             $table->timestamps();
         });
+
+        Schema::create('post_like', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('post_id')->constrained('posts')->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -64,5 +71,6 @@ return new class extends Migration
         Schema::dropIfExists('category_post');
         Schema::dropIfExists('comments');
         Schema::dropIfExists('replies');
+        Schema::dropIfExists('post_like');
     }
 };
