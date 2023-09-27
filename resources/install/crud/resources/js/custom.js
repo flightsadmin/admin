@@ -1,4 +1,3 @@
-
 // Timeout and Logout if Inactive
 let idleTimeoutMinutes = 30; // Adjust this value as needed (in minutes)
 let idleTimer;

@@ -7,7 +7,7 @@
                 </a>
             </li>
             <li class="nav-item d-none d-md-block">
-                <a href="{{ route('home')}}" wire:navigate class="nav-link">@yield('title', config('app.name'))</a>
+                <a href="{{ route('home')}}" wire:navigate class="nav-link">@yield('title', config('admin.appName', 'app.name'))</a>
             </li>
         </ul>
         
