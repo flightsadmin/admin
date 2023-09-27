@@ -105,11 +105,11 @@ trait FileHandler
             $userUpdate = 
             <<<NAV
             public function likes() {
-                return $this->belongsToMany(Post::class, \'post_like\')->withTimestamps();
+                return \$this->belongsToMany(Post::class, \'post_like\')->withTimestamps();
             }
 
             public function hasLiked(Post $post) {
-                return $this->likes()->where(\'post_id\', $post->id)->exists();
+                return \$this->likes()->where(\'post_id\', \$post->id)->exists();
             }
             NAV;
 
