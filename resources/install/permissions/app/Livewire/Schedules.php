@@ -45,7 +45,7 @@ class Schedules extends Component
 
     public function deleteSelected()
     {
-        $deletedFlights = Flight::whereIn('flight_no', $this->selectedFlights)->delete();
+        $deletedFlights = Flight::whereIn('id', $this->selectedFlights)->delete();
         $this->reset(['selectedFlights']);
         session()->flash('message', 'Selected flights deleted successfully.');
     }
