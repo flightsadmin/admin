@@ -32,20 +32,14 @@ class Posts extends Component
 
     public $post_id, $keyWord, $postCount, $categories;
 
-
     public function render()
     {
         $keyWord = '%'. $this->keyWord .'%';
         $category = Category::all();
-        $posts = Post::where('title', 'LIKE', $keyWord)->orWhere('slug', 'LIKE', $keyWord)->paginate(5);
+        $posts = Post::where('title', 'LIKE', $keyWord)->orWhere('slug', 'LIKE', $keyWord)->paginate();
         return view('livewire.admin.posts.view', compact('posts', 'category'))->extends('components.layouts.admin');
     }
-
-    public function cancel()
-    {
-        $this->reset();
-    }
-
+    
     public function store()
     {
         $validatedData = $this->validate();

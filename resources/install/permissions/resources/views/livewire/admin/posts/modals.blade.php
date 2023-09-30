@@ -1,3 +1,35 @@
+<div wire:ignore.self class="modal fade" id="viewModal" data-bs-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">View Post</h5>
+                <button wire:click="$refresh" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @if ($post_id)
+                <div class="card h-100">
+                    <img class="rounded mb-2" src="{{ asset('storage/' . $image) }}"
+                        style="height:200px; width:100%" alt="{{ $title }}">
+                    <div class="card-body">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="h4 mb-3">{{ $title }}</div>
+                            <span class="text-success float-end"> {{ $featured ? 'Featured' : '' }}</span>
+                            <div class="small text-muted float-end">{{ $published_at }}</div>
+                        </div>
+                        <div>{!! $body !!}</div>
+                    </div>
+                </div>
+                @else
+                    <p>Loading Post...</p>
+                @endif
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal" wire:click="$refresh">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Create / Edit Post Modal -->
 <div wire:ignore.self class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -120,8 +152,10 @@
 @push('scripts')
     <script type="module">
         const genModal = new bootstrap.Modal('#dataModal');
+        const viewModal = new bootstrap.Modal('#viewModal');
         window.addEventListener('closeModal', () => {
             genModal.hide();
+            viewModal.hide();
         });
 
         const toast = new bootstrap.Toast('#statusToast');

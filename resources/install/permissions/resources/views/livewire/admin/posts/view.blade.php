@@ -20,42 +20,54 @@
     </div>
     <div class="card-body">
         @include('livewire.admin.posts.modals')
-        <ul class="list-group">
-            @forelse ($posts as $post)
-                <li class="list-group-item d-flex">
-                    <div class="p-3">
-                        <strong>Title:</strong> {{ $post->title }}<br>
-                        <strong>Slug:</strong> {{ $post->slug }}<br>
-                        <strong>Content:</strong> {{ $post->getAdminExcerpt() }}<br>
-                        <strong>Published At:</strong> {{ $post->published_at }}<br>
-                        <strong>Featured:</strong> {{ $post->featured ? 'Yes' : 'No' }}<br>
-                        <strong>Created By:</strong> {{ $post->author->name }}<br>
-                    </div>
-                    <div>
-                        <img class="mb-2 float-end rounded" src="{{ asset('storage/' . $post->image) }}"
-                            style="height:200px; width:200px;" alt="{{ $post->id }}">
-                    </div>
-                    <div class="ms-4">
-                        <div class="dropdown">
-                            <a class="btn custom-btn-sm btn-secondary dropdown-toggle" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Actions
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a data-bs-toggle="modal" data-bs-target="#dataModal" class="dropdown-item bi bi-pencil-square"
-                                        wire:click="edit({{ $post->id }})"> Edit </a></li>
-                                <li><a class="dropdown-item bi bi-trash3"
-                                        onclick="confirm('Confirm Delete Registration id {{ $post->id }}? \nDeleted Registration cannot be recovered!')||event.stopImmediatePropagation()"
-                                        wire:click="destroy({{ $post->id }})"> Delete </a></li>
-                            </ul>
+        <div class="col-md-12">
+            <div class="row g-4">
+                @forelse ($posts as $post)
+                    <div class="col-md-4">
+                        <div class="card h-100">
+                            <img class="rounded mb-2" src="{{ asset('storage/' . $post->image) }}"
+                                style="height:200px; width:100%" alt="{{ $post->id }}">
+                            <div class="card-body">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <div class="small text-muted">{{ $post->published_at->format('F d, Y') }}</div>
+                                    <span class="float-end"> @livewire('like-button', ['post' => $post], key($post->id)) </span>
+                                    <div class="dropdown float-end">
+                                        <a class="btn custom-btn-sm btn-secondary dropdown-toggle" href="#" role="button"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Actions
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a data-bs-toggle="modal" data-bs-target="#dataModal"
+                                                    class="dropdown-item bi bi-pencil-square"
+                                                    wire:click="edit({{ $post->id }})"> Edit
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item bi bi-trash3"
+                                                    onclick="confirm('Confirm Delete Registration id {{ $post->id }}? \nDeleted Registration cannot be recovered!')||event.stopImmediatePropagation()"
+                                                    wire:click="destroy({{ $post->id }})"> Delete
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="h4 mb-3">{{ $post->title }}</div>
+                                <p>{{ $post->getExcerpt() }}</p>
+                                <div>
+                                    <button data-bs-toggle="modal" data-bs-target="#viewModal"
+                                        class="btn btn-secondary custom-btn-sm text-white bi bi-eye" wire:click="edit({{ $post->id }})">
+                                    </button>
+                                    <span class="text-success float-end"> {{ $post->featured ? 'Featured' : '' }}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </li>
-            @empty
-                <h5 class="text-center" colspan="100%">No Posts Found </h5>
-            @endforelse
-
+                @empty
+                    <p>No Posts</p>
+                @endforelse
+            </div>
             <div class="float-end mt-2">{{ $posts->links() }}</div>
-        </ul>
+        </div>
     </div>
 </div>
