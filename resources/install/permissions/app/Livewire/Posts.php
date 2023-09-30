@@ -27,10 +27,8 @@ class Posts extends Component
     public $image;
     #[Rule('nullable|date')]
     public $published_at;
-    #[Rule('boolean')]
-    public $featured;
 
-    public $post_id, $keyWord, $postCount, $categories;
+    public $post_id, $keyWord, $postCount, $categories, $featured;
 
     public function render()
     {
@@ -70,8 +68,13 @@ class Posts extends Component
     }
 
     public function destroy($id)
-    {
-        Post::findOrFail($id)->delete();
+    {        
+        $post = Post::findOrFail($id);
+        
+        if($post->image != 'posts/default.png') {
+            Storage::disk('public')->delete($post->image);
+        }
+        $post->delete();
         session()->flash('message', 'Post Deleted Successfully.');
     }
 

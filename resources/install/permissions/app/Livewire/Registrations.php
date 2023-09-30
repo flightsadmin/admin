@@ -25,11 +25,6 @@ class Registrations extends Component
         return view('livewire.admin.registrations.view', compact('registrations'))->extends('components.layouts.admin');
     }
 
-    public function cancel()
-    {
-        $this->reset();
-    }
-
     public function store()
     {
         $this->validate([

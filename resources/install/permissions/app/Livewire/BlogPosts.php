@@ -8,12 +8,13 @@ use App\Models\Comment;
 use Livewire\Component;
 use App\Models\Category;
 use Livewire\WithPagination;
+use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class BlogPosts extends Component
 {
-    use WithPagination;
+    use WithPagination, WithFileUploads;
     protected $paginationTheme = 'bootstrap';
 
     public function show(Post $post)
@@ -41,7 +42,7 @@ class BlogPosts extends Component
             $archives = Post::selectRaw('YEAR(published_at) as year, MONTH(published_at) as month')
                 ->groupBy('year', 'month')->latest('year')->latest('month')->get();
     
-            $posts = Post::where('published_at', '<=', Carbon::now())->paginate(10);
+            $posts = Post::where('published_at', '<=', Carbon::now())->latest()->paginate(10);
     
             $featuredPosts = Post::where('featured', true)->latest()->paginate(5);
     

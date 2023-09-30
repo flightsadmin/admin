@@ -155,8 +155,8 @@ trait FileHandler
             $envData = file_get_contents($envFile);
             if (!str_contains($envData, $socialID)) {
                 file_put_contents($envFile, "\n$socialID", FILE_APPEND);
+                $this->warn($envFile. " Updated");
             }
-            $this->warn($envFile. " Update\n");
             //Update Services File
             $servicesFile = base_path('config/services.php');
             $servicesData = $this->filesystem->get($servicesFile);
@@ -167,11 +167,20 @@ trait FileHandler
                     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
                     'redirect' => '/auth/google/callback',
                 ],
-            SERVICE;
-            $serviceFileHook = "return [\n";
+            
+            SERVICE; 
+            
+            $serviceFileHook = "];";
 
+            // Find the position of the last occurrence of "];"
+            $lastPosition = strrpos($servicesData, $serviceFileHook);
             if (!Str::contains($servicesData, $servicesUpdate)) {
-                $UserModelContents = str_replace($serviceFileHook, $serviceFileHook . PHP_EOL . $servicesUpdate, $servicesData);
+                if ($lastPosition !== false) {
+                    $UserModelContents = substr_replace($servicesData, PHP_EOL . $servicesUpdate, $lastPosition, 0);
+                } else {
+                    $UserModelContents = $servicesData . PHP_EOL . $servicesUpdate;
+                }
+
                 $this->filesystem->put($servicesFile, $UserModelContents);
                 $this->warn($servicesFile . ' Updated');
             }
@@ -183,7 +192,7 @@ trait FileHandler
             // Copy the AdminLTE assets to the public folder
             try {
                 $this->copyAdminLTE($sourcePath, $destinationPath);
-                $this->warn("AdminLTE assets moved successfully.\n");
+                $this->warn("AdminLTE assets moved successfully.");
             } catch (Exception $e) {
                 $this->warn("An error occurred: " . $e->getMessage() . "\n");
             }
