@@ -3,25 +3,16 @@
 namespace Database\Seeders;
 
 use Carbon\Carbon;
-use Faker\Factory;
-use App\Models\Post;
-use App\Models\User;
-use App\Models\Route;
-use App\Models\Flight;
-use App\Models\Address;
-use App\Models\Airline;
-use App\Models\Category;
-use App\Models\ServiceList;
 use Faker\Factory as Faker;
-use App\Models\Registration;
 use Illuminate\Database\Seeder;
-use App\Models\AirlineDelayCode;
+use App\Models\{Post, User, Route, Flight, Airline, ServiceList, Registration, AirlineDelayCode, Category};
 
 class FlightsDatabaseSeeder extends Seeder
 {
     public function run()
     {
-        $faker = Factory::create();
+        $faker = Faker::create();
+        
         //Seed Airlines
         $airlines = [
             [ "name" => "Flydubai",         "iata_code" => "FZ",  "base_iata_code" => "DXB", "base" => "Dubai, United Arab Emirates"],
@@ -102,9 +93,8 @@ class FlightsDatabaseSeeder extends Seeder
                     'airline_id' => $airline->id,
                     'origin' => $origin,
                     'destination' => $destination,
+                    'flight_time'=>date('H:i', strtotime('+'. rand(2, 3) .' hours')),
                 ]);
-                $route->flight_time = date('H:i', strtotime('+'. rand(2, 3) .' hours'));
-                $route->save();
             
                 $route->emails()->updateOrCreate([
                     'email' => 'flightsapps@gmail.com',
@@ -172,7 +162,7 @@ class FlightsDatabaseSeeder extends Seeder
             for ($i = 0; $i < 99; $i++) {
                 $numericCode      = str_pad($i+1, 2, '0', STR_PAD_LEFT);
                 $alphaNumericCode = $numericCode. chr(rand(65, 90));
-                $description      = strtoupper(substr(str_shuffle(str_repeat($x='abcdefghijklmnopqrstuvwxyz', ceil( 20/strlen($x)))), 1, 70));
+                $description      = strtoupper(preg_replace('/[^A-Za-z0-9 ]/', '', $faker->realText(50)));
                 $accountable      = $responsible[array_rand($responsible)];
                 $airlineId        = $value->id;
             

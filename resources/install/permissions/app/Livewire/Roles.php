@@ -65,6 +65,6 @@ class Roles extends Component
         return view('livewire.roles.view', [
             'roles' => $roles,
             'permissions' => $permissions,
-        ]);
+        ])->extends('components.layouts.admin');
     }
 }

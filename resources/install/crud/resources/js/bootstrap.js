@@ -11,7 +11,7 @@ window.adminlte = adminlte;
 
 // Import Quill
 import Quill from 'quill/dist/quill.js'
-window.Quill = Quill
+window.Quill = Quill;
 
 // Import Axios
 import axios from 'axios';

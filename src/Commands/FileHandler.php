@@ -24,16 +24,16 @@ trait FileHandler
             <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::view('schedules', 'livewire.schedules.index')->name('admin.schedules');
-                Route::view('delays', 'livewire.delays.index')->name('admin.delays');
-                Route::view('services', 'livewire.services.index')->name('admin.services');
-                Route::view('permissions', 'livewire.permissions.index')->name('admin.permissions');
-                Route::view('roles', 'livewire.roles.index')->name('admin.roles');
-                Route::view('posts', 'livewire.posts.index')->name('admin.posts');
-                Route::view('flights', 'livewire.flights.index')->name('admin.flights');
-                Route::view('airlines', 'livewire.airlines.index')->name('admin.airlines');
-                Route::view('registrations', 'livewire.registrations.index')->name('admin.registrations');
-                Route::view('users', 'livewire.users.index')->name('admin.users');
+                Route::get('/flights', App\Livewire\Flights::class)->name('admin.flights');
+                Route::get('/airlines', App\Livewire\Airlines::class)->name('admin.airlines');
+                Route::get('/delays', App\Livewire\Delays::class)->name('admin.delays');
+                Route::get('/services', App\Livewire\Services::class)->name('admin.services');
+                Route::get('/registrations', App\Livewire\Registrations::class)->name('admin.registrations');
+                Route::get('/schedules', App\Livewire\Schedules::class)->name('admin.schedules');
+                Route::get('/users', App\Livewire\Users::class)->name('admin.users');
+                Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
+                Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
+                Route::get('/posts', App\Livewire\Posts::class)->name('admin.posts');
             });
             
             // User Routes
@@ -104,13 +104,14 @@ trait FileHandler
             // Update Relationship
             $userUpdate = 
             <<<NAV
-            public function likes() {
-                return \$this->belongsToMany(Post::class, 'post_like')->withTimestamps();
-            }
+                public function likes() {
+                    return \$this->belongsToMany(Post::class, 'post_like')->withTimestamps();
+                }
+                
+                public function hasLiked(Post \$post) {
+                    return \$this->likes()->where('post_id', \$post->id)->exists();
+                }
             
-            public function hasLiked(Post \$post) {
-                return \$this->likes()->where('post_id', \$post->id)->exists();
-            }
             NAV; 
             
             $userHook = "}";

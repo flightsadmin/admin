@@ -19,7 +19,7 @@
                         @forelse ($posts as $post)
                             <div class="col-md-6">
                                 <div class="card h-100">
-                                    <a href="{{ route('blog.show', $post->id) }}">
+                                    <a wire:navigate href="{{ route('blog.show', $post->id) }}">
                                         <img class="rounded mb-2" src="{{ asset('storage/' . $post->image) }}"
                                             style="height:200px; width:100%" alt="{{ $post->id }}">
                                     </a>
@@ -30,7 +30,7 @@
                                         </div>
                                         <div class="h4 mb-3">{{ $post->title }}</div>
                                         <p>{{ $post->getExcerpt() }}</p>
-                                        <a href="{{ route('blog.show', $post->id) }}" class="icon-link gap-1 icon-link-hover stretched-link">
+                                        <a wire:navigate href="{{ route('blog.show', $post->id) }}" class="icon-link gap-1 icon-link-hover stretched-link">
                                             Read More... <span class="bi bi-chevron-right"></span>
                                         </a>                                        
                                         <span class="float-end">{{ $post->getReadingTime() }} min read</span>
@@ -59,7 +59,7 @@
                                     @forelse ($featuredPosts as $post)
                                         <li>
                                             <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
-                                                href="{{ route('blog.show', $post->id) }}">
+                                                wire:navigate href="{{ route('blog.show', $post->id) }}">
                                                 <img src="{{ asset('storage/' . $post->image) }}" alt="" class="rounded mb-2"
                                                     width="100%" height="100">
                                                 <div class="col-lg-8">
@@ -81,7 +81,7 @@
                                 <ol class="list-unstyled mb-0">
                                     @foreach ($archives as $archive)
                                         <li>
-                                            <a href="{{ route('blog.archive', ['year' => $archive->year, 'month' => $archive->month]) }}">
+                                            <a wire:navigate href="{{ route('blog.archive', ['year' => $archive->year, 'month' => $archive->month]) }}">
                                                 {{ \Carbon\Carbon::createFromDate($archive->year, $archive->month, 1)->format('F Y') }}
                                             </a>
                                         </li>

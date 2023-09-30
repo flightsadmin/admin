@@ -1,36 +1,40 @@
-<div>
-	<div class="row justify-content-center">
-		<div class="col-md-12">
-			<div class="card">
-				<div class="card-header">
-					<div style="display: flex; justify-content: space-between; align-items: center;">
-						<div class="float-left">
-							<h5>Airlines </h5>
-						</div>
-						<div>
-							<input wire:model.live.debounce.500ms="keyWord" type="text" class="form-control form-control-sm" name="search" id="search" placeholder="Search Airline">
-						</div>
-                        <div class="d-flex gap-4">
-                            <form wire:submit="import" enctype="multipart/form-data">
-                                <div class="d-flex gap-4">
-                                    <input type="file" accept=".csv, .xlsx" class="form-control form-control-sm mr-2" id="file" wire:model.live="file">
-                                    @error('file') <span class="text-danger small">{{ $message }}</span> @enderror
-                                    <button type="submit" class="btn btn-success btn-sm bi bi-cloud-upload-fill"></button>
-                                </div>
-                            </form>
-							<button wire:click="downloadAirlines" class="btn btn-warning btn-sm bi bi-cloud-download-fill"> Download Sample</button>
-                        </div>
-						<div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
-							 Add Airline
-						</div>
+@section('title', __('Airlines'))
+<div class="row justify-content-center">
+	<div class="col-md-12">
+		<div class="card">
+			<div class="card-header">
+				<div style="display: flex; justify-content: space-between; align-items: center;">
+					<h3 class="card-title">Airlines</h3>
+					<div>
+						<input wire:model.live.debounce.500ms="keyWord" type="text" class="form-control form-control-sm" name="search" id="search" placeholder="Search Airline">
+					</div>
+					<div class="d-flex gap-4">
+						<form wire:submit="import" enctype="multipart/form-data">
+							<div class="d-flex gap-4">
+								<input type="file" accept=".csv, .xlsx" class="form-control form-control-sm mr-2" id="file" wire:model.live="file">
+								@error('file') <span class="text-danger small">{{ $message }}</span> @enderror
+								<button type="submit" class="btn btn-success btn-sm bi bi-cloud-upload-fill"></button>
+							</div>
+						</form>
+						<button wire:click="downloadAirlines" class="btn btn-warning btn-sm bi bi-cloud-download-fill"> Download Sample</button>
+					</div>
+					<div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+							Add Airline
+					</div>
+					<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-lte-toggle="card-maximize">
+							<i data-lte-icon="maximize" class="bi bi-fullscreen"></i>
+							<i data-lte-icon="minimize" class="bi bi-fullscreen-exit"></i>
+						</button>
 					</div>
 				</div>
-				<div class="card-body">
-					@include('livewire.airlines.modals')
-					<div class="row">
-						@forelse($airlines as $row)
+			</div>
+			<div class="card-body">
+				@include('livewire.airlines.modals')
+				<div class="row">
+					@forelse($airlines as $row)
 						<div class="col-md-4 border d-flex justify-content-between">
-							<div class="p-2">
+							<div class="col-md-8">
 								<b><i class="bi bi-building-check text-success"></i> {{ $row->name }} - {{ $row->iata_code }}</b>
 								<p> <i class="bi bi-house-gear text-info"> </i> {{ $row->base }}</p>
 								<b>Routes</b>
@@ -46,13 +50,13 @@
 												<small class="me-4">{{ $email->email }}</small>
 												<a href="" wire:click.prevent="deleteRoute({{ $email->id }})" class="text-danger bi bi-trash3-fill" onclick="confirm('Confirm Delete {{ $email->email }} for {{ $row->name }}? \nDeleted Emails cannot be recovered!')||event.stopImmediatePropagation()"></a>
 											</ul>
-										</li>
 											@endforeach
+										</li>
 									@endforeach
 								</ol>
 							</div>
-							<div>
-								<div class="dropdown p-2">
+							<div class="col-md-4">
+								<div class="dropdown float-end">
 									<a class="btn custom-btn-sm text-white btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 										Actions
 									</a>
@@ -64,14 +68,13 @@
 								</div>
 							</div>
 						</div>
-						@empty
+					@empty
 						<div class="col-md-12">
 							<p class="text-center">No Airlines Created Yet</p>
 						</div>
-						@endforelse
-					</div>
-					<div class="float-end mt-2 mb-0">{{ $airlines->links() }}</div>
+					@endforelse
 				</div>
+				<div class="float-end mt-2 mb-0">{{ $airlines->links() }}</div>
 			</div>
 		</div>
 	</div>

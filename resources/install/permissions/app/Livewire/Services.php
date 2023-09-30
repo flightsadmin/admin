@@ -7,7 +7,7 @@ use App\Models\ServiceList;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ServiceLists extends Component
+class Services extends Component
 { 
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
@@ -21,7 +21,7 @@ class ServiceLists extends Component
                     ->paginate();
         return view('livewire.services.view', [
             'services' => $services
-        ]);
+        ])->extends('components.layouts.admin');
     }
     
     public function saveService()

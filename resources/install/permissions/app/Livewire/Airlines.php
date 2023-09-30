@@ -27,7 +27,7 @@ class Airlines extends Component
                     ->paginate();
         return view('livewire.airlines.view', [
             'airlines' => $airlines
-        ]);
+        ])->extends('components.layouts.admin');
     }
     
     public function saveAirline()

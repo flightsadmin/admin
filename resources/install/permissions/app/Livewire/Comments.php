@@ -27,10 +27,11 @@ class Comments extends Component
             'commentContent' => 'required|max:255'
         ]);
        $comment = Comment::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::id(),
             'post_id' => $this->post->id,
             'content' => $this->commentContent,
         ]);
+
         $this->reset(['commentContent']);
     }
 
@@ -40,7 +41,7 @@ class Comments extends Component
             'replyContent' => 'required|max:255'
         ]);
         Reply::create([
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::id(),
             'comment_id' => $commentId,
             'content' => $this->replyContent,
         ]);

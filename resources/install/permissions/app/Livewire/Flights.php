@@ -44,7 +44,7 @@ class Flights extends Component
             'selectedFlight'    => $selectedFlight,
             'airlineDelays'     => $this->flight_id ? AirlineDelayCode::where('airline_id', $selectedFlight->airline_id)->get() : null,
 
-        ]);
+        ])->extends('components.layouts.admin');
     }
 
     public function mount()

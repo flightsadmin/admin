@@ -40,7 +40,7 @@
                                             @if ($post->categories->count() > 0)
                                                 @forelse($post->categories as $category)
                                                     <li class="px-1">
-                                                        <a href="{{ route('blog.category', ['slug' => $category->slug]) }}"
+                                                        <a wire:navigate href="{{ route('blog.category', ['slug' => $category->slug]) }}"
                                                             class="badge bg-secondary text-decoration-none link-light">{{ $category->title }}</a>
                                                     </li>
                                                 @empty

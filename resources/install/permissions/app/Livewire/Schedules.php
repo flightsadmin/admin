@@ -23,7 +23,7 @@ class Schedules extends Component
     {
         $airlines = Airline::all();
         $flights = Flight::latest()->paginate();
-        return view('livewire.schedules.view', compact('airlines', 'flights'));
+        return view('livewire.schedules.view', compact('airlines', 'flights'))->extends('components.layouts.admin');
     }
 
     public function mount()

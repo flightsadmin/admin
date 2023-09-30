@@ -16,7 +16,7 @@
         </section>
     @else
         <div class="mb-4">
-            <a href="{{ route('login') }}">Login to Post Comments</a>
+            <a wire:navigate href="{{ route('login') }}">Login to Post Comments</a>
         </div>
     @endauth
     <!-- Display comments -->
@@ -29,7 +29,7 @@
                         alt="..." />
                 </div>
                 <div class="ms-4">
-                    <div class="fw-bold">{{ $comment->user->name }}</div>
+                    <div class="fw-bold">{{ $comment->author->name }}</div>
                     <div class="bi bi-chat-text"> {{ $comment->content }}</div>
                 </div>
             </div>
@@ -54,10 +54,10 @@
         @foreach ($comment->replies as $reply)
             <div class="d-flex mb-4" style="margin-left: 80px;">
                 <div class="flex-shrink-0">
-                    <img class="rounded-circle profile-img" src="{{ asset('storage/' . $reply->user->photo) }}" alt="..." />
+                    <img class="rounded-circle profile-img" src="{{ asset('storage/' . $reply->author->photo) }}" alt="..." />
                 </div>
                 <div class="ms-4">
-                    <div class="fw-bold">{{ $reply->user->name }}</div>
+                    <div class="fw-bold">{{ $reply->author->name }}</div>
                     <div class="ms-2"> {{ $reply->content }}</div>
                 </div>
             </div>

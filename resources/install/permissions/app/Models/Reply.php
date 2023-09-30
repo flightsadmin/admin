@@ -16,8 +16,8 @@ class Reply extends Model
         return $this->belongsTo(Comment::class);
     }
 
-    public function user()
+    public function author()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

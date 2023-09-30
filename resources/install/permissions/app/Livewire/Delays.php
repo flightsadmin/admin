@@ -27,7 +27,7 @@ class Delays extends Component
         return view('livewire.delays.view', [
             "delays" => $delays,
             "airlines" => Airline::all(),
-        ]);
+        ])->extends('components.layouts.admin');
     }
     
     public function saveDelay()

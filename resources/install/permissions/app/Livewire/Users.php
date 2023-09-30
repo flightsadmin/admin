@@ -23,7 +23,7 @@ class Users extends Component
         return view('livewire.users.view', [
             'users' => User::latest()->paginate(),
             'roles' => Role::with('permissions')->get()
-        ]);
+        ])->extends('components.layouts.admin');
     }
 
     public function submit()

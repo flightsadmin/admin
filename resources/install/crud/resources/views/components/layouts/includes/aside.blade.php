@@ -8,7 +8,7 @@
     </div>
     <div class="sidebar-wrapper">
         <nav class="mt-2">
-            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="true">
                 <li class="nav-header"> DASHBOARD</li>
                 @if (config('admin.modules.flights'))
                     <li class="nav-item">
@@ -40,6 +40,12 @@
                             <a href="{{ route('admin.delays') }}" wire:navigate class="nav-link">
                                 <i class="nav-icon bi-journal-code"></i>
                                 <p>Delays</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.services') }}" wire:navigate class="nav-link">
+                                <i class="nav-icon bi-database-fill"></i>
+                                <p>Services</p>
                             </a>
                         </li>
                         <li class="nav-header"> ADMIN</li>
@@ -83,7 +89,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('blog') }}" wire:navigate class="nav-link">
-                            <i class="nav-icon bi bi-file-spreadsheet-fill"></i>
+                            <i class="nav-icon bi bi-newspaper"></i>
                             <p>Blog Page</p>
                         </a>
                     </li>

@@ -57,6 +57,6 @@ class Permissions extends Component
         $permissions = Permission::with('roles')->paginate();
         return view('livewire.permissions.view', [
             'permissions' => $permissions,
-        ]);
+        ])->extends('components.layouts.admin');
     }
 }

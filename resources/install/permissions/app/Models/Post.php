@@ -39,16 +39,8 @@ class Post extends Model
 
     public function getReadingTime()
     {
-        $mins = round(str_word_count($this->body) / 250);
-
-        return ($mins < 1) ? 1 : $mins;
-    }
-
-    public function getThumbnailUrl()
-    {
-        $isUrl = str_contains($this->image, 'http');
-
-        return ($isUrl) ? $this->image : Storage::disk('public')->url($this->image);
+        $minutes = ceil(str_word_count(strip_tags($this->body)) / 250);
+        return max(1, $minutes);
     }
 
     public function author()
