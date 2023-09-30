@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			<div class="card-body">
-				@include('livewire.airlines.modals')
+				@include('livewire.admin.airlines.modals')
 				<div class="row">
 					@forelse($airlines as $row)
 						<div class="col-md-4 border d-flex justify-content-between">

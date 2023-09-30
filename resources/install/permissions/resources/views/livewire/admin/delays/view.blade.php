@@ -31,7 +31,7 @@
 				</div>
 			</div>
 			<div class="card-body">
-				@include('livewire.delays.modals')
+				@include('livewire.admin.delays.modals')
 			<div class="table-responsive">
 				<table class="table table-bordered table-sm">
 					<thead class="thead">

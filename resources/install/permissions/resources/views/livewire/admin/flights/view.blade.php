@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			<div class="card-body">
-				@include('livewire.flights.modals')
+				@include('livewire.admin.flights.modals')
 			<div class="table-responsive">
 				<table class="table table-bordered table-sm">
 					<thead class="thead">

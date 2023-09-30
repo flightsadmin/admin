@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="card-body">
-                    @include('livewire.users.modals')
+                    @include('livewire.admin.users.modals')
                 <div class="table-responsive">
                     <table class="table table-sm table-bordered">
                         <thead>

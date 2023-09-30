@@ -27,7 +27,7 @@
 			</div>
 			
 			<div class="card-body">
-				@include('livewire.registrations.modals')
+				@include('livewire.admin.registrations.modals')
 			<div class="table-responsive">
 				<table class="table table-bordered table-sm">
 					<thead class="thead">

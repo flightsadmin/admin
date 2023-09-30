@@ -16,7 +16,7 @@
 				</div>
 			</div>
 			<div class="card-body">
-				@include('livewire.services.modals')
+				@include('livewire.admin.services.modals')
 				<div class="row">
 					@forelse($services as $row)
 					<div class="col-md-4 border d-flex justify-content-between" wire:key="{{ $row->id }}">

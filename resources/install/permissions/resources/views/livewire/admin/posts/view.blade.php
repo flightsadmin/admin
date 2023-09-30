@@ -19,7 +19,7 @@
         </div>
     </div>
     <div class="card-body">
-        @include('livewire.posts.modals')
+        @include('livewire.admin.posts.modals')
         <ul class="list-group">
             @forelse ($posts as $post)
                 <li class="list-group-item d-flex">
