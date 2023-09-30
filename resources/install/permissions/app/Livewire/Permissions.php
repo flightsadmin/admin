@@ -55,7 +55,7 @@ class Permissions extends Component
     public function render()
     {
         $permissions = Permission::with('roles')->paginate();
-        return view('livewire.permissions.view', [
+        return view('livewire.admin.permissions.view', [
             'permissions' => $permissions,
         ])->extends('components.layouts.admin');
     }

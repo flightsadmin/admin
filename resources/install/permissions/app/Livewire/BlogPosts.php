@@ -19,7 +19,7 @@ class BlogPosts extends Component
     public function show(Post $post)
         {
             $comments = $post->comments()->with('author')->get();
-            return view('livewire.front.view-post', compact('post', 'comments'))->extends('components.layouts.app');
+            return view('livewire.blog.view-post', compact('post', 'comments'))->extends('components.layouts.app');
         }
     
         public function category($slug)
@@ -27,13 +27,13 @@ class BlogPosts extends Component
             $category = Category::where('slug', $slug)->firstOrFail();
             $posts = $category->posts()->paginate(6);
     
-            return view('livewire.front.category', compact('category', 'posts'));
+            return view('livewire.blog.category', compact('category', 'posts'));
         }
     
         public function archive($year, $month)
         {
             $posts = Post::whereYear('published_at', $year)->whereMonth('published_at', $month)->get();    
-            return view('livewire.front.archive', compact('posts'));
+            return view('livewire.blog.archive', compact('posts'));
         }
     
         public function render()
@@ -45,6 +45,6 @@ class BlogPosts extends Component
     
             $featuredPosts = Post::where('featured', true)->latest()->paginate(5);
     
-            return view('livewire.front.blog-posts', compact('posts', 'featuredPosts', 'archives'));
+            return view('livewire.blog.blog-posts', compact('posts', 'featuredPosts', 'archives'));
         }
     }

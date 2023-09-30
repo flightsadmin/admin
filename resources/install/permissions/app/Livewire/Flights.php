@@ -36,7 +36,7 @@ class Flights extends Component
                         ->where('flight_no', 'LIKE', $keyWord)
                         ->orderBy('scheduled_time_departure', 'asc')
                         ->paginate();
-        return view('livewire.flights.view', [
+        return view('livewire.admin.flights.view', [
             'airlines'          => Airline::orderBy('name', 'asc')->get(),
             'serviceList'       => ServiceList::orderBy('service', 'asc')->get(),
             'flights'           => $flights,
@@ -242,7 +242,7 @@ class Flights extends Component
         $selectedFlight =  Flight::findOrFail($this->flight_id);
 
         $pdf = new Dompdf();
-        $pdf->loadHtml(view('livewire.services.download', compact('selectedFlight'))->render());
+        $pdf->loadHtml(view('livewire.admin.services.download', compact('selectedFlight'))->render());
         $pdf->setPaper('A4', 'portrait');
         $pdf->render();
         $pdfData = $pdf->output();

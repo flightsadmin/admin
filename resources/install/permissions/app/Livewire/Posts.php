@@ -38,7 +38,7 @@ class Posts extends Component
         $keyWord = '%'. $this->keyWord .'%';
         $category = Category::all();
         $posts = Post::where('title', 'LIKE', $keyWord)->orWhere('slug', 'LIKE', $keyWord)->paginate(5);
-        return view('livewire.posts.view', compact('posts', 'category'))->extends('components.layouts.admin');
+        return view('livewire.admin.posts.view', compact('posts', 'category'))->extends('components.layouts.admin');
     }
 
     public function cancel()

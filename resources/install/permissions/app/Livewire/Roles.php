@@ -62,7 +62,7 @@ class Roles extends Component
         $roles = Role::with('permissions')->paginate();
         $permissions = Permission::with('roles')->paginate();
 
-        return view('livewire.roles.view', [
+        return view('livewire.admin.roles.view', [
             'roles' => $roles,
             'permissions' => $permissions,
         ])->extends('components.layouts.admin');

@@ -20,7 +20,7 @@ class Users extends Component
 
     public function render()
     {
-        return view('livewire.users.view', [
+        return view('livewire.admin.users.view', [
             'users' => User::latest()->paginate(),
             'roles' => Role::with('permissions')->get()
         ])->extends('components.layouts.admin');
