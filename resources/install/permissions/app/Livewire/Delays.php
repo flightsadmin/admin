@@ -123,6 +123,6 @@ class Delays extends Component
         }
 
         session()->flash('message', 'Delays Imported Successfully.');
-        return $this->redirect('/delays', navigate: true);
+        return $this->redirect(route('admin.delays'), true);
     }
 }

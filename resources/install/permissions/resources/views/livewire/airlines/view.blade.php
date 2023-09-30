@@ -21,12 +21,6 @@
 					<div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
 							Add Airline
 					</div>
-					<div class="card-tools">
-						<button type="button" class="btn btn-tool" data-lte-toggle="card-maximize">
-							<i data-lte-icon="maximize" class="bi bi-fullscreen"></i>
-							<i data-lte-icon="minimize" class="bi bi-fullscreen-exit"></i>
-						</button>
-					</div>
 				</div>
 			</div>
 			<div class="card-body">
@@ -34,7 +28,7 @@
 				<div class="row">
 					@forelse($airlines as $row)
 						<div class="col-md-4 border d-flex justify-content-between">
-							<div class="col-md-8">
+							<div class="col-md-8 mt-2">
 								<b><i class="bi bi-building-check text-success"></i> {{ $row->name }} - {{ $row->iata_code }}</b>
 								<p> <i class="bi bi-house-gear text-info"> </i> {{ $row->base }}</p>
 								<b>Routes</b>
@@ -55,7 +49,7 @@
 									@endforeach
 								</ol>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-4 mt-2">
 								<div class="dropdown float-end">
 									<a class="btn custom-btn-sm text-white btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 										Actions

@@ -13,12 +13,6 @@
                 <input wire:model="postCount" type="text" size="4">
                 <button wire:click.prevent="seedPosts" class="btn btn-warning btn-sm bi bi-cloud-upload-fill"> Seed Posts</button>
             </div>
-            <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-lte-toggle="card-maximize">
-                    <i data-lte-icon="maximize" class="bi bi-fullscreen"></i>
-                    <i data-lte-icon="minimize" class="bi bi-fullscreen-exit"></i>
-                </button>
-            </div>
             <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                 Add Post
             </div>

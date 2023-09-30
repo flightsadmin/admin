@@ -133,6 +133,6 @@ class Registrations extends Component
         }
     
         session()->flash('message', 'Airlines Imported Successfully.');
-        return $this->redirect('/registrations', navigate: true);
+        return $this->redirect(route('admin.registrations'), true);
     }
 }

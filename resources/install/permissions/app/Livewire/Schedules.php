@@ -77,7 +77,7 @@ class Schedules extends Component
             }
         }
         session()->flash('message', 'Schedule Created Successfully.');
-        return $this->redirect('/flights', navigate: true);
+        return $this->redirect(route('admin.flights'), true);
         $this->reset(['selectedDays', 'flightNumbers', 'flightFields']);
     }
 
@@ -111,7 +111,7 @@ class Schedules extends Component
         }
 
         session()->flash('message', 'Schedule Imported Successfully.');
-        return $this->redirect('/flights', navigate: true);
+        return $this->redirect(route('admin.flights'), true);
     }
 
     public function downloadSample()
