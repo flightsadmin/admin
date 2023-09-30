@@ -30,15 +30,15 @@
 						<div class="col-md-4 border d-flex justify-content-between">
 							<div class="col-md-8 mt-2">
 								<b><i class="bi bi-building-check text-success"></i> {{ $row->name }} - {{ $row->iata_code }}</b>
-								<p> <i class="bi bi-house-gear text-info"> </i> {{ $row->base }}</p>
+								<div> <i class="bi bi-house-gear text-info"> </i> {{ $row->base }}</div>
 								<b>Routes</b>
 								<ol>
 									@foreach($row->routes as $route)
 										<li wire:key="{{ $row->id }}">
-											<p class="d-flex justify-content-between">
+											<div class="d-flex justify-content-between">
 												{{ $route->origin }} - {{ $route->destination }} ({{ $route->flight_time }})
 												<a href="" data-bs-toggle="modal" data-bs-target="#routeModal" wire:click.prevent="editRoute({{ $route->id }})" class="text-info bi bi-pencil-square"></a>
-											</p>
+											</div>
 											@foreach($route->emails as $email)
 											<ul class="d-flex justify-content-between">
 												<small class="me-4">{{ $email->email }}</small>

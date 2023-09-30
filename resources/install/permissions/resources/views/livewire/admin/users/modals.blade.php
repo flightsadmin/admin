@@ -156,3 +156,19 @@
     {{ session('message') }}
   </div>
 </div>
+
+@push('scripts')
+    <script type="module">
+        const genModal = new bootstrap.Modal('#dataModal');
+        const viewModal = new bootstrap.Modal('#viewModal');
+        window.addEventListener('closeModal', () => {
+            genModal.hide();
+            viewModal.hide();
+        });
+
+        const toast = new bootstrap.Toast('#statusToast');
+        window.addEventListener('closeModal', () => {
+            toast.show();
+        });
+    </script>
+@endpush

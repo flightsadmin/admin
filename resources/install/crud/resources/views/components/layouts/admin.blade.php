@@ -32,23 +32,9 @@
     </div>
 
     @stack('scripts')
-    <script type="module">
-        const modal = new bootstrap.Modal('#dataModal');
-        const routemodal = new bootstrap.Modal('#routeModal');
-        window.addEventListener('closeModal', () => {
-            modal.hide();
-            routemodal.hide();
-        });
-
-        const toast = new bootstrap.Toast('#statusToast');
-        window.addEventListener('closeModal', () => {
-            toast.show();
-        });
-    </script>
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.1.0/browser/overlayscrollbars.browser.es6.min.js"
         integrity="sha256-NRZchBuHZWSXldqrtAOeCZpucH/1n1ToJ3C8mSK95NU=" crossorigin="anonymous"></script>
-    <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
         const SELECTOR_SIDEBAR_WRAPPER = ".sidebar-wrapper";
         const Default = {
@@ -73,7 +59,5 @@
             }
         });
     </script>
-
-</body>
-
+    </body>
 </html>
