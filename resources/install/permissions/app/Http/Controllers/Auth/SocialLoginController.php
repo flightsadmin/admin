@@ -21,7 +21,7 @@ class SocialLoginController extends Controller
         $existingUser = User::where('email', $social->email)->where('auth_type', $provider)->first();
         if($existingUser) {
             Auth::login($existingUser);
-            return redirect('/home');
+            return redirect(route(config('admin.blogRoute')));
         } else {
             $uuid = Str::uuid()->toString();
 
@@ -37,7 +37,7 @@ class SocialLoginController extends Controller
             $newUser->syncRoles(['1']);
 
             Auth::login($newUser);
-            return redirect('/home');
+            return redirect(route(config('admin.blogRoute')));
         }
     }
 }

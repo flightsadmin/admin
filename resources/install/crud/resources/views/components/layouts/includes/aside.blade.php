@@ -10,44 +10,46 @@
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="true">
                 <li class="nav-header"> DASHBOARD</li>
-                @if (config('admin.modules.flights'))
-                    <li class="nav-item">
-                        <a href="{{ route('admin.flights') }}" wire:navigate class="nav-link">
-                            <i class="nav-icon bi bi-airplane-engines-fill"></i>
-                            <p>Flights</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.airlines') }}" wire:navigate class="nav-link">
-                            <i class="nav-icon bi-database-add"></i>
-                            <p>Airlines</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('admin.registrations') }}" wire:navigate class="nav-link">
-                            <i class="nav-icon bi-clock-history"></i>
-                            <p>Registrations</p>
-                        </a>
-                    </li>
-                    @role('super-admin|admin')
+                @role('super-admin|admin|user')
+                    @if (config('admin.modules.flights'))
                         <li class="nav-item">
-                            <a href="{{ route('admin.schedules') }}" wire:navigate class="nav-link">
-                                <i class="nav-icon bi bi-plus-slash-minus"></i>
-                                <p>Schedules</p>
+                            <a href="{{ route('admin.flights') }}" wire:navigate class="nav-link">
+                                <i class="nav-icon bi bi-airplane-engines-fill"></i>
+                                <p>Flights</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.delays') }}" wire:navigate class="nav-link">
-                                <i class="nav-icon bi-journal-code"></i>
-                                <p>Delays</p>
+                            <a href="{{ route('admin.airlines') }}" wire:navigate class="nav-link">
+                                <i class="nav-icon bi-database-add"></i>
+                                <p>Airlines</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.services') }}" wire:navigate class="nav-link">
-                                <i class="nav-icon bi-database-fill"></i>
-                                <p>Services</p>
+                            <a href="{{ route('admin.registrations') }}" wire:navigate class="nav-link">
+                                <i class="nav-icon bi-clock-history"></i>
+                                <p>Registrations</p>
                             </a>
                         </li>
+                        @role('super-admin|admin')
+                            <li class="nav-item">
+                                <a href="{{ route('admin.schedules') }}" wire:navigate class="nav-link">
+                                    <i class="nav-icon bi bi-plus-slash-minus"></i>
+                                    <p>Schedules</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.delays') }}" wire:navigate class="nav-link">
+                                    <i class="nav-icon bi-journal-code"></i>
+                                    <p>Delays</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.services') }}" wire:navigate class="nav-link">
+                                    <i class="nav-icon bi-database-fill"></i>
+                                    <p>Services</p>
+                                </a>
+                            </li>
+                    @endif
                         <li class="nav-header"> ADMIN</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -79,18 +81,20 @@
                             </ul>
                         </li>
                     @endrole
-                @endif
+                    @endrole
                 @if (config('admin.modules.blog'))
-                    <li class="nav-item">
-                        <a href="{{ route('admin.posts') }}" wire:navigate class="nav-link">
-                            <i class="nav-icon bi bi-file-spreadsheet-fill"></i>
-                            <p>Blog Admin</p>
-                        </a>
-                    </li>
+                    @role('super-admin|admin')
+                        <li class="nav-item">
+                            <a href="{{ route('admin') }}" wire:navigate class="nav-link">
+                                <i class="nav-icon bi bi-file-spreadsheet-fill"></i>
+                                <p>{{ ucwords(config('admin.blogRoute'))}} Admin</p>
+                            </a>
+                        </li>
+                    @endrole
                     <li class="nav-item">
                         <a href="{{ route('blog') }}" wire:navigate class="nav-link">
                             <i class="nav-icon bi bi-newspaper"></i>
-                            <p>Blog Page</p>
+                            <p>{{ ucwords(config('admin.blogRoute'))}} Page</p>
                         </a>
                     </li>
                 @endif

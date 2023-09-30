@@ -24,6 +24,7 @@ trait FileHandler
             <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
+                Route::get('/', App\Livewire\Posts::class)->name(config("admin.adminRoute", "admin"));
                 Route::get('/flights', App\Livewire\Flights::class)->name('admin.flights');
                 Route::get('/airlines', App\Livewire\Airlines::class)->name('admin.airlines');
                 Route::get('/delays', App\Livewire\Delays::class)->name('admin.delays');
@@ -33,12 +34,11 @@ trait FileHandler
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
-                Route::get('/posts', App\Livewire\Posts::class)->name('admin.posts');
             });
             
             // User Routes
             Route::middleware(['web'])->prefix(config("admin.blogRoute", "blog"))->group(function () {
-                Route::get('/', App\Livewire\BlogPosts::class)->name('blog');
+                Route::get('/', App\Livewire\BlogPosts::class)->name(config("admin.blogRoute", "blog"));
                 Route::get('/{post:id}', [App\Livewire\BlogPosts::class, 'show'])->name('blog.show');
                 Route::get('/category/{slug}', [App\Livewire\BlogPosts::class, 'category'])->name('blog.category');
                 Route::get('/archive/{year}/{month}', [App\Livewire\BlogPosts::class, 'archive'])->name('blog.archive');
@@ -62,8 +62,12 @@ trait FileHandler
             $layoutsData = $this->filesystem->get($layoutsFile);
             $spatieNavs  =
             <<<NAV
-                                    <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
-                                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ route('blog') }}">Blog</a>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link active" aria-current="page" href="{{ route(config('admin.blogRoute')) }}">{{ ucwords(config('admin.blogRoute'))}}</a>
+                                    </li>
             NAV;
             $spatieFileHook = "<!--Nav Bar Hooks - Do not delete!!-->";
 
