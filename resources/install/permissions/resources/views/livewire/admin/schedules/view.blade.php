@@ -105,7 +105,7 @@
                         <thead class="thead">
                             <tr> 
                                 <td>#</td>
-                                <td><a href="" wire:click="deleteSelected" class="text-danger bi bi-trash3-fill"></a></td>
+                                <td><a href="" wire:click.prevent="deleteSelected" class="text-danger bi bi-trash3-fill"></a></td>
                                 <th>Flight No</th>
                                 <th>Registration</th>
                                 <th>STA</th>
@@ -118,7 +118,7 @@
                             @forelse($flights as $row)
                             <tr wire:key="{{ $row->id }}">
                                 <td>{{ $loop->iteration }}</td>
-                                <td><input type="checkbox" wire:model="selectedFlights" value="{{ $row->flight_no }}"></td>
+                                <td><input type="checkbox" wire:model="selectedFlights" value="{{ $row->id }}"></td>
                                 <td>{{ $row->flight_no }}</td>
                                 <td>{{ $row->registration }}</td>
                                 <td>{{ $row->scheduled_time_arrival }}</td>
