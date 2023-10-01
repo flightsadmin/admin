@@ -62,9 +62,11 @@ trait FileHandler
             $layoutsData = $this->filesystem->get($layoutsFile);
             $spatieNavs  =
             <<<NAV
+                                    @role('super-admin|admin')
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
                                     </li>
+                                    @endrole
                                     <li class="nav-item">
                                         <a class="nav-link active" aria-current="page" href="{{ route(config('admin.blogRoute')) }}">{{ ucwords(config('admin.blogRoute'))}}</a>
                                     </li>
