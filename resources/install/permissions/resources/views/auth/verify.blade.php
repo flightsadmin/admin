@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <div class="login-box">
-            <div class="login-logo">
+        <div class="card card-outline card-primary login-box">
+            <div class="login-logo card-header text-center">
                 {{ __('Verify Your Email Address') }}
             </div>
             <div class="card-body login-card-body">

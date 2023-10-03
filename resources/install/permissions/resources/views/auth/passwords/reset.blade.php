@@ -2,8 +2,10 @@
 
 @section('content')
     <div class="container">
-        <div class="login-box">
-            <div class="login-logo"> {{ __('Reset Password') }}</a> </div>
+        <div class="card card-outline card-primary login-box">
+            <div class="login-logo card-header text-center">
+                {{ __('Reset Password') }}
+            </div>
             <div class="card-body login-card-body">
                 <form method="POST" action="{{ route('password.update') }}">
                     @csrf

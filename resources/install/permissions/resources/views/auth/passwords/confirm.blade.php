@@ -2,8 +2,10 @@
 
 @section('content')
     <div class="container">
-        <div class="login-box">
-            <div class="login-logo"> {{ __('Confirm Password') }} </a> </div>
+        <div class="card card-outline card-primary login-box">
+            <div class="login-logo card-header text-center">
+                {{ __('Confirm Password') }}
+            </div>
             <div class="card-body login-card-body">
                 {{ __('Please confirm your password before continuing.') }}
 
