@@ -34,6 +34,7 @@ trait FileHandler
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
+                Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
             });
             
             // User Routes
