@@ -1,3 +1,4 @@
+@section('title', __('Settings'))
 <section class="content">
     <div class="container-fluid">
         <div class="row col-md-12">
