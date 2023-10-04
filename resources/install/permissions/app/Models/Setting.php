@@ -17,10 +17,5 @@ class Setting extends Model
         'site_description',
         'site_theme',
         'footer_text',
-        'sidebar_collapse',
-    ];
-
-    protected $casts = [
-        'sidebar_collapse' => 'boolean',
     ];
 }

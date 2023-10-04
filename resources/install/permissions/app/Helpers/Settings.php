@@ -13,7 +13,6 @@ function setting($key)
         'site_theme'        => 'light',
         'site_description'  => 'Default Site Description',
         'footer_text'       => 'default footer text',
-        'sidebar_collapse'  => false,
     ];
 
     $setting = Cache::rememberForever('setting', function () use ($defaultSettings) {

@@ -17,7 +17,6 @@ class CreateSettingsTable extends Migration
             $table->string('site_theme')->nullable()->default(null);
             $table->string('site_description')->nullable()->default(null);
             $table->string('footer_text')->nullable()->default(null);
-            $table->boolean('sidebar_collapse')->default(false);
             $table->timestamps();
         });
 
