@@ -60,13 +60,11 @@ class Install extends Command
                 }
             }
             
-            // Add Helper File in Composer.json
-            $this->updateComposer();
             $this->crudStubDir = __DIR__ . '/../../resources/install/crud';
             $this->generateCrudFiles();
-
             $this->spatiePermissionsInstall();
-
+            // Add Helper File in Composer.json
+            $this->updateComposer();
             // Update Auth Routes
             $authRoutes = "\nAuth::routes(['register' => false]);\nRoute::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');";
             $content = file_get_contents($routeFile);
