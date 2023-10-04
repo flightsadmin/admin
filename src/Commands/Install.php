@@ -136,6 +136,7 @@ class Install extends Command
             $composerJson['autoload']['files'][] = $helperFilePath;
         }
         file_put_contents($composerFilePath, json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        exec('composer dump-autoload');
         $this->warn("Helper file added to autoload in composer.json.");
     }
 
