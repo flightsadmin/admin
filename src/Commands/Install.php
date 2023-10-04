@@ -59,7 +59,9 @@ class Install extends Command
                     $this->warn('Deleted file: <info>' . $deleteFile . '</info>');
                 }
             }
-
+            
+            // Add Helper File in Composer.json
+            $this->updateComposer();
             $this->crudStubDir = __DIR__ . '/../../resources/install/crud';
             $this->generateCrudFiles();
 
@@ -123,6 +125,20 @@ class Install extends Command
         }
     }
     
+    public function updateComposer() {
+        $composerFilePath = base_path('composer.json');
+        $helperFilePath = 'app/Helpers/Settings.php';
+        $composerJson = json_decode(file_get_contents($composerFilePath), true);
+        if (!isset($composerJson['autoload']['files'])) {
+            $composerJson['autoload']['files'] = [];
+        }
+        if (!in_array($helperFilePath, $composerJson['autoload']['files'])) {
+            $composerJson['autoload']['files'][] = $helperFilePath;
+        }
+        file_put_contents($composerFilePath, json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        $this->warn("Helper file added to autoload in composer.json.");
+    }
+
     public function correctLayoutExtention($directory, $searchExtends, $replaceExtends) {
         $dir = new RecursiveDirectoryIterator($directory);
         $iterator = new RecursiveIteratorIterator($dir);

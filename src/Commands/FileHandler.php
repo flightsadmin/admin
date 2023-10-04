@@ -140,7 +140,6 @@ trait FileHandler
                 $this->warn($userModelFile . ' Updated');
             }
 
-            $this->line('');
             $this->warn('Publishing Laravel Permissions Files');
             Artisan::call('vendor:publish', ['--provider' => 'Spatie\Permission\PermissionServiceProvider'], $this->getOutput());
             $this->warn('Seeding the Database. Please wait...');
