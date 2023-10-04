@@ -3,8 +3,8 @@
 namespace App\Livewire;
 
 use App\Models\Setting;
-use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
+use Illuminate\Support\Facades\Cache;
 
 class Settings extends Component
 {
@@ -30,7 +30,7 @@ class Settings extends Component
         }
 
         Cache::forget('setting');
-        $this->dispatch('updated', ['message' => 'Settings updated successfully!']);
+        return redirect(route('admin.settings'));
     }
 
     public function render()

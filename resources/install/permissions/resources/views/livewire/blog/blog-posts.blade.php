@@ -1,9 +1,9 @@
 @extends('components.layouts.app')
 @section('title', __('Blog'))
 @section('content')
-    <div>
+    <div class="container-fluid">
         <!-- Page header with logo and tagline-->
-        <header class="py-2 bg-light border-bottom mb-4">
+        <header class="py-2 border-bottom mb-4">
             <div class="container-fluid">
                 <div class="text-center my-3">
                     <h1 class="fw-bolder">Welcome to {{ config('admin.appName', 'app.name') }} Blog</h1>
@@ -12,14 +12,14 @@
             </div>
         </header>
         <!-- Page content-->
-        <div class="container-fluid px-5">
+        <div class="container-fluid px-4">
             <div class="row">
                 <div class="col-md-8">
                     <div class="row g-4">
                         @forelse ($posts as $post)
                             <div class="col-md-6">
                                 <div class="card h-100">
-                                    <a wire:navigate href="{{ route('blog.show', $post->id) }}">
+                                    <a wire:navigate href="{{ route('blog.show', $post->id) }}" class="gap-1 icon-link-hover">
                                         <img class="rounded mb-2" src="{{ asset('storage/' . $post->image) }}"
                                             style="height:200px; width:100%" alt="{{ $post->id }}">
                                     </a>
@@ -30,12 +30,12 @@
                                         </div>
                                         <div class="h4 mb-3">{{ $post->title }}</div>
                                         <p>{{ $post->getExcerpt() }}</p>
-                                        <a wire:navigate href="{{ route('blog.show', $post->id) }}" class="icon-link gap-1 icon-link-hover stretched-link">
+                                        <a wire:navigate href="{{ route('blog.show', $post->id) }}" class="">
                                             Read More... <span class="bi bi-chevron-right"></span>
-                                        </a>                                        
+                                        </a>
                                         <span class="float-end">{{ $post->getReadingTime() }} min read</span>
                                     </div>
-                                </div>                                
+                                </div>
                             </div>
                         @empty
                             <p>No Posts</p>
@@ -46,12 +46,10 @@
                 <div class="col-md-4">
                     <div class="position-sticky" style="top: 2rem;">
                         <div class="card-body">
-
                             <div class="p-4 mb-3 bg-body-tertiary rounded">
                                 <h4 class="fst-italic">About</h4>
-                                <p class="mb-0">{{ config('admin.appName', 'app.name') }} is about simplicity. <br> {{ config('admin.purpose') }},
-                                    at the same
-                                    time get to know yor world with our blog section.</p>
+                                <p class="mb-0">{{ config('admin.appName', 'app.name') }} is about simplicity. <br>
+                                    {{ config('admin.purpose') }}, and get to know what's up around your world with our blog section.</p>
                             </div>
                             <div>
                                 <h4 class="fst-italic">Featured posts</h4>
@@ -81,7 +79,8 @@
                                 <ol class="list-unstyled mb-0">
                                     @foreach ($archives as $archive)
                                         <li>
-                                            <a wire:navigate href="{{ route('blog.archive', ['year' => $archive->year, 'month' => $archive->month]) }}">
+                                            <a wire:navigate
+                                                href="{{ route('blog.archive', ['year' => $archive->year, 'month' => $archive->month]) }}">
                                                 {{ \Carbon\Carbon::createFromDate($archive->year, $archive->month, 1)->format('F Y') }}
                                             </a>
                                         </li>

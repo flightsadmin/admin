@@ -27,8 +27,10 @@ class Posts extends Component
     public $image;
     #[Rule('nullable|date')]
     public $published_at;
+    #[Rule('nullable|boolean')]
+    public $featured = false;
 
-    public $post_id, $keyWord, $postCount, $categories, $featured;
+    public $post_id, $keyWord, $postCount, $categories;
 
     public function render()
     {

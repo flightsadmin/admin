@@ -2,11 +2,13 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
-                <h3 class="card-title">General Setting</h3>
-                <button type="submit" class="btn btn-sm btn-primary float-end" wire:click="updateSetting">
-                    <i class="bi bi-save me-2"></i> Save changes
-                </button>
+            <div class="card-header">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h3 class="card-title">General Setting</h3>
+                    <button type="submit" class="btn btn-sm btn-primary float-end" wire:click="updateSetting">
+                        <i class="bi bi-save me-2"></i> Save changes
+                    </button>
+                </div>
             </div>
             <form>
                 <div class="card-body row g-2">
@@ -46,8 +48,7 @@
                     <div class="col-md-12 form-group">
                         <label for="site_description">Descripion</label>
                         <textarea class="form-control" wire:model="state.site_description" rows="5"
-                            name="site_description" id="site_description" placeholder="Enter site Descripion">
-                        </textarea>
+                            name="site_description" id="site_description" placeholder="Enter site Descripion"></textarea>
                     </div>
                 </div>
             </form>

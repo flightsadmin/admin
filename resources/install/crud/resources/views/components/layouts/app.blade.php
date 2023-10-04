@@ -1,25 +1,24 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="{{ setting('site_theme')}}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    {{-- blade-formatter-disable-next-line --}}
+    <title> @hasSection('title') @yield('title') | @endif {{ config('admin.appName', 'app.name') }} </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{-- blade-formatter-disable-next-line --}}
+    <meta name="title" content="@hasSection('title') @yield('title') | @endif {{ config('admin.appName', 'app.name') }}">
+    <meta name="author" content="{{ config('admin.appName', 'app.name') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.1.0/styles/overlayscrollbars.min.css"
+        integrity="sha256-LWLZPJ7X1jJLI5OG5695qDemW1qQ7lNdbTfQ64ylbUY=" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title> @hasSection('title') @yield('title') | @endif {{ config('admin.appName', 'app.name') }} </title>
-
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-    <!-- Scripts -->
     @vite(['resources/js/app.js'])
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container-fluid px-4">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     {{ config('admin.appName', 'app.name') }}
@@ -37,6 +36,14 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!--Nav Bar Hooks - Do not delete!!-->
+                        @role('super-admin|admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
+                        </li>
+                        @endrole
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route(config('admin.blogRoute')) }}">{{ ucwords(config('admin.blogRoute'))}}</a>
+                        </li>
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
