@@ -30,7 +30,7 @@ class SocialLoginController extends Controller
             $newUser->email = $social->email;
             $newUser->photo = $social->avatar;
             $newUser->phone = '+254700000000';
-            $newUser->title = 'Developer';
+            $newUser->title = 'Student';
             $newUser->password = Hash::make($uuid.now());
             $newUser->auth_type = $provider;
             $newUser->save();

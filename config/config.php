@@ -5,10 +5,10 @@
  */
 return [
     // App Name
-    "appName" => "Flight Admin",
+    "appName" => "School Admin",
 
     // Purpose
-    "purpose" => "Flight Management",
+    "purpose" => "School Management",
 
     // Allow Social Login
     "sociallogin" => true,

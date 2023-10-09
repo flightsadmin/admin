@@ -19,21 +19,36 @@ return new class extends Migration
             $table->string('footer_text')->nullable()->default(null);
             $table->timestamps();
         });
-
-        Schema::create('conversations', function (Blueprint $table) {
+        
+        Schema::create('student_parents', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sender_id');
-            $table->unsignedBigInteger('receiver_id');
-            $table->foreign('sender_id')->references('id')->on('users');
-            $table->foreign('receiver_id')->references('id')->on('users');
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone');
             $table->timestamps();
         });
 
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('class_models', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('conversation_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->text('body');
+            $table->string('name');
+            $table->string('description');
+            $table->timestamps();
+        });
+
+        Schema::create('students', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->foreignId('student_parent_id')->constrained('student_parents')->onDelete('cascade');
+            $table->foreignId('class_id')->constrained('class_models')->onDelete('cascade');
+            $table->string('roll_number');
+            $table->enum('gender', ['male', 'female', 'other']);
+            $table->date('date_of_birth');
+            $table->string('address');
+            $table->timestamps();
+        });
+
+        Schema::create('teachers', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
