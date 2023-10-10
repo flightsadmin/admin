@@ -39,10 +39,10 @@ class SchoolSeeder extends Seeder
             $randomClass = Grade::inRandomOrder()->first()->id;
 
             Student::create([
-                'name' => $faker->name(), //"Student $i",
+                'name' => $faker->name(),
                 'guardian_id' => $randomParent,
                 'class_id' => $randomClass,
-                'roll_number' => "S".str_pad($i, 4, '0', STR_PAD_LEFT),
+                'roll_number' => "S".str_pad($i, 5, '0', STR_PAD_LEFT),
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",
                 'address' => $faker->address(),
