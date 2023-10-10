@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 use App\Models\StudentParent;
 use Livewire\WithFileUploads;
 
-class Teachers extends Component
+class Students extends Component
 { 
     use WithPagination, WithFileUploads;
     protected $paginationTheme = 'bootstrap';
