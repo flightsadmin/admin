@@ -40,7 +40,7 @@ class SchoolSeeder extends Seeder
 
             Student::create([
                 'name' => $faker->name(), //"Student $i",
-                'student_parent_id' => $randomParent,
+                'guardian_id' => $randomParent,
                 'class_id' => $randomClass,
                 'roll_number' => "S".str_pad($i, 4, '0', STR_PAD_LEFT),
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
