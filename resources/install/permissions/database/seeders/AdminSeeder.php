@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
-class AdminDatabaseSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     public function run()
     {
