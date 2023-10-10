@@ -27,6 +27,7 @@ trait FileHandler
                 Route::get('/', App\Livewire\Students::class)->name(config("admin.adminRoute", "admin"));
                 Route::get('/parents', App\Livewire\StudentParents::class)->name('admin.parents');
                 Route::get('/teachers', App\Livewire\Teachers::class)->name('admin.teachers');
+                Route::get('/users', App\Livewire\Users::class)->name('admin.users');
             });
 
             // Social Login Routes
@@ -52,9 +53,6 @@ trait FileHandler
                                         <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
                                     </li>
                                     @endrole
-                                    <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="{{ route(config('admin.blogRoute')) }}">{{ ucwords(config('admin.blogRoute'))}}</a>
-                                    </li>
             NAV;
             $spatieFileHook = "<!--Nav Bar Hooks - Do not delete!!-->";
 

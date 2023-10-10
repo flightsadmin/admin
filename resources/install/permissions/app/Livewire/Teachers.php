@@ -23,7 +23,7 @@ class Teachers extends Component
                     ->orWhere('name', 'LIKE', $keyWord)
                     ->orWhere('roll_number', 'LIKE', $keyWord)
                     ->paginate();
-        return view('livewire.school.students.view', [
+        return view('livewire.admin.school.students.view', [
             'students' => $students,
             'classes' => ClassModel::all(),
             'parents' => StudentParent::all()

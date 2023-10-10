@@ -20,7 +20,7 @@ class StudentParents extends Component
                     ->orWhere('name', 'LIKE', $keyWord)
                     ->orWhere('email', 'LIKE', $keyWord)
                     ->paginate();
-        return view('livewire.school.parents.view', [
+        return view('livewire.admin.school.parents.view', [
             'parents' => $parents
         ])->extends('components.layouts.admin');
     }
