@@ -14,7 +14,7 @@
 				</div>
 			</div>
 			<div class="card-body">
-				@include('livewire.school.students.modals')
+				@include('livewire.admin.school.students.modals')
 				<div class="row">
 					@forelse($students as $row)
 						<div class="col-md-6 border d-flex justify-content-between">

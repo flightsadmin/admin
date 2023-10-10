@@ -24,10 +24,13 @@ trait FileHandler
             <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/', App\Livewire\Students::class)->name(config("admin.adminRoute", "admin"));
+                Route::get('/', App\Livewire\Students::class)->name('admin.students');
                 Route::get('/parents', App\Livewire\StudentParents::class)->name('admin.parents');
                 Route::get('/teachers', App\Livewire\Teachers::class)->name('admin.teachers');
+                Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
+                Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
+                Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
             });
 
             // Social Login Routes
