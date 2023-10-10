@@ -14,7 +14,7 @@
                             <div class="col-lg-3 col-6">
                                 <div class="small-box text-bg-success">
                                     <div class="inner">
-                                        <h3>{{ App\Models\StudentParent::count() }}</h3>
+                                        <h3>{{ App\Models\Guardian::count() }}</h3>
                                         <p>Parents</p>
                                     </div>
                                     <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24"
@@ -50,7 +50,7 @@
                             <div class="col-lg-3 col-6">
                                 <div class="small-box text-bg-danger">
                                     <div class="inner">
-                                        <h3>{{ App\Models\ClassModel::count() }}</h3>
+                                        <h3>{{ App\Models\Grade::count() }}</h3>
                                         <p>Total Classes</p>
                                     </div>
                                     <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24"

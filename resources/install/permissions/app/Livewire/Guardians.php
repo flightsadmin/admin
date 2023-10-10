@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Models\StudentParent;
+use App\Models\Guardian;
 use Livewire\WithFileUploads;
 
-class StudentParents extends Component
+class Guardians extends Component
 { 
     use WithPagination, WithFileUploads;
     protected $paginationTheme = 'bootstrap';
@@ -16,7 +16,7 @@ class StudentParents extends Component
     public function render()
     {
         $keyWord = '%'. $this->keyWord .'%';
-        $parents = StudentParent::with('students')
+        $parents = Guardian::with('students')
                     ->orWhere('name', 'LIKE', $keyWord)
                     ->orWhere('email', 'LIKE', $keyWord)
                     ->paginate();
@@ -33,16 +33,16 @@ class StudentParents extends Component
             'phone'  => 'nullable'
         ]);
 
-        StudentParent::updateOrCreate(['id' => $this->parent_id], $validatedData);
+        Guardian::updateOrCreate(['id' => $this->parent_id], $validatedData);
 
         $this->dispatch('closeModal');
-        session()->flash('message', 'StudentParent created successfully.');
+        session()->flash('message', 'Guardian created successfully.');
         $this->reset();
     }
 
     public function edit($id)
     {
-        $parent = StudentParent::findOrFail($id);
+        $parent = Guardian::findOrFail($id);
         $this->parent_id = $id;
         $this->name = $parent->name;
         $this->email = $parent->email;
@@ -51,7 +51,7 @@ class StudentParents extends Component
 
     public function destroy($id)
     {
-        StudentParent::findOrFail($id)->delete();
-        session()->flash('message', 'StudentParent Deleted Successfully.');
+        Guardian::findOrFail($id)->delete();
+        session()->flash('message', 'Guardian Deleted Successfully.');
     }
 }

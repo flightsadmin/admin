@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Student;
-use App\Models\ClassModel;
+use App\Models\Grade;
 use Faker\Factory as Faker;
-use App\Models\StudentParent;
+use App\Models\Guardian;
 use Illuminate\Database\Seeder;
 
 class SchoolSeeder extends Seeder
@@ -18,7 +18,7 @@ class SchoolSeeder extends Seeder
         
         // Seed Parents
         for ($i = 1; $i <= 5; $i++) {
-            StudentParent::create([
+            Guardian::create([
                 'name' => $faker->name(),
                 'email' => $faker->safeEmail(),
                 'phone' => '+25472000000'.$i,
@@ -27,7 +27,7 @@ class SchoolSeeder extends Seeder
 
         // Seed Classes
         for ($i = 1; $i <= 5; $i++) {
-            ClassModel::create([
+            Grade::create([
                 'name' => "Class $i",
                 'description' => "Description for Class $i",
             ]);
@@ -35,8 +35,8 @@ class SchoolSeeder extends Seeder
 
         // Seed Students
         for ($i = 1; $i <= 20; $i++) {
-            $randomParent = StudentParent::inRandomOrder()->first()->id;
-            $randomClass = ClassModel::inRandomOrder()->first()->id;
+            $randomParent = Guardian::inRandomOrder()->first()->id;
+            $randomClass = Grade::inRandomOrder()->first()->id;
 
             Student::create([
                 'name' => $faker->name(), //"Student $i",

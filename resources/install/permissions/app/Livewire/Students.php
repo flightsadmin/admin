@@ -5,16 +5,16 @@ namespace App\Livewire;
 use App\Models\User;
 use App\Models\Student;
 use Livewire\Component;
-use App\Models\ClassModel;
+use App\Models\Grade;
 use Livewire\WithPagination;
-use App\Models\StudentParent;
+use App\Models\Guardian;
 use Livewire\WithFileUploads;
 
 class Students extends Component
 { 
     use WithPagination, WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    public $student_id, $name, $student_parent_id, $class_id, $gender, $date_of_birth, $roll_number, $keyWord, $address;
+    public $student_id, $name, $guardian_id, $class_id, $gender, $date_of_birth, $roll_number, $keyWord, $address;
 
     public function render()
     {
@@ -25,8 +25,8 @@ class Students extends Component
                     ->paginate();
         return view('livewire.admin.school.students.view', [
             'students' => $students,
-            'classes' => ClassModel::all(),
-            'parents' => StudentParent::all()
+            'classes' => Grade::all(),
+            'parents' => Guardian::all()
         ])->extends('components.layouts.admin');
     }
     
@@ -34,7 +34,7 @@ class Students extends Component
     {
         $validatedData = $this->validate([
             'name'      => 'required',
-            'student_parent_id' => 'nullable',
+            'guardian_id' => 'nullable',
             'class_id'  => 'nullable',
             'roll_number' => 'required|min:2',
             'gender'    => 'required',
@@ -54,7 +54,7 @@ class Students extends Component
         $student = Student::findOrFail($id);
         $this->student_id = $id;
         $this->name = $student->name;
-        $this->student_parent_id = $student->student_parent_id;
+        $this->guardian_id = $student->guardian_id;
         $this->class_id = $student->class_id;
         $this->roll_number = $student->roll_number;
         $this->gender = $student->gender;
