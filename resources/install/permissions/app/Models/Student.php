@@ -11,7 +11,7 @@ class Student extends Model
 
     protected $fillable = [
         'name',
-        'student_parent_id',
+        'guardian_id',
         'class_id',
         'roll_number',
         'gender',
@@ -21,7 +21,7 @@ class Student extends Model
 
     public function parent()
     {
-        return $this->belongsTo(StudentParent::class, 'student_parent_id');
+        return $this->belongsTo(Guardian::class, 'guardian_id');
     }
     
     public function class()

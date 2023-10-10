@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamps();
         });
         
-        Schema::create('student_parents', function (Blueprint $table) {
+        Schema::create('guardians', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email');
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('class_models', function (Blueprint $table) {
+        Schema::create('grades', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('description');
@@ -38,8 +38,8 @@ return new class extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('student_parent_id')->constrained('student_parents')->onDelete('cascade');
-            $table->foreignId('class_id')->constrained('class_models')->onDelete('cascade');
+            $table->foreignId('guardian_id')->constrained('guardians')->onDelete('cascade');
+            $table->foreignId('class_id')->constrained('grades')->onDelete('cascade');
             $table->string('roll_number');
             $table->enum('gender', ['male', 'female', 'other']);
             $table->date('date_of_birth');
@@ -56,7 +56,8 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('settings');
-        Schema::dropIfExists('messages');
-        Schema::dropIfExists('conversations');
+        Schema::dropIfExists('guardians');
+        Schema::dropIfExists('grades');
+        Schema::dropIfExists('students');
     }
 };
