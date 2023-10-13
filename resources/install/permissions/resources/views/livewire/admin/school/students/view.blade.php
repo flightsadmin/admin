@@ -21,7 +21,7 @@
                         <div class="col-md-6 border d-flex justify-content-between">
                             <div class="col-md-8 mt-2">
                                 <b><i class="bi bi-person-circle text-info"></i> {{ $row->name }} - {{ $row->roll_number }}</b>
-                                <span class="badge rounded-pill text-bg-primary float-end">{{ $row->class->name }}</span>
+                                <span class="badge rounded-pill text-bg-secondary float-end">{{ $row->class->name }}</span>
                                 <div> </div>
                                 <div>Gender: {{ ucwords($row->gender) }}</div>
                                 <div>Address: {{ $row->address }}</div>
