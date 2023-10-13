@@ -24,7 +24,8 @@ trait FileHandler
             <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/', App\Livewire\Students::class)->name('admin.students');
+                Route::get('/', [App\Livewire\Students::class, 'home'])->name('admin');
+                Route::get('/students', App\Livewire\Students::class)->name('admin.students');
                 Route::get('/parents', App\Livewire\Guardians::class)->name('admin.parents');
                 Route::get('/teachers', App\Livewire\Teachers::class)->name('admin.teachers');
                 Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');

@@ -67,12 +67,9 @@ class Students extends Component
         Student::findOrFail($id)->delete();
         session()->flash('message', 'Student Deleted Successfully.');
     }
-
-    public function createPaent($email)
+    
+    public function home()
     {
-        $this->validate([
-            'name' => 'required|min:4',
-            '' =>  ''
-        ]);
+        return view('home');
     }
 }
