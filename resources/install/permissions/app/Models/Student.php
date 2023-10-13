@@ -12,7 +12,7 @@ class Student extends Model
     protected $fillable = [
         'name',
         'guardian_id',
-        'class_id',
+        'grade_id',
         'roll_number',
         'gender',
         'date_of_birth',
@@ -26,6 +26,6 @@ class Student extends Model
     
     public function class()
     {
-        return $this->belongsTo(Grade::class);
+        return $this->belongsTo(Grade::class, 'grade_id');
     }
 }

@@ -14,7 +14,7 @@ class Students extends Component
 { 
     use WithPagination, WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    public $student_id, $name, $guardian_id, $class_id, $gender, $date_of_birth, $roll_number, $keyWord, $address;
+    public $student_id, $name, $guardian_id, $grade_id, $gender, $date_of_birth, $roll_number, $keyWord, $address;
 
     public function render()
     {
@@ -35,7 +35,7 @@ class Students extends Component
         $validatedData = $this->validate([
             'name'      => 'required',
             'guardian_id' => 'nullable',
-            'class_id'  => 'nullable',
+            'grade_id'  => 'nullable',
             'roll_number' => 'required|min:2',
             'gender'    => 'required',
             'address'   => 'required',
@@ -55,7 +55,7 @@ class Students extends Component
         $this->student_id = $id;
         $this->name = $student->name;
         $this->guardian_id = $student->guardian_id;
-        $this->class_id = $student->class_id;
+        $this->grade_id = $student->grade_id;
         $this->roll_number = $student->roll_number;
         $this->gender = $student->gender;
         $this->address = $student->address;

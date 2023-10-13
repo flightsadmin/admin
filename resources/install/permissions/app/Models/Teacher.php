@@ -12,7 +12,7 @@ class Teacher extends Model
     protected $fillable = [
         'name',
         'subject_id',
-        'class_id',
+        'grade_id',
         'staff_number',
         'gender',
         'date_of_birth',

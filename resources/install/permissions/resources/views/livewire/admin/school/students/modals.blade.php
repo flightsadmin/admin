@@ -38,14 +38,14 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
-                            <label for="class_id" class="form-label">Class</label>
-                            <select class="form-select" id="class_id" wire:model="class_id">
+                            <label for="grade_id" class="form-label">Class</label>
+                            <select class="form-select" id="grade_id" wire:model="grade_id">
                                 <option value="">Select Class</option>
                                 @foreach ($classes as $class)
                                     <option value="{{ $class->id }}">{{ $class->name }}</option>
                                 @endforeach
                             </select>
-                            @error('class_id')
+                            @error('grade_id')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>

@@ -51,7 +51,7 @@ class SchoolSeeder extends Seeder
             Student::create([
                 'name' => $faker->name(),
                 'guardian_id' => $randomParent,
-                'class_id' => $randomClass,
+                'grade_id' => $randomClass,
                 'roll_number' => "S".str_pad($i, 5, '0', STR_PAD_LEFT),
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",
@@ -67,7 +67,7 @@ class SchoolSeeder extends Seeder
             Teacher::create([
                 'name' => $faker->name(),
                 'subject_id' => $randomSubject,
-                'class_id' => $randomClass,
+                'grade_id' => $randomClass,
                 'staff_number' => "T".str_pad($i, 5, '0', STR_PAD_LEFT),
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",
