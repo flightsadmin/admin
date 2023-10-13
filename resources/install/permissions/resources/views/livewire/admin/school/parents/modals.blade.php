@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="phone">Phone Number</label>
-                            <input type="number" class="form-control" id="phone" wire:model.blur="phone">
+                            <input type="text" class="form-control" id="phone" wire:model.blur="phone">
                             @error('phone') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
                     </div>
