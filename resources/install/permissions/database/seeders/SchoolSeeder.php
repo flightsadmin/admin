@@ -43,8 +43,6 @@ class SchoolSeeder extends Seeder
             // Seed Teachers
             $teacher = Teacher::create([
                 'name' => $faker->name(),
-                'subject_id' => Subject::inRandomOrder()->first()->id,
-                'grade_id' => Grade::inRandomOrder()->first()->id,
                 'staff_number' => "T".str_pad($i, 5, '0', STR_PAD_LEFT),
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",

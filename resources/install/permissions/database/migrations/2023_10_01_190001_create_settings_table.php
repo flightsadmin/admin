@@ -35,6 +35,16 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('teachers', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('staff_number');
+            $table->enum('gender', ['male', 'female', 'other']);
+            $table->date('date_of_birth');
+            $table->string('address');
+            $table->timestamps();
+        });
+        
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -49,18 +59,6 @@ return new class extends Migration
             $table->foreignId('guardian_id')->constrained('guardians')->onDelete('cascade');
             $table->foreignId('grade_id')->constrained('grades')->onDelete('cascade');
             $table->string('roll_number');
-            $table->enum('gender', ['male', 'female', 'other']);
-            $table->date('date_of_birth');
-            $table->string('address');
-            $table->timestamps();
-        });
-
-        Schema::create('teachers', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
-            $table->foreignId('grade_id')->constrained('grades')->onDelete('cascade');
-            $table->string('staff_number');
             $table->enum('gender', ['male', 'female', 'other']);
             $table->date('date_of_birth');
             $table->string('address');
