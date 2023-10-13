@@ -46,8 +46,8 @@
                                                         wire:click="edit({{ $permission->id }})"> Edit </a>
                                                 </li>
                                                 <li><a class="dropdown-item bi bi-trash3"
-                                                        onclick="confirm('Confirm Delete Registration id {{ $permission->id }}? \nDeleted Registration cannot be recovered!')||event.stopImmediatePropagation()"
-                                                        wire:click="destroy({{ $permission->id }})"> Delete </a></li>
+                                                        wire:click.prevent="destroy({{ $permission->id }})"
+                                                        wire:confirm="Are you sure you want to delete this Permission?"> Delete </a></li>
                                             </ul>
                                         </div>
                                     </td>

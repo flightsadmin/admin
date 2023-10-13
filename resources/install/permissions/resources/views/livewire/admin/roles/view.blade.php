@@ -46,8 +46,8 @@
                                                         wire:click="edit({{ $role->id }})"> Edit </a>
                                                 </li>
                                                 <li><a class="dropdown-item bi bi-trash3"
-                                                        onclick="confirm('Confirm Delete Registration id {{ $role->id }}? \nDeleted Registration cannot be recovered!')||event.stopImmediatePropagation()"
-                                                        wire:click="destroy({{ $role->id }})"> Delete </a></li>
+                                                        wire:click.prevent="destroy({{ $role->id }})"
+                                                        wire:confirm="Are you sure you want to delete this Role?"> Delete </a></li>
                                             </ul>
                                         </div>
                                     </td>
