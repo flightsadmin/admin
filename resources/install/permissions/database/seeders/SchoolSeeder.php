@@ -21,54 +21,46 @@ class SchoolSeeder extends Seeder
         foreach (["Math", "English", "Kiswahili", "Chemistry", "Biology"] as $key => $value) {
            Subject::create([
             'name'          => $value,
-            'description'   => $faker->realText(100, 2)
+            'description'   => $faker->realText(50, 2)
            ]);
         }
 
-        // Seed Parents
         for ($i = 1; $i <= 5; $i++) {
+            // Seed Parents
             Guardian::create([
                 'name' => $faker->name(),
                 'email' => $faker->safeEmail(),
                 'phone' => '+25472000000'.$i,
             ]);
-        }
 
-        // Seed Grades
-        for ($i = 1; $i <= 5; $i++) {
+            // Seed Grades
             Grade::create([
                 'name' => "Class $i",
                 'subject_id' => Subject::inRandomOrder()->first()->id,
                 'description' => "Description for Class $i",
             ]);
-        }
 
-        // Seed Students
-        for ($i = 1; $i <= 20; $i++) {
-            $randomParent = Guardian::inRandomOrder()->first()->id;
-            $randomClass = Grade::inRandomOrder()->first()->id;
-
-            Student::create([
+            // Seed Teachers
+            $teacher = Teacher::create([
                 'name' => $faker->name(),
-                'guardian_id' => $randomParent,
-                'grade_id' => $randomClass,
-                'roll_number' => "S".str_pad($i, 5, '0', STR_PAD_LEFT),
+                'subject_id' => Subject::inRandomOrder()->first()->id,
+                'grade_id' => Grade::inRandomOrder()->first()->id,
+                'staff_number' => "T".str_pad($i, 5, '0', STR_PAD_LEFT),
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",
                 'address' => $faker->address(),
             ]);
+            $teacher->classes()->attach($i);
+            $teacher->subjects()->attach($i);
         }
 
-        // Seed Teachers
-        for ($i = 1; $i <= 10; $i++) {
-            $randomSubject  = Subject::inRandomOrder()->first()->id;
-            $randomClass    = Grade::inRandomOrder()->first()->id;
-
-            Teacher::create([
+        // Seed Students
+        for ($i = 1; $i <= 20; $i++) {
+            Student::create([
                 'name' => $faker->name(),
-                'subject_id' => $randomSubject,
-                'grade_id' => $randomClass,
-                'staff_number' => "T".str_pad($i, 5, '0', STR_PAD_LEFT),
+                'guardian_id' => Guardian::inRandomOrder()->first()->id,
+                'grade_id' => Grade::inRandomOrder()->first()->id,
+                'roll_number' => "S".str_pad($i, 5, '0', STR_PAD_LEFT),
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",
                 'address' => $faker->address(),

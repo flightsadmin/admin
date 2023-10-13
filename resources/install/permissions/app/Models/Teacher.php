@@ -19,13 +19,13 @@ class Teacher extends Model
         'address',
     ];
 
-    public function class()
+    public function classes()
     {
-        return $this->belongsTo(Grade::class);
+        return $this->belongsToMany(Grade::class, 'grade_teacher')->withTimestamps();
     }
-
+    
     public function subjects()
     {
-        return $this->hasMany(Subject::class);
+        return $this->belongsToMany(Subject::class, 'subject_teacher')->withTimestamps();
     }
 }

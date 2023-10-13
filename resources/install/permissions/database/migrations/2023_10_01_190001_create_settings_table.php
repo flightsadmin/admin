@@ -66,6 +66,20 @@ return new class extends Migration
             $table->string('address');
             $table->timestamps();
         });
+
+        Schema::create('grade_teacher', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
+            $table->foreignId('grade_id')->constrained('grades')->onDelete('cascade');
+            $table->timestamps();
+        });
+
+        Schema::create('subject_teacher', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('teacher_id')->constrained('teachers')->onDelete('cascade');
+            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     public function down()
@@ -76,5 +90,7 @@ return new class extends Migration
         Schema::dropIfExists('grades');
         Schema::dropIfExists('students');
         Schema::dropIfExists('teachers');
+        Schema::dropIfExists('grade_teacher');
+        Schema::dropIfExists('subject_teacher');
     }
 };

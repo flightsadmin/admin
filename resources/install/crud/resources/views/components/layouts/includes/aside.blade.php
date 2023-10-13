@@ -22,6 +22,12 @@
                         <p>Parents</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.teachers') }}" wire:navigate class="nav-link">
+                        <i class="nav-icon bi bi-person"></i>
+                        <p>Teachers</p>
+                    </a>
+                </li>
                 <li class="nav-header"> ADMIN</li>
                 <li class="nav-item">
                     <a href="{{ route('admin.settings') }}" wire:navigate
