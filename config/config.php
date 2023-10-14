@@ -11,7 +11,7 @@ return [
     "purpose" => "School Management",
 
     // Allow Social Login
-    "sociallogin" => true,
+    "sociallogin" => false,
 
     // Routes
     "adminRoute" => "admin",
