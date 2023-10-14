@@ -130,7 +130,7 @@
                                 @enderror
                             </div>
                         @endif
-                        @can('editUser')
+                        @can('ManageUsers')
                             <div class="col-md-12">
                                 <div class="col-md-12 mb-3">
                                     <label class="h5">Assin Roles</label>

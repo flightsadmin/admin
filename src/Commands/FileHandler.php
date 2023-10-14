@@ -33,10 +33,6 @@ trait FileHandler
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
             });
-
-            // Social Login Routes
-            Route::get('/auth/{provider}/redirect', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirect']);
-            Route::get('/auth/{provider}/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'callback']);
             ROUTES;
             
             $fileHook = "//Route Hooks - Do not delete//";

@@ -5,7 +5,7 @@
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-between">
                     <h5>Users</h5>
-                    @can('createUser')
+                    @can('ManageUsers')
                         <button data-bs-toggle="modal" data-bs-target="#dataModal"
                             class="btn btn-sm btn-primary float-end align-items-center bi bi-person-add">
                             Add User
@@ -51,7 +51,7 @@
                                         </button>
                                         @if (
                                             $user->id == auth()->user()->id ||
-                                                auth()->user()->can('editUser'))
+                                                auth()->user()->can('ManageUsers'))
                                             <button data-bs-toggle="modal" data-bs-target="#dataModal"
                                                 class="btn btn-primary custom-btn-sm bi bi-pencil-square"
                                                 wire:click="edit({{ $user->id }})"> </button>
