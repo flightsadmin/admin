@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Board;
 use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Subject;
@@ -36,8 +37,14 @@ class SchoolSeeder extends Seeder
             // Seed Grades
             Grade::create([
                 'name' => "Class $i",
-                'subject_id' => Subject::inRandomOrder()->first()->id,
                 'description' => "Description for Class $i",
+            ]);
+
+            // Seed Boards
+            Board::create([
+                'title' => $faker->realText(20),
+                'body'  => $faker->realText(1000),
+                'user_id'=> User::inRandomOrder()->first()->id,
             ]);
 
             // Seed Teachers

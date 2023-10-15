@@ -30,7 +30,7 @@ class Teachers extends Component
         ])->extends('components.layouts.admin');
     }
     
-    public function saveTeacher()
+    public function save()
     {
         $validatedData = $this->validate([
             'name'      => 'required',
@@ -60,6 +60,13 @@ class Teachers extends Component
         $this->gender = $teacher->gender;
         $this->address = $teacher->address;
         $this->date_of_birth = $teacher->date_of_birth;
+    }
+
+    public function details($id) {
+        $teacher = Teacher::findOrFail($id);
+        return view('livewire.admin.school.teachers.details', [
+            'teacher' => $teacher
+        ]);
     }
 
     public function destroy($id)

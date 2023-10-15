@@ -2,7 +2,7 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header py-2">
                 <div class="d-flex align-items-center justify-content-between">
                     <h3 class="card-title">Students</h3>
                     <div>
@@ -21,7 +21,7 @@
                         <div class="col-md-6 border d-flex justify-content-between">
                             <div class="col-md-8 mt-2">
                                 <b><i class="bi bi-person-circle text-info"></i> {{ $row->name }}</b>
-                                <span class="badge rounded-pill text-bg-secondary float-end">{{ $row->class->name }}</span>
+                                <span class="badge rounded-pill text-bg-secondary float-end">{{ $row->grade->name }}</span>
                                 <div class="bi bi-person-vcard"> Registration Number: {{ $row->roll_number }}</div>
                                 <div>Gender: {{ ucwords($row->gender) }}</div>
                                 <div>Address: {{ $row->address }}</div>
@@ -62,10 +62,6 @@
         const genModal = new bootstrap.Modal('#dataModal');
         window.addEventListener('closeModal', () => {
             genModal.hide();
-        });
-        const toast = new bootstrap.Toast('#statusToast');
-        document.addEventListener('closeModal', () => {
-            toast.show();
         });
     </script>
 @endpush

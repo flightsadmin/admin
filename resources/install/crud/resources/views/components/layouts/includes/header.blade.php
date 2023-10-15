@@ -12,8 +12,8 @@
         </ul>
 
         <ul class="navbar-nav ms-auto">
-            {{-- @include('components.layouts.includes.messages') --}}
-            {{-- @include('components.layouts.includes.notifications') --}}
+            @include('components.layouts.includes.messages')
+            @include('components.layouts.includes.notifications')
             @guest
                 @if (Route::has('login'))
                     <li class="nav-item">

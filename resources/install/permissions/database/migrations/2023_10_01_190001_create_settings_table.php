@@ -49,7 +49,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -86,6 +85,14 @@ return new class extends Migration
             $table->boolean('status')->default(false);
             $table->timestamps();
         });
+
+        Schema::create('boards', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->mediumText('body');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     public function down()
@@ -94,6 +101,7 @@ return new class extends Migration
         Schema::dropIfExists('guardians');
         Schema::dropIfExists('subjects');
         Schema::dropIfExists('grades');
+        Schema::dropIfExists('boards');
         Schema::dropIfExists('students');
         Schema::dropIfExists('teachers');
         Schema::dropIfExists('attendances');

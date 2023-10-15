@@ -11,21 +11,38 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="true">
                 <li class="nav-header"> DASHBOARD</li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.students') }}" wire:navigate class="nav-link">
+                    <a href="{{ route('admin.students') }}" wire:navigate
+                        class="nav-link {{ request()->is('admin/students') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-people-fill"></i>
                         <p>Students</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.parents') }}" wire:navigate class="nav-link">
+                    <a href="{{ route('admin.parents') }}" wire:navigate
+                    class="nav-link {{ request()->is('admin/parents') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-shield-shaded"></i>
                         <p>Parents</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.teachers') }}" wire:navigate class="nav-link">
+                    <a href="{{ route('admin.teachers') }}" wire:navigate
+                    class="nav-link {{ request()->is('admin/teachers') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-person"></i>
                         <p>Teachers</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.grades') }}" wire:navigate
+                    class="nav-link {{ request()->is('admin/grades') ? 'active' : '' }}">
+                        <i class="nav-icon bi bi-mortarboard"></i>
+                        <p>Classes</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('admin.notices') }}" wire:navigate
+                    class="nav-link {{ request()->is('admin/notices') ? 'active' : '' }}">
+                        <i class="nav-icon bi bi-clipboard2-data-fill"></i>
+                        <p>Notices</p>
                     </a>
                 </li>
                 <li class="nav-header"> ADMIN</li>

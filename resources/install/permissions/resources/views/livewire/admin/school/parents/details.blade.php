@@ -7,9 +7,8 @@
                 <div class="card-header py-2">
                     <div class="d-flex align-items-center justify-content-between">
                         <h3 class="card-title">Details for: {{ $parent->name }}</h3>
-                        <div class="btn btn-sm btn-secondary bi bi-backspace-fill">
-                            <a wire:navigate href="{{ URL::previous() }}" class="text-decoration-none text-white">Back</a>
-                        </div>
+                        <a class="btn btn-sm btn-secondary bi bi-backspace-fill text-decoration-none text-white" 
+                            wire:navigate href="{{ URL::previous() }}"> Back </a>
                     </div>
                 </div>
                 <div class="card-body">

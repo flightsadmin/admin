@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 @if ($userId)
-                    <div class="col-12 bg-white px-3 mb-3 pb-3">
+                    <div class="col-12 px-3 mb-3 pb-3">
                         <div class="d-flex flex-column align-items-center border-bottom">
                             <img class="profile-img mb-2" src="{{ asset('storage/' . $photo) }}" style="height:100px; width:100px;"
                                 alt="{{ $title }}">
@@ -179,20 +179,6 @@
     </div>
 </div>
 
-<!-- Success Message Toast  -->
-<div id="statusToast" class="toast position-fixed top-0 end-0 p-3 text-bg-success" style="margin-top:5px; margin-bottom:0px;"
-    role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="toast-header text-bg-success">
-        <i class="me-2 bi bi-send-fill"></i>
-        <strong class="me-auto text-black">Success</strong>
-        <small class="text-white">{{ now() }}</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body text-black text-center">
-        {{ session('message') }}
-    </div>
-</div>
-
 @push('scripts')
     <script type="module">
         const genModal = new bootstrap.Modal('#dataModal');
@@ -200,11 +186,6 @@
         window.addEventListener('closeModal', () => {
             genModal.hide();
             viewModal.hide();
-        });
-
-        const toast = new bootstrap.Toast('#statusToast');
-        window.addEventListener('closeModal', () => {
-            toast.show();
         });
     </script>
 @endpush

@@ -85,19 +85,3 @@
         </div>
     </div>
 </div>
-<!-- Success Message Toast  -->
-<div class="toast-container position-fixed top-0 end-0 p-3">
-    <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header text-bg-success">
-            <i class="me-2 bi bi-send-fill"></i>
-            <strong class="me-auto text-black">Success</strong>
-            <small class="text-white">{{ now() }}</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body text-black text-center">
-            <div class="p-4">
-                {{ session('message') }}
-            </div>
-        </div>
-    </div>
-</div>

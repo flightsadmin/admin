@@ -19,7 +19,7 @@ class Students extends Component
     public function render()
     {
         $keyWord = '%'. $this->keyWord .'%';
-        $students = Student::with('parent', 'class')
+        $students = Student::with('parent', 'grade')
                     ->orWhere('name', 'LIKE', $keyWord)
                     ->orWhere('roll_number', 'LIKE', $keyWord)
                     ->paginate();

@@ -1,0 +1,62 @@
+<?php
+
+namespace App\Livewire;
+
+use App\Models\Board;
+use Livewire\Component;
+use Livewire\WithPagination;
+use Livewire\WithFileUploads;
+
+class Boards extends Component
+{ 
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+    public $board_id, $title, $body, $keyWord;
+
+    public function render()
+    {
+        $keyWord = '%'. $this->keyWord .'%';
+        $boards = Board::latest()
+                    ->orWhere('title', 'LIKE', $keyWord)
+                    ->paginate();
+        return view('livewire.admin.school.boards.view', [
+            'boards' => $boards
+        ])->extends('components.layouts.admin');
+    }
+    
+    public function save()
+    {
+        $validatedData = $this->validate([
+            'title'          => 'required',
+            'body'   => 'required|min:10'
+        ]);
+        $validatedData['user_id'] = auth()->user()->id;
+
+        Board::updateOrCreate(['id' => $this->board_id], $validatedData);
+
+        $this->dispatch('closeModal');
+        session()->flash('message', 'Board created successfully.');
+        $this->reset();
+    }
+
+    public function edit($id)
+    {
+        $board = Board::findOrFail($id);
+        $this->board_id = $id;
+        $this->title = $board->title;
+        $this->body = $board->body;
+    }
+
+    public function details($id) {
+        $board = Board::findOrFail($id);
+        return view('livewire.admin.school.boards.details', [
+            'board' => $board
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        Board::findOrFail($id)->delete();
+        session()->flash('message', 'Board Deleted Successfully.');
+    }
+}

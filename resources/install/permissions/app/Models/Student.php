@@ -24,8 +24,8 @@ class Student extends Model
         return $this->belongsTo(Guardian::class, 'guardian_id');
     }
     
-    public function class()
+    public function grade()
     {
-        return $this->belongsTo(Grade::class, 'grade_id');
+        return $this->belongsTo(Grade::class);
     }
 }

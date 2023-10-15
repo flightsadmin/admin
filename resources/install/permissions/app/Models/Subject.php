@@ -14,7 +14,7 @@ class Subject extends Model
         'description',
     ];
 
-    public function class()
+    public function grade()
     {
         return $this->belongsTo(Grade::class);
     }

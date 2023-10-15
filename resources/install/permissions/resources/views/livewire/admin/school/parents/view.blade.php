@@ -2,7 +2,7 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header py-2">
                 <div class="d-flex align-items-center justify-content-between">
                     <h3 class="card-title">Parents</h3>
                     <div>
@@ -65,16 +65,9 @@
 </div>
 @push('scripts')
     <script type="module">
-        document.addEventListener('livewire:navigated', () => {
-            const genModal = new bootstrap.Modal('#dataModal');
-            @this.on('closeModal', (message) => {
-                genModal.hide();
-                Toastify({
-                    text: "Parent Record Updated Successfully.",
-                    duration: 3000,
-                    close: true,
-                }).showToast();
-            });
+        const genModal = new bootstrap.Modal('#dataModal');
+        document.addEventListener('closeModal', () => {
+            genModal.hide();
         });
     </script>
 @endpush

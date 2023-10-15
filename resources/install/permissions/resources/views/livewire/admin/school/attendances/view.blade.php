@@ -26,7 +26,7 @@
                             <thead>
                                 <tr>
                                     <th>Student Name</th>
-                                    <th>Present</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -36,8 +36,7 @@
                                         <td>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" wire:model="attendance.{{ $student->id }}"
-                                                    type="checkbox"
-                                                    value="true" role="switch">
+                                                    type="checkbox" role="switch">
                                             </div>
                                         </td>
                                     </tr>

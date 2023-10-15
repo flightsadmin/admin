@@ -23,8 +23,16 @@ trait FileHandler
             $spatieRoutes = 
             <<<ROUTES
             // Admin Routes
+            // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                 Route::get('/', [App\Livewire\Students::class, 'home'])->name('admin');
+                Route::get('/attendances', App\Livewire\Attendances::class);
+                Route::get('/grades', App\Livewire\Grades::class)->name('admin.grades');
+                Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
+                Route::get('/users', App\Livewire\Users::class)->name('admin.users');
+                Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
+                Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
+                
                 Route::group(['prefix' => 'students'], function () {
                     Route::get('/', App\Livewire\Students::class)->name('admin.students');
                     Route::get('/{id}', [App\Livewire\Students::class, 'details'])->name('admin.students.show');
@@ -37,11 +45,10 @@ trait FileHandler
                     Route::get('/', App\Livewire\Teachers::class)->name('admin.teachers');
                     Route::get('/{id}', [App\Livewire\Teachers::class, 'details'])->name('admin.teachers.show');
                 });
-                Route::get('/attendances', App\Livewire\Attendances::class);
-                Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
-                Route::get('/users', App\Livewire\Users::class)->name('admin.users');
-                Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
-                Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
+                Route::group(['prefix' => 'notices'], function () {
+                    Route::get('/', App\Livewire\Boards::class)->name('admin.notices');
+                    Route::get('/{id}', [App\Livewire\Boards::class, 'details'])->name('admin.notices.show');
+                });
             });
             ROUTES;
             
