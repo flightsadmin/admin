@@ -45,7 +45,7 @@ class Students extends Component
         Student::updateOrCreate(['id' => $this->student_id], $validatedData);
 
         $this->dispatch('closeModal');
-        session()->flash('message', 'Student created successfully.');
+        session()->flash('message',  $this->student_id ? 'Student Updated Successfully.' : 'Student Created Successfully.');
         $this->reset();
     }
 

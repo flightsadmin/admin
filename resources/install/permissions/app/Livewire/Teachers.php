@@ -45,7 +45,7 @@ class Teachers extends Component
         $teacher->subjects()->sync($this->subjects);
 
         $this->dispatch('closeModal');
-        session()->flash('message', 'Teacher created successfully.');
+        session()->flash('message',  $this->teacher_id ? 'Teacher Updated Successfully.' : 'Teacher Created Successfully.');
         $this->reset();
     }
 

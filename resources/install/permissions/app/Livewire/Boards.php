@@ -35,7 +35,7 @@ class Boards extends Component
         Board::updateOrCreate(['id' => $this->board_id], $validatedData);
 
         $this->dispatch('closeModal');
-        session()->flash('message', 'Board created successfully.');
+        session()->flash('message',  $this->board_id ? 'Board Updated Successfully.' : 'Board Created Successfully.');
         $this->reset();
     }
 

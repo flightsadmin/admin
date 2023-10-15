@@ -34,7 +34,7 @@ class Grades extends Component
         Grade::updateOrCreate(['id' => $this->grade_id], $validatedData);
 
         $this->dispatch('closeModal');
-        session()->flash('message', 'Grade created successfully.');
+        session()->flash('message',  $this->grade_id ? 'Class Updated Successfully.' : 'Class Created Successfully.');
         $this->reset();
     }
 

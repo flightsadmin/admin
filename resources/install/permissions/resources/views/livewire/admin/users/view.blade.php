@@ -5,6 +5,11 @@
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-between">
                     <h5>Users</h5>
+                    @if (session()->has('message'))
+                        <div wire:poll class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;">
+                            {{ session('message') }}
+                        </div>
+                    @endif
                     @can('ManageUsers')
                         <button data-bs-toggle="modal" data-bs-target="#dataModal"
                             class="btn btn-sm btn-primary float-end align-items-center bi bi-person-add">

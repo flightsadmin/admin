@@ -30,6 +30,7 @@ class Settings extends Component
         }
 
         Cache::forget('setting');
+        session()->flash('message', 'Settings Saved successfully.');
         return redirect(route('admin.settings'));
     }
 

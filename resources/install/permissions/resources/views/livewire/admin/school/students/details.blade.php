@@ -20,7 +20,8 @@
                             <div> Address: {{ $student->address }}</div>
                             <label>Parent:</label>
                             <ol>
-                                <li>{{ $student->parent->name }}</li>
+                               <li><a wire:navigate href="{{ route('admin.parents.show', ['id' => $student->parent->id]) }}"
+                                    style="text-decoration: none;">{{  $student->parent->name }}</a></li>
                             </ol>
                         </div>
                         <div class="col-md-4 mt-2">

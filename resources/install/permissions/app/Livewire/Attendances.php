@@ -9,9 +9,7 @@ use App\Models\Attendance;
 
 class Attendances extends Component
 {
-    public $students, $attendanceDate, $date;
-
-    public $attendance = [];
+    public $students, $attendanceDate, $attendance = [];
 
     public function mount()
     {
@@ -23,8 +21,16 @@ class Attendances extends Component
 
     public function render()
     {
+        $attendance = Attendance::where('date', Carbon::now()->format('Y-m-d'))->get();
+        $students = Student::all();
         $totalAttendance = Attendance::whereDate('date', $this->attendanceDate)->where('status', true)->get();
-        return view('livewire.admin.school.attendances.view', compact('totalAttendance'))->extends('components.layouts.admin');
+        return view('livewire.admin.school.attendances.view', [
+            'attendance' => $attendance,
+            'students' => $students,
+            'totalAttendance' => $totalAttendance,
+        ])->extends('components.layouts.admin');
+
+
     }
 
     public function store()
@@ -38,5 +44,6 @@ class Attendances extends Component
             ]);
         }
         $this->dispatch('closeModal');
+        session()->flash('message',  'Attendance Updated Successfully.');
     }
 }

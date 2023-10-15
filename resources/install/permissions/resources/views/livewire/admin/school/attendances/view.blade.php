@@ -7,6 +7,11 @@
                 <div>
                     <input type="date" class="form-control form-control-sm" wire:model.live="attendanceDate">
                 </div>
+                @if (session()->has('message'))
+                    <div wire:poll class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;">
+                        {{ session('message') }}
+                    </div>
+                @endif
                 <button type="submit" class="btn btn-sm btn-primary float-end" wire:click="store">
                     <i class="bi bi-save me-2"></i> Save changes
                 </button>
@@ -36,7 +41,9 @@
                                         <td>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" wire:model="attendance.{{ $student->id }}"
-                                                    type="checkbox" role="switch">
+                                                    type="checkbox" role="switch"
+                                                    {{ in_array($student->id, array_column($attendance, 'status')) ? 'checked' : '' }}
+                                                    >
                                             </div>
                                         </td>
                                     </tr>

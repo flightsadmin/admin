@@ -36,7 +36,7 @@ class Guardians extends Component
         Guardian::updateOrCreate(['id' => $this->parent_id], $validatedData);
 
         $this->dispatch('closeModal');
-        session()->flash('message', 'Guardian created successfully.');
+        session()->flash('message',  $this->parent_id ? 'Parent Updated Successfully.' : 'Parent Created Successfully.');
         $this->reset();
     }
 

@@ -5,7 +5,7 @@
             <div class="card-header py-2">
                 <div class="d-flex align-items-center justify-content-between">
                     <h3 class="card-title">Class</h3>
-                    <div class="">
+                    <div>
                         <select class="form-select" id="keyWord" wire:model.live="keyWord">
                             <option value="">Select Class</option>
                             @foreach ($grades as $grade)
@@ -13,6 +13,11 @@
                             @endforeach
                         </select>
                     </div>
+                    @if (session()->has('message'))
+                        <div wire:poll class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;">
+                            {{ session('message') }}
+                        </div>
+                    @endif
                     <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                         Add Class
                     </div>
