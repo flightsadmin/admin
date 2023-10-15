@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="d-flex align-items-center justify-content-between">
                     <h3 class="card-title">Students</h3>
                     <div>
                         <input wire:model.live.debounce.500ms="keyWord" type="text" class="form-control form-control-sm" name="search"
@@ -20,13 +20,14 @@
                     @forelse($students as $row)
                         <div class="col-md-6 border d-flex justify-content-between">
                             <div class="col-md-8 mt-2">
-                                <b><i class="bi bi-person-circle text-info"></i> {{ $row->name }} - {{ $row->roll_number }}</b>
+                                <b><i class="bi bi-person-circle text-info"></i> {{ $row->name }}</b>
                                 <span class="badge rounded-pill text-bg-secondary float-end">{{ $row->class->name }}</span>
-                                <div> </div>
+                                <div class="bi bi-person-vcard"> Registration Number: {{ $row->roll_number }}</div>
                                 <div>Gender: {{ ucwords($row->gender) }}</div>
                                 <div>Address: {{ $row->address }}</div>
                                 <b>Parent:</b>
-                                <span>{{ $row->parent->name }}</span>
+                                <a wire:navigate href="{{ route('admin.parents.show', ['id' => $row->parent->id]) }}"
+                                    style="text-decoration: none;">{{ $row->parent->name }}</a>
                             </div>
                             <div class="col-md-4 mt-2">
                                 <div class="dropdown float-end">
@@ -62,9 +63,8 @@
         window.addEventListener('closeModal', () => {
             genModal.hide();
         });
-
         const toast = new bootstrap.Toast('#statusToast');
-        window.addEventListener('closeModal', () => {
+        document.addEventListener('closeModal', () => {
             toast.show();
         });
     </script>

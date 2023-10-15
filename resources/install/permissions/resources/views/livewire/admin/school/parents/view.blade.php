@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div class="d-flex align-items-center justify-content-between">
                     <h3 class="card-title">Parents</h3>
                     <div>
                         <input wire:model.live.debounce.500ms="keyWord" type="text" class="form-control form-control-sm" name="search"
@@ -17,6 +17,9 @@
             <div class="card-body">
                 @include('livewire.admin.school.parents.modals')
                 <div class="row">
+                    <div>
+                        <div id="toast-container" class="toast-top-right"></div>
+                    </div>
                     @forelse($parents as $row)
                         <div class="col-md-6 border d-flex justify-content-between">
                             <div class="col-md-8 mt-2">
@@ -31,7 +34,6 @@
                                         <div class="text-warning">No Students</div>
                                     @endforelse
                                 </ol>
-
                             </div>
                             <div class="col-md-4 mt-2">
                                 <div class="dropdown float-end">
@@ -63,14 +65,16 @@
 </div>
 @push('scripts')
     <script type="module">
-        const genModal = new bootstrap.Modal('#dataModal');
-        window.addEventListener('closeModal', () => {
-            genModal.hide();
-        });
-
-        const toast = new bootstrap.Toast('#statusToast');
-        window.addEventListener('closeModal', () => {
-            toast.show();
+        document.addEventListener('livewire:navigated', () => {
+            const genModal = new bootstrap.Modal('#dataModal');
+            @this.on('closeModal', (message) => {
+                genModal.hide();
+                Toastify({
+                    text: "Parent Record Updated Successfully.",
+                    duration: 3000,
+                    close: true,
+                }).showToast();
+            });
         });
     </script>
 @endpush

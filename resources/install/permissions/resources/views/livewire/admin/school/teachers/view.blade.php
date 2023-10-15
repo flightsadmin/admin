@@ -2,8 +2,8 @@
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="card-header py-2">
+                <div class="d-flex align-items-center justify-content-between">
                     <h3 class="card-title">Teachers</h3>
                     <div>
                         <input wire:model.live.debounce.500ms="keyWord" type="text" class="form-control form-control-sm" name="search"
@@ -20,7 +20,8 @@
                     @forelse($teachers as $row)
                         <div class="col-md-6 border d-flex justify-content-between">
                             <div class="col-md-8 mt-2">
-                                <b><i class="bi bi-person-circle text-info"></i> {{ $row->name }} - {{ $row->staff_number }}</b>
+                                <b><i class="bi bi-person-circle text-info"></i> {{ $row->name }}</b>
+                                <div>Staff Number: {{ $row->staff_number }}</div>
                                 <div>Gender: {{ ucwords($row->gender) }}</div>
                                 <div>Address: {{ $row->address }}</div>
                                 <b>Classes:</b>
@@ -33,7 +34,11 @@
                                     <div class="badge rounded-pill text-bg-secondary me-2">{{ $item->name }}</div>
                                 @endforeach
                             </div>
-                            <div class="col-md-4 mt-2">
+                            <div class="col-md-2 mt-2">
+                                <a wire:navigate href="{{ route('admin.teachers.show', ['id' => $row->id]) }}"
+                                    class="bi bi-eye-fill h5 text-secondary"></a>
+                            </div>
+                            <div class="col-md-2 mt-2">
                                 <div class="dropdown float-end">
                                     <a class="btn custom-btn-sm text-white btn-secondary dropdown-toggle" href="#" role="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">

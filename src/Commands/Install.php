@@ -97,7 +97,7 @@ class Install extends Command
         });
         $this->line('');
 
-        $viewsDirectory = resource_path('views'); // Adjust this path if needed
+        $viewsDirectory = resource_path('views');
         $searchExtends = "@extends('layouts.app')";
         $replaceExtends = "@extends('components.layouts.app')";
         $this->correctLayoutExtention($viewsDirectory, $searchExtends, $replaceExtends);

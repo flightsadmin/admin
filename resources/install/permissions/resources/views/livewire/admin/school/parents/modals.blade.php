@@ -13,17 +13,23 @@
                         <div class="form-group col-md-6 mb-2">
                             <label for="name">Parent Name</label>
                             <input type="text" id="name" class="form-control" wire:model.blur="name" autocomplete="off">
-                            @error('name') <span class="text-danger small">{{ $message }}</span> @enderror
+                            @error('name')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="email">Parent Email</label>
                             <input type="email" id="email" class="form-control" wire:model.blur="email" autocomplete="off">
-                            @error('email') <span class="text-danger small">{{ $message }}</span> @enderror
+                            @error('email')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="phone">Phone Number</label>
                             <input type="text" class="form-control" id="phone" wire:model.blur="phone">
-                            @error('phone') <span class="text-danger small">{{ $message }}</span> @enderror
+                            @error('phone')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </form>

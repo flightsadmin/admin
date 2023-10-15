@@ -49,6 +49,13 @@ class Guardians extends Component
         $this->phone = $parent->phone;
     }
 
+    public function details($id) {
+        $parent = Guardian::findOrFail($id);
+        return view('livewire.admin.school.parents.details', [
+            'parent' => $parent
+        ]);
+    }
+
     public function destroy($id)
     {
         Guardian::findOrFail($id)->delete();

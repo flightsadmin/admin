@@ -62,14 +62,21 @@ class Students extends Component
         $this->date_of_birth = $student->date_of_birth;
     }
 
+    public function home()
+    {
+        return view('home');
+    }
+
+    public function details($id) {
+        $student = Student::findOrFail($id);
+        return view('livewire.admin.school.students.details', [
+            'student' => $student
+        ]);
+    }
+
     public function destroy($id)
     {
         Student::findOrFail($id)->delete();
         session()->flash('message', 'Student Deleted Successfully.');
-    }
-    
-    public function home()
-    {
-        return view('home');
     }
 }

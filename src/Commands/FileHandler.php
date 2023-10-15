@@ -25,9 +25,19 @@ trait FileHandler
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                 Route::get('/', [App\Livewire\Students::class, 'home'])->name('admin');
-                Route::get('/students', App\Livewire\Students::class)->name('admin.students');
-                Route::get('/parents', App\Livewire\Guardians::class)->name('admin.parents');
-                Route::get('/teachers', App\Livewire\Teachers::class)->name('admin.teachers');
+                Route::group(['prefix' => 'students'], function () {
+                    Route::get('/', App\Livewire\Students::class)->name('admin.students');
+                    Route::get('/{id}', [App\Livewire\Students::class, 'details'])->name('admin.students.show');
+                });
+                Route::group(['prefix' => 'parents'], function () {
+                    Route::get('/', App\Livewire\Guardians::class)->name('admin.parents');
+                    Route::get('/{id}', [App\Livewire\Guardians::class, 'details'])->name('admin.parents.show');
+                });
+                Route::group(['prefix' => 'teachers'], function () {
+                    Route::get('/', App\Livewire\Teachers::class)->name('admin.teachers');
+                    Route::get('/{id}', [App\Livewire\Teachers::class, 'details'])->name('admin.teachers.show');
+                });
+                Route::get('/attendances', App\Livewire\Attendances::class);
                 Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
@@ -110,7 +120,6 @@ trait FileHandler
             $sourcePath = base_path('node_modules/admin-lte/dist/assets');
             $destinationPath = storage_path('app/public/assets');
 
-            // Copy the AdminLTE assets to the public folder
             try {
                 $this->copyAdminLTE($sourcePath, $destinationPath);
                 $this->warn("AdminLTE assets moved successfully.");
@@ -120,7 +129,6 @@ trait FileHandler
         }
     }
 
-    // Function to recursively copy directories and their contents
     public function copyAdminLTE($source, $destination)
     {
         if (is_dir($source)) {

@@ -5,17 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subject extends Model
+class Attendance extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        'name',
-        'description',
+        'student_id',
+        'date',
+        'status'
     ];
-
-    public function class()
-    {
-        return $this->belongsTo(Grade::class);
-    }
 }
