@@ -23,7 +23,6 @@ trait FileHandler
             $spatieRoutes = 
             <<<ROUTES
             // Admin Routes
-            // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                 Route::get('/', [App\Livewire\Students::class, 'home'])->name('admin');
                 Route::get('/attendances', App\Livewire\Attendances::class);
