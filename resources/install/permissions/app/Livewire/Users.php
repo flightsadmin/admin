@@ -29,10 +29,10 @@ class Users extends Component
     public function submit()
     {
         $validatedData = $this->validate([
-            'name'          => 'required|min:6',
+            'name'          => 'required|min:5',
             'email'         => 'required|email',
-            'phone'         => 'nullable|regex:/^\+?\d{9,11}$/',
-            'title'         => 'nullable|min:6',
+            'phone'         => 'nullable|regex:/^\+?\d{9,13}$/',
+            'title'         => 'nullable|min:5',
             'selectedRoles' => 'required',
             'password'      => $this->userId ? 'nullable' : 'required|confirmed',
             'photo'         => $this->userId ? 'nullable' : 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -65,8 +65,7 @@ class Users extends Component
                 ->subject('New Account for '. $emailData['name']);
             });
         }
-        $this->dispatch('closeModal');
-        session()->flash('message', $this->userId ? 'User Updated Successfully.' : 'User Created Successfully.');
+        $this->alert();
         $this->reset();
     }
 
@@ -82,13 +81,27 @@ class Users extends Component
         $this->selectedRoles = $user->roles->pluck('id')->toArray();
     }
 
-    public function destroy($userId)
+    public function alert() {
+        $this->dispatch(
+            'closeModal',
+            icon: "success",
+            message: $this->userId ? 'User Updated Successfully.' : 'User Created Successfully.',
+        );
+    }
+
+    public function destroy($id)
     {
-        $user = User::findOrFail($userId);
+        $user = User::findOrFail($id);
 
         if($user->photo != 'users/noimage.jpg') {
             Storage::disk('public')->delete($user->photo);
         }
         $user->delete();
+
+        $this->dispatch(
+            'closeModal',
+            icon: "info",
+            message: "User Deleted Successfully.",
+        );
     }
 }

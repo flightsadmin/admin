@@ -27,15 +27,14 @@ class Boards extends Component
     public function save()
     {
         $validatedData = $this->validate([
-            'title'          => 'required',
-            'body'   => 'required|min:10'
+            'title' => 'required',
+            'body'  => 'required|min:10'
         ]);
         $validatedData['user_id'] = auth()->user()->id;
 
         Board::updateOrCreate(['id' => $this->board_id], $validatedData);
 
-        $this->dispatch('closeModal');
-        session()->flash('message',  $this->board_id ? 'Board Updated Successfully.' : 'Board Created Successfully.');
+        $this->alert();
         $this->reset();
     }
 
@@ -54,9 +53,21 @@ class Boards extends Component
         ]);
     }
 
+    public function alert() {
+        $this->dispatch(
+            'closeModal',
+            icon: "success",
+            message: $this->board_id ? 'Board Updated Successfully.' : 'Board Created Successfully.',
+        );
+    }
+
     public function destroy($id)
     {
         Board::findOrFail($id)->delete();
-        session()->flash('message', 'Board Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: "success",
+            message: "Board Updated Successfully.",
+        );
     }
 }

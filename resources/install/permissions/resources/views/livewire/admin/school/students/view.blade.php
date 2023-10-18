@@ -9,11 +9,7 @@
                         <input wire:model.live.debounce.500ms="keyWord" type="text" class="form-control form-control-sm" name="search"
                             id="search" placeholder="Search Student">
                     </div>
-                    @if (session()->has('message'))
-                        <div wire:poll class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;">
-                            {{ session('message') }}
-                        </div>
-                    @endif
+
                     <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                         Add Student
                     </div>

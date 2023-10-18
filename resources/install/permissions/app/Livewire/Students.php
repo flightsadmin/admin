@@ -30,7 +30,7 @@ class Students extends Component
         ])->extends('components.layouts.admin');
     }
     
-    public function saveStudent()
+    public function save()
     {
         $validatedData = $this->validate([
             'name'      => 'required',
@@ -44,8 +44,7 @@ class Students extends Component
 
         Student::updateOrCreate(['id' => $this->student_id], $validatedData);
 
-        $this->dispatch('closeModal');
-        session()->flash('message',  $this->student_id ? 'Student Updated Successfully.' : 'Student Created Successfully.');
+        $this->alert();
         $this->reset();
     }
 
@@ -74,9 +73,21 @@ class Students extends Component
         ]);
     }
 
+    public function alert() {
+        $this->dispatch(
+            'closeModal',
+            icon: "success",
+            message: $this->student_id ? 'Student Updated Successfully.' : 'Student Created Successfully.',
+        );
+    }
+
     public function destroy($id)
     {
         Student::findOrFail($id)->delete();
-        session()->flash('message', 'Student Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: "info",
+            message: "Student deleted Successfully.",
+        );
     }
 }

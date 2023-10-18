@@ -35,8 +35,7 @@ class Guardians extends Component
 
         Guardian::updateOrCreate(['id' => $this->parent_id], $validatedData);
 
-        $this->dispatch('closeModal');
-        session()->flash('message',  $this->parent_id ? 'Parent Updated Successfully.' : 'Parent Created Successfully.');
+        $this->alert();
         $this->reset();
     }
 
@@ -56,9 +55,21 @@ class Guardians extends Component
         ]);
     }
 
+    public function alert() {
+        $this->dispatch(
+            'closeModal',
+            icon: "success",
+            message: $this->parent_id ? 'Guardian Updated Successfully.' : 'Guardian Created Successfully.',
+        );
+    }
+
     public function destroy($id)
     {
         Guardian::findOrFail($id)->delete();
-        session()->flash('message', 'Guardian Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: "info",
+            message: 'Guardian Deleted Successfully.',
+        );
     }
 }

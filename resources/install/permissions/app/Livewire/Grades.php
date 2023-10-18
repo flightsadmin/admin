@@ -33,8 +33,7 @@ class Grades extends Component
 
         Grade::updateOrCreate(['id' => $this->grade_id], $validatedData);
 
-        $this->dispatch('closeModal');
-        session()->flash('message',  $this->grade_id ? 'Class Updated Successfully.' : 'Class Created Successfully.');
+        $this->alert();
         $this->reset();
     }
 
@@ -51,6 +50,14 @@ class Grades extends Component
         return view('livewire.admin.school.grades.details', [
             'grade' => $grade
         ]);
+    }
+
+    public function alert() {
+        $this->dispatch(
+            'closeModal',
+            icon: "success",
+            message: $this->grade_id ? 'Class Updated Successfully.' : 'Class Created Successfully.',
+        );
     }
 
     public function destroy($id)

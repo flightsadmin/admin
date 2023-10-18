@@ -14,23 +14,20 @@ class Attendances extends Component
     public function mount()
     {
         $this->students = Student::all();
-
         $this->attendanceDate = Carbon::now()->format('Y-m-d');
-        $this->attendance = Attendance::whereDate('date', $this->attendanceDate)->get()->pluck('status', 'student_id')->toArray();
+        $this->attendance = Attendance::whereDate('date', $this->attendanceDate)
+            ->get()->pluck('status', 'student_id')->toArray();
     }
 
     public function render()
     {
-        $attendance = Attendance::where('date', Carbon::now()->format('Y-m-d'))->get();
-        $students = Student::all();
-        $totalAttendance = Attendance::whereDate('date', $this->attendanceDate)->where('status', true)->get();
+        $totalAttendance = Attendance::whereDate('date', $this->attendanceDate)
+            ->where('status', true)->get();
+
         return view('livewire.admin.school.attendances.view', [
-            'attendance' => $attendance,
-            'students' => $students,
+            'students' => $this->students,
             'totalAttendance' => $totalAttendance,
         ])->extends('components.layouts.admin');
-
-
     }
 
     public function store()
@@ -43,7 +40,16 @@ class Attendances extends Component
                 'status' => $status,
             ]);
         }
-        $this->dispatch('closeModal');
-        session()->flash('message',  'Attendance Updated Successfully.');
+        $this->alert();
+    }
+
+    public function alert()
+    {
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            title: 'Success',
+            message: 'Attendance Updated Successfully.',
+        );
     }
 }

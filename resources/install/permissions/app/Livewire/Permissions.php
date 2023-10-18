@@ -32,9 +32,8 @@ class Permissions extends Component
             'name' => $this->name,
             'guard_name' => config('auth.defaults.guard')
         ]);
+        $this->alert();
         $this->reset();
-        $this->dispatch('closeModal');
-        session()->flash('message', $this->permission_id ? 'Permission Updated Successfully.' : 'Permission Created Successfully.');
     }
 
     public function edit($id)
@@ -45,9 +44,21 @@ class Permissions extends Component
         $this->guard_name = $record->guard_name;
     }
 
+    public function alert() {
+        $this->dispatch(
+            'closeModal',
+            icon: "success",
+            message: $this->board_id ? 'Permission Updated Successfully.' : 'Permission Created Successfully.',
+        );
+    }
+
     public function destroy(Permission $permission)
     {
         $permission->delete();
-        session()->flash('message', 'Permission Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: "info",
+            message: 'Permission Deleted Successfully.',
+        );
     }
 }

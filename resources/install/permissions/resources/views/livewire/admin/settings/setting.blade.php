@@ -5,11 +5,7 @@
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-between">
                     <h3 class="card-title">General Setting</h3>
-                    @if (session()->has('message'))
-                        <div wire:poll class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;">
-                            {{ session('message') }}
-                        </div>
-                    @endif
+
                     <button type="submit" class="btn btn-sm btn-primary float-end" wire:click="updateSetting">
                         <i class="bi bi-save me-2"></i> Save changes
                     </button>

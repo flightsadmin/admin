@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="dataModalLabel">
-                    {{ $board_id ? ' Edit Board' : 'Create New Board'}}
+                    {{ $board_id ? ' Edit Board' : 'Create New Board' }}
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -20,7 +20,8 @@
                         <div class="form-group col-md-12 mb-2">
                             <label for="body">Board Description</label>
                             <input id="body" type="hidden" wire:model.lazy="body">
-                            <trix-editor input="body" x-data="{}" x-on:trix-change="$wire.body = $event.target.value" x-ref="trix-editor"
+                            <trix-editor input="body" x-data="{}" x-on:trix-change="$wire.body = $event.target.value"
+                                x-ref="trix-editor"
                                 x-on:trix-initialize="$wire.board_id ? $refs['trix-editor'].editor.loadHTML($wire.body) : ''">
                             </trix-editor>
                             @error('body')

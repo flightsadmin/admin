@@ -5,11 +5,7 @@
             <div class="card-header">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div class="card-title"> Permissions</div>
-                    @if (session()->has('message'))
-                        <div wire:poll class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;">
-                            {{ session('message') }}
-                        </div>
-                    @endif
+
                     <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                         Add Permission
                     </div>

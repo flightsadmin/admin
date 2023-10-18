@@ -30,8 +30,16 @@ class Settings extends Component
         }
 
         Cache::forget('setting');
-        session()->flash('message', 'Settings Saved successfully.');
+        $this->alert();
         return redirect(route('admin.settings'));
+    }
+
+    public function alert() {
+        $this->dispatch(
+            'closeModal',
+            icon: "success",
+            message: 'Setting Updated Successfully.',
+        );
     }
 
     public function render()

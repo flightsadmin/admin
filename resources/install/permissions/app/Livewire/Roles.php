@@ -38,9 +38,8 @@ class Roles extends Component
             'guard_name' => config('auth.defaults.guard')
         ]);
         $role->permissions()->sync($this->permissions_selection);
+        $this->alert();
         $this->reset();
-        $this->dispatch('closeModal');
-        session()->flash('message', $this->role_id ? 'Role Updated Successfully.' : 'Role Created Successfully.');
     }
 
     public function edit($id)
@@ -52,9 +51,21 @@ class Roles extends Component
         $this->permissions_selection = $record->permissions()->pluck('id')->toArray();
     }
 
+    public function alert() {
+        $this->dispatch(
+            'closeModal',
+            icon: "success",
+            message: $this->role_id ? 'Role Updated Successfully.' : 'Role Created Successfully.',
+        );
+    }
+
     public function destroy(Role $role)
     {
         $role->delete();
-        session()->flash('message', 'Role Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: "info",
+            message: 'Role Deleted Successfully.',
+        );
     }
 }

@@ -25,7 +25,7 @@ class Teachers extends Component
                     ->paginate();
         return view('livewire.admin.school.teachers.view', [
             'teachers'  => $teachers,
-            'classes'    => Grade::all(),
+            'classes'   => Grade::all(),
             'lessons'   => Subject::all()
         ])->extends('components.layouts.admin');
     }
@@ -33,19 +33,18 @@ class Teachers extends Component
     public function save()
     {
         $validatedData = $this->validate([
-            'name'      => 'required',
-            'staff_number' => 'required|min:2',
-            'gender'    => 'required',
-            'address'   => 'required',
-            'date_of_birth'=> 'required|date'
+            'name'          => 'required',
+            'staff_number'  => 'required|min:2',
+            'gender'        => 'required',
+            'address'       => 'required',
+            'date_of_birth' => 'required|date'
         ]);
 
         $teacher = Teacher::updateOrCreate(['id' => $this->teacher_id], $validatedData);
         $teacher->classes()->sync($this->grades);
         $teacher->subjects()->sync($this->subjects);
 
-        $this->dispatch('closeModal');
-        session()->flash('message',  $this->teacher_id ? 'Teacher Updated Successfully.' : 'Teacher Created Successfully.');
+        $this->alert();
         $this->reset();
     }
 
@@ -69,9 +68,32 @@ class Teachers extends Component
         ]);
     }
 
+    public function alert() {
+        $this->dispatch(
+            'closeModal',
+            icon: "success",
+            message: $this->teacher_id ? 'Teacher Updated Successfully.' : 'Teacher Created Successfully.',
+        );
+    }
+
+    public function saveAccount() {
+        $validatedData = $this->validate([
+            'name'          => 'required',
+            'email'         => 'required|email',
+            'phone'         => 'nullable',
+            'selectedRoles' => 'required',
+            'password'      => Hash::make('password')
+        ]);
+        Guardian::create([$validatedData]);
+    }
+
     public function destroy($id)
     {
         Teacher::findOrFail($id)->delete();
-        session()->flash('message', 'Teacher Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: "info",
+            message: "Teacher Deleted Successfully.",
+        );
     }
 }

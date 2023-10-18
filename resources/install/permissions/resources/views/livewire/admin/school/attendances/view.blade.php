@@ -7,11 +7,6 @@
                 <div>
                     <input type="date" class="form-control form-control-sm" wire:model.live="attendanceDate">
                 </div>
-                @if (session()->has('message'))
-                    <div wire:poll class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;">
-                        {{ session('message') }}
-                    </div>
-                @endif
                 <button type="submit" class="btn btn-sm btn-primary float-end" wire:click="store">
                     <i class="bi bi-save me-2"></i> Save changes
                 </button>
@@ -41,9 +36,8 @@
                                         <td>
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" wire:model="attendance.{{ $student->id }}"
-                                                    type="checkbox" role="switch"
-                                                    {{ in_array($student->id, array_column($attendance, 'status')) ? 'checked' : '' }}
-                                                    >
+                                                    type="checkbox" role="switch" value="true"
+                                                    @checked(in_array($student->id, $attendance)) >
                                             </div>
                                         </td>
                                     </tr>
@@ -56,16 +50,3 @@
         </div>
     </div>
 </div>
-@push('scripts')
-    <script type="module">
-        document.addEventListener('livewire:initialized', () => {
-            @this.on('closeModal', (event) => {
-                Toastify({
-                    text: "Attendance record saved successfully!",
-                    duration: 3000,
-                    close: true,
-                }).showToast();
-            });
-        });
-    </script>
-@endpush
