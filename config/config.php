@@ -7,20 +7,21 @@ return [
     // App Name
     "appName" => "School Admin",
 
-    // Purpose
-    "purpose" => "School Management",
+    // Description
+    "description" => "School Management",
+
+    // Footer
+    "footer_text" => "Scaling Education",
 
     // Allow Social Login
     "sociallogin" => false,
 
     // Routes
     "adminRoute" => "admin",
-    "blogRoute"  => "blog",
 
     // Modules
     "modules"   => [
         'flights'   => true,
-        'blog'      => true,
-        'shopping'  => true,
+        'school'    => true,
     ],
 ];
