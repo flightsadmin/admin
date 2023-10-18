@@ -18,9 +18,6 @@
             <div class="card-body">
                 @include('livewire.admin.school.boards.modals')
                 <div class="row">
-                    <div>
-                        <div id="toast-container" class="toast-top-right"></div>
-                    </div>
                     @forelse($boards as $row)
                         <div wire:key="$row->id" class="col-md-12 border d-flex justify-content-between">
                             <div class="col-md-10 mt-2">
