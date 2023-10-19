@@ -29,9 +29,11 @@ class ActionButton extends Component
 
         if($user->hasAdded($this->product)) {
             $user->cartItems()->detach($this->product);
+            $this->dispatch('UpdateCart');
             return;
         } 
         $user->cartItems()->attach($this->product);
+        $this->dispatch('UpdateCart');
     }
 
     public function render()

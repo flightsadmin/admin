@@ -2,8 +2,9 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use App\Models\Cart;
+use Livewire\Component;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 
 class Carts extends Component
@@ -11,6 +12,7 @@ class Carts extends Component
     public $cartItems;
     public $productCounts = [];
 
+    #[On('UpdateCart')]
     public function render()
     {
         $this->cartItems = Cart::where('user_id', Auth::id())->with('product')->get();
