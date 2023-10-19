@@ -105,19 +105,19 @@ trait FileHandler
             $userUpdate = 
             <<<NAV
                 public function likes() {
-                    return $this->belongsToMany(Product::class, 'product_like')->withTimestamps();
+                    return \$this->belongsToMany(Product::class, 'product_like')->withTimestamps();
                 }
                 
                 public function hasLiked(Product $product) {
-                    return $this->likes()->where('product_id', $product->id)->exists();
+                    return \$this->likes()->where('product_id', \$product->id)->exists();
                 }
                 
                 public function cartItems() {
-                    return $this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')->withTimestamps();
+                    return \$this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')->withTimestamps();
                 }
                 
                 public function hasAdded(Product $product) {
-                    return $this->cartItems()->where('product_id', $product->id)->exists();
+                    return \$this->cartItems()->where('product_id', \$product->id)->exists();
                 }
             
             NAV; 
