@@ -18,8 +18,8 @@ class Install extends Command
     protected $argument;
     private $replaces = [];
 	
-    protected $signature = 'school';
-    protected $description = 'Install Livewire School Manager, compile and publish it\'s assets';
+    protected $signature = 'admin:install';
+    protected $description = 'Install Livewire Shop Manager, compile and publish it\'s assets';
 
     public function handle()
     {
