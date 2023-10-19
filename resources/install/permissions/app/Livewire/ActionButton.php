@@ -25,6 +25,9 @@ class ActionButton extends Component
     }
 
     public function toggleCart() {
+        if(auth()->guest()) {
+            return $this->redirect(route('login'), true);
+        }
         $user = auth()->user();
 
         if($user->hasAdded($this->product)) {
