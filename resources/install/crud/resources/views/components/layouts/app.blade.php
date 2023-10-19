@@ -36,11 +36,7 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!--Nav Bar Hooks - Do not delete!!-->
-                        @role('super-admin|admin')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
-                        </li>
-                        @endrole
+                        
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
