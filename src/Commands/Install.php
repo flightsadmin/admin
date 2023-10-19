@@ -18,7 +18,7 @@ class Install extends Command
     protected $argument;
     private $replaces = [];
 	
-    protected $signature = 'school';
+    protected $signature = 'admin:install';
     protected $description = 'Install Livewire School Manager, compile and publish it\'s assets';
 
     public function handle()
