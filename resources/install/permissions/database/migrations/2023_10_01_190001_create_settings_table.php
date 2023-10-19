@@ -19,36 +19,61 @@ return new class extends Migration
             $table->string('footer_text')->nullable()->default(null);
             $table->timestamps();
         });
-        
-        Schema::create('guardians', function (Blueprint $table) {
+
+        Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
-            $table->string('phone');
+            $table->string('price');
+            $table->text('description');
+            $table->string('image')->nullable();
+            $table->timestamp('published_at')->nullable();
+            $table->boolean('featured')->default(false);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
 
-        Schema::create('grades', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
+            $table->string('title');
+            $table->string('slug');
             $table->timestamps();
         });
 
-        Schema::create('students', function (Blueprint $table) {
+        Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->foreignId('guardian_id')->constrained('guardians')->onDelete('cascade');
-            $table->foreignId('class_id')->constrained('grades')->onDelete('cascade');
-            $table->string('roll_number');
-            $table->enum('gender', ['male', 'female', 'other']);
-            $table->date('date_of_birth');
-            $table->string('address');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->string('product_count')->default('1');
             $table->timestamps();
         });
 
-        Schema::create('teachers', function (Blueprint $table) {
+        Schema::create('category_product', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->timestamps();
+        });
+
+        Schema::create('comments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->text('content');
+            $table->timestamps();
+        });
+
+        Schema::create('replies', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('comment_id')->constrained('comments')->onDelete('cascade');
+            $table->text('content');
+            $table->timestamps();
+        });
+
+        Schema::create('product_like', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -56,8 +81,12 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('settings');
-        Schema::dropIfExists('guardians');
-        Schema::dropIfExists('grades');
-        Schema::dropIfExists('students');
+        Schema::dropIfExists('products');
+        Schema::dropIfExists('categories');
+        Schema::dropIfExists('carts');
+        Schema::dropIfExists('category_product');
+        Schema::dropIfExists('comments');
+        Schema::dropIfExists('replies');
+        Schema::dropIfExists('product_like');
     }
 };

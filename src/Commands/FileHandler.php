@@ -24,15 +24,20 @@ trait FileHandler
             <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/', App\Livewire\Students::class)->name('admin.students');
-                Route::get('/parents', App\Livewire\Guardians::class)->name('admin.parents');
-                Route::get('/teachers', App\Livewire\Teachers::class)->name('admin.teachers');
-                Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
+                Route::get('/', App\Livewire\Products::class)->name(config("admin.adminRoute", "admin"));
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
+                Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
             });
-
+            
+            // Shop Routes
+            Route::middleware(['web'])->prefix(config("admin.shopRoute", "shop"))->group(function () {    
+                Route::get('/', [App\Livewire\Products::class, 'renderUser'])->name(config("admin.shopRoute", "shop"));
+                Route::get('/{product:id}', [App\Livewire\Products::class, 'show'])->name('shop.show');
+                Route::get('/category/{slug}', [App\Livewire\Products::class, 'category'])->name('shop.category');
+            });
+            
             // Social Login Routes
             Route::get('/auth/{provider}/redirect', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirect']);
             Route::get('/auth/{provider}/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'callback']);
@@ -96,13 +101,21 @@ trait FileHandler
             // Update Relationship
             $userUpdate = 
             <<<NAV
-                // public function likes() {
-                //     return \$this->belongsToMany(Post::class, 'post_like')->withTimestamps();
-                // }
+                public function likes() {
+                    return $this->belongsToMany(Product::class, 'product_like')->withTimestamps();
+                }
                 
-                // public function hasLiked(Post \$post) {
-                //     return \$this->likes()->where('post_id', \$post->id)->exists();
-                // }
+                public function hasLiked(Product $product) {
+                    return $this->likes()->where('product_id', $product->id)->exists();
+                }
+                
+                public function cartItems() {
+                    return $this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')->withTimestamps();
+                }
+                
+                public function hasAdded(Product $product) {
+                    return $this->cartItems()->where('product_id', $product->id)->exists();
+                }
             
             NAV; 
             

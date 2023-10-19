@@ -18,7 +18,7 @@ class AdminSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         $permissions = [
-            'ManageStudents', 'ManageTeachers', 'ManageParents', 'ManageSchool',
+            'ManageStores', 'ManageUsers'
          ];
          foreach ($permissions as $permission) {
               Permission::create(['name' => $permission]);
@@ -27,16 +27,12 @@ class AdminSeeder extends Seeder
          // create roles and assign created permissions
          $roles = [
             [
-                'name' => 'guest',
-                'permissions' => [],
-            ],
-            [
                 'name' => 'user',
                 'permissions' => [],
             ],
             [
                 'name' => 'admin',
-                'permissions' => ['ManageStudents'],
+                'permissions' => ['ManageStores'],
             ],
             [
                 'name' => 'super-admin',

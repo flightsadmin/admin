@@ -5,22 +5,25 @@
  */
 return [
     // App Name
-    "appName" => "School Admin",
+    "appName" => "Shop Admin",
 
-    // Purpose
-    "purpose" => "School Management",
+    // Description
+    "description" => "Shop Management",
+
+    // Footer
+    "footer_text" => "Scaling Shopping Experience",
 
     // Allow Social Login
-    "sociallogin" => true,
+    "sociallogin" => false,
 
     // Routes
     "adminRoute" => "admin",
-    "blogRoute"  => "blog",
+    "shopRoute"  => "shop",
 
     // Modules
     "modules"   => [
         'flights'   => true,
-        'blog'      => true,
-        'shopping'  => true,
+        'shop'      => true,
+        'school'    => true,
     ],
 ];
