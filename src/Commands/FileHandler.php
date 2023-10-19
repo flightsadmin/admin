@@ -61,6 +61,9 @@ trait FileHandler
                                         <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
                                     </li>
                                     @endrole
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route(config('admin.shopRoute')) }}">{{ ucwords(config('admin.shopRoute'))}}</a>
+                                    </li>
             NAV;
             $spatieFileHook = "<!--Nav Bar Hooks - Do not delete!!-->";
 
