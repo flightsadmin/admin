@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\Cache;
 function setting($key)
 {
     $defaultSettings = [
-        'site_title'        => 'Default Title',
-        'site_name'         => 'Default Name',
-        'site_email'        => 'default@gmail.com',
+        'site_title'        => config('admin.appName', config('app.name')),
+        'site_name'         => config('admin.appName', config('app.name')),
+        'site_email'        => config('mail.from.address'),
         'site_short_code'   => 'DT',
         'site_theme'        => 'light',
-        'site_description'  => 'Default Site Description',
-        'footer_text'       => 'default footer text',
+        'site_description'  => config('admin.description', config('app.name')),
+        'footer_text'       => config('admin.footer_text', 'Made with 💖'),
     ];
 
     $setting = Cache::rememberForever('setting', function () use ($defaultSettings) {
