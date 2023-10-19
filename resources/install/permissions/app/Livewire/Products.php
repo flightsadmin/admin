@@ -40,7 +40,7 @@ class Products extends Component
         $keyWord = '%'. $this->keyWord .'%';
         $category = Category::all();
         $products = Product::where('name', 'LIKE', $keyWord)->orWhere('price', 'LIKE', $keyWord)->paginate();
-        return view('livewire.shop.products.view', compact('products', 'category'))->extends('components.layouts.admin');
+        return view('livewire.shop.products.index', compact('products', 'category'))->extends('components.layouts.admin');
     }
     
     public function store()
@@ -86,7 +86,7 @@ class Products extends Component
     {    
         $products = Product::where('published_at', '<=', Carbon::now())->with('cartItems')->latest()->paginate();
         $featuredProducts = Product::where('featured', true)->latest()->paginate(5);
-        return view('livewire.shop.products.products', compact('products', 'featuredProducts'))->extends('components.layouts.app');
+        return view('livewire.shop.products.view', compact('products', 'featuredProducts'))->extends('components.layouts.app');
     }
 
     public function category($slug)
