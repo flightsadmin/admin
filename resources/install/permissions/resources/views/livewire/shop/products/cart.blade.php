@@ -20,17 +20,20 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->product->name }}</td>
                                 <td>${{ $item->product->price }}</td>
-                                <td  style="max-width: 6rem" >
+                                <td style="max-width: 6rem">
                                     <div class="input-group input-group-sm align-items-center gap-2">
                                         <span class="input-group-btn">
-                                            <a href="" wire:click.prevent="decrement({{ $item->product->id }})"><i class="bi-dash-circle text-info"></i></a>
+                                            <a href="" wire:click.prevent="decrement({{ $item->product->id }})"><i
+                                                    class="bi-dash-circle text-info"></i></a>
                                         </span>
-                                        <input disabled type="text" name="quantity" class="form-control form-control-sm text-center" value="{{ $item->quantity }}">
+                                        <input disabled type="text" name="quantity" class="form-control form-control-sm text-center"
+                                            value="{{ $item->quantity }}">
                                         <span class="input-group-btn">
-                                            <a href="" wire:click.prevent="increment({{ $item->product->id }})"><i class="bi-plus-circle text-success"></i></a>
+                                            <a href="" wire:click.prevent="increment({{ $item->product->id }})"><i
+                                                    class="bi-plus-circle text-success"></i></a>
                                         </span>
                                     </div>
-                                    
+
                                 </td>
                                 <td>${{ $item->product->price * $item->quantity }}</td>
                                 <td>
@@ -67,7 +70,7 @@
                     </div>
                     <div class="text-end">
                         <div><strong>Subtotal:</strong> ${{ number_format($subtotals, 2) }}</div>
-                        <div><strong>Taxes ({{ $taxRate * 100}}%):</strong> ${{ number_format($taxes, 2) }}</div>
+                        <div><strong>Taxes ({{ $taxRate * 100 }}%):</strong> ${{ number_format($taxes, 2) }}</div>
                         <div><strong>Total:</strong> ${{ number_format($total, 2) }}</div>
                     </div>
                 </div>
