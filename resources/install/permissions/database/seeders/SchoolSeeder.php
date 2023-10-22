@@ -39,7 +39,7 @@ class SchoolSeeder extends Seeder
                 'price' => random_int(40, 100),
                 'image' => 'products/default.png',
                 'description' => $faker->realTextBetween(100, 200, 2),
-                'published_at' => $faker->dateTimeBetween('-1 Week', '+1 Week'),
+                'published_at' => $faker->dateTimeBetween('-1 Month', '+1 Day'),
                 'featured' => $faker->boolean(10)
             ]);
             $product->categories()->attach(Category::inRandomOrder()->first()->id,);
