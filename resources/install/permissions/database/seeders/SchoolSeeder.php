@@ -31,7 +31,7 @@ class SchoolSeeder extends Seeder
             ]);
         }
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
             $name = $faker->realText(20);
             $product = Product::create([
                 'user_id' => User::inRandomOrder()->first()->id,
