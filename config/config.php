@@ -14,7 +14,7 @@ return [
     "footer_text" => "Scaling Shopping Experience",
 
     // Allow Social Login
-    "sociallogin" => false,
+    "sociallogin" => true,
 
     // Routes
     "adminRoute" => "admin",
