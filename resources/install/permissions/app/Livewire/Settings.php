@@ -5,9 +5,11 @@ namespace App\Livewire;
 use App\Models\Setting;
 use Livewire\Component;
 use Illuminate\Support\Facades\Cache;
+use Livewire\WithFileUploads;
 
 class Settings extends Component
 {
+    use WithFileUploads;
     public $state = [];
 
     public function mount()
@@ -21,17 +23,28 @@ class Settings extends Component
 
     public function updateSetting()
     {
-        $setting = Setting::first();
+        try {
+            $setting = Setting::first();
 
-        if ($setting) {
-            $setting->update($this->state);
-        } else {
-            Setting::create($this->state);
+            if (array_key_exists('site_logo', $this->state)) {
+                if (!is_string($this->state['site_logo'])) {
+                    $this->state['site_logo'] = $this->state['site_logo']->storeAs('sites', 'default.png', 'public');
+                }
+            }
+
+            if ($setting) {
+                $setting->update($this->state);
+            } else {
+                Setting::create($this->state);
+            }
+
+            Cache::forget('setting');
+        } catch (\Throwable $th) {
+            throw $th;
         }
-
-        Cache::forget('setting');
         return redirect(route('admin.settings'));
     }
+
 
     public function render()
     {

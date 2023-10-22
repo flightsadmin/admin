@@ -17,5 +17,6 @@ class Setting extends Model
         'site_description',
         'site_theme',
         'footer_text',
+        'site_logo',
     ];
 }

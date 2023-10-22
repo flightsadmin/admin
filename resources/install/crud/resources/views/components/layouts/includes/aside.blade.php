@@ -1,8 +1,7 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a href="{{ route('home') }}" wire:navigate class="brand-link">
-            <img src="{{ asset('storage/assets/img/AdminLTELogo.png') }}"
-                alt="{{ config('admin.appName', 'app.name') }}" class="brand-image opacity-75 shadow">
+            <img src="{{ asset('storage/' . setting('site_logo')) }}"  alt="{{ config('admin.appName', 'app.name') }}" class="brand-image opacity-75 shadow">
             <span class="brand-text fw-light">{{ config('admin.appName', 'app.name') }}</span>
         </a>
     </div>
@@ -11,8 +10,7 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="true">
                 <li class="nav-header"> DASHBOARD</li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.settings') }}" wire:navigate
-                        class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
+                    <a href="{{ route('admin.settings') }}" wire:navigate class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-gear"></i>
                         <p>Settings</p>
                     </a>
@@ -47,21 +45,21 @@
                     </ul>
                 </li>
                 @if (config('admin.modules.shop'))
-                    <li class="nav-header"> Shop</li>
-                    @role('super-admin|admin')
-                        <li class="nav-item">
-                            <a href="{{ route('admin') }}" wire:navigate class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
-                                <i class="nav-icon bi bi-file-spreadsheet-fill"></i>
-                                <p>{{ ucwords(config('admin.shopRoute')) }} Admin</p>
-                            </a>
-                        </li>
-                    @endrole
-                    <li class="nav-item">
-                        <a href="{{ route('shop') }}" wire:navigate class="nav-link">
-                            <i class="nav-icon bi bi-newspaper"></i>
-                            <p>{{ ucwords(config('admin.shopRoute')) }} Page</p>
-                        </a>
-                    </li>
+                <li class="nav-header"> Shop</li>
+                @role('super-admin|admin')
+                <li class="nav-item">
+                    <a href="{{ route('admin') }}" wire:navigate class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+                        <i class="nav-icon bi bi-file-spreadsheet-fill"></i>
+                        <p>{{ ucwords(config('admin.shopRoute'))}} Admin</p>
+                    </a>
+                </li>
+                @endrole
+                <li class="nav-item">
+                    <a href="{{ route('shop') }}" wire:navigate class="nav-link">
+                        <i class="nav-icon bi bi-newspaper"></i>
+                        <p>{{ ucwords(config('admin.shopRoute'))}} Page</p>
+                    </a>
+                </li>
                 @endif
             </ul>
         </nav>

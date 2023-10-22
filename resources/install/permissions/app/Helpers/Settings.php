@@ -11,6 +11,7 @@ function setting($key)
         'site_email'        => config('mail.from.address'),
         'site_short_code'   => 'DT',
         'site_theme'        => 'light',
+        'site_logo'         => 'sites/default.png',
         'site_description'  => config('admin.description', config('app.name')),
         'footer_text'       => config('admin.footer_text', 'Made with 💖'),
     ];
