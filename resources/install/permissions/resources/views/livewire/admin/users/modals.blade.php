@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 @if ($userId)
-                <div class="col-12 bg-white px-3 mb-3 pb-3">
+                <div class="col-12 px-3 mb-3 pb-3">
                     <div class="d-flex flex-column align-items-center border-bottom">
                         <img class="profile-img mb-2" src="{{ asset('storage/' . $photo) }}"  style="height:100px; width:100px;"  alt="{{ $title }}">
                     </div>
@@ -111,7 +111,7 @@
                                         <tr>
                                             <td class="text-center" width="40">
                                                 <input type="checkbox" id="selectedRoles.{{ $role->id }}" wire:model.blur="selectedRoles" value="{{ $role->id }}" class="form-check-input"
-                                                @checked(in_array($role->id, $selectedRoles))
+                                                @checked(in_array($role->id, $selectedRoles))>
                                             </td>
                                             <td>
                                                 <label class="form-check-label">{{ $role->name }}</label>
