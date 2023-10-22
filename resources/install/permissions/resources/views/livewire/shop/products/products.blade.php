@@ -6,7 +6,7 @@
         <header class="py-2 border-bottom mb-4">
             <div class="container-fluid">
                 <div class="text-center my-3">
-                    <h1 class="fw-bolder">Welcome to {{ config('admin.appName', 'app.name') }}</h1>
+                    <h1 class="fw-bolder">Welcome to {{ config('admin.appName', 'app.name') }} Blog</h1>
                     <p class="lead mb-0">Refreshing, Every Product counts. Leave your comments</p>
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 <div class="col-md-4">
                     <div class="position-sticky" style="top: 2rem;">
                         <div class="card-body">
-                            <div class="mb-3 bg-body-tertiary rounded">
+                            <div class="p-4 mb-3 bg-body-tertiary rounded">
                                 @livewire('carts')
                             </div>
                             <div>

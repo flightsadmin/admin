@@ -19,9 +19,11 @@ class ActionButton extends Component
 
         if($user->hasliked($this->product)) {
             $user->likes()->detach($this->product);
+            $this->dispatch('UpdateCart');
             return;
         } 
-        $user->likes()->attach($this->product);        
+        $user->likes()->attach($this->product);
+        $this->dispatch('UpdateCart');
     }
 
     public function toggleCart() {

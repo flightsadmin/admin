@@ -31,7 +31,7 @@
                                     style="height: 200px; width: 100%; position: relative;"
                                     class="btn text-decoration-none"
                                     wire:click="edit({{ $product->id }})">
-                                    <img class="rounded mb-2" src="{{ asset('storage/' . $product->image) }}"
+                                    <img class="card-img-top rounded mb-2" src="{{ asset('storage/' . $product->image) }}"
                                         style="height: 200px; width: 100%;" alt="{{ $product->id }}">
                                     <span
                                         class="text-danger h3 position-absolute top-0 end-0 p-3 {{ $product->featured ? 'bi bi-heart-fill' : '' }}">

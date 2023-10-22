@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-	use HasRoles, SoftDeletes;
+    use HasRoles, SoftDeletes;
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -21,9 +21,9 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-		'phone',
-		'photo',
-		'title',
+        'phone',
+        'photo',
+        'title',
         'name',
         'email',
         'password',
@@ -49,19 +49,28 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function likes() {
+    public function likes()
+    {
         return $this->belongsToMany(Product::class, 'product_like')->withTimestamps();
     }
-    
-    public function hasLiked(Product $product) {
+
+    public function hasLiked(Product $product)
+    {
         return $this->likes()->where('product_id', $product->id)->exists();
     }
-    
-    public function cartItems() {
+
+    public function cartItems()
+    {
         return $this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')->withTimestamps();
     }
-    
-    public function hasAdded(Product $product) {
+
+    public function hasAdded(Product $product)
+    {
         return $this->cartItems()->where('product_id', $product->id)->exists();
+    }
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'coupon_user')->withPivot('used_at')->withTimestamps();
     }
 }

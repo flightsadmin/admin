@@ -23,11 +23,12 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('price');
             $table->text('description');
+            $table->decimal('price', 10, 2);
+            $table->integer('quantity')->default(0);
             $table->string('image')->nullable();
-            $table->timestamp('published_at')->nullable();
             $table->boolean('featured')->default(false);
+            $table->timestamp('published_at')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -51,6 +52,22 @@ return new class extends Migration
             $table->id();
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->timestamps();
+        });
+
+        Schema::create('coupons', function (Blueprint $table) {
+            $table->id();
+            $table->string('code')->unique();
+            $table->decimal('discount', 10, 2);
+            $table->date('expiration_date');
+            $table->timestamps();
+        });
+
+        Schema::create('coupon_user', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('coupon_id')->constrained('coupons')->onDelete('cascade');
+            $table->timestamp('used_at')->nullable();
             $table->timestamps();
         });
 
@@ -85,6 +102,8 @@ return new class extends Migration
         Schema::dropIfExists('categories');
         Schema::dropIfExists('carts');
         Schema::dropIfExists('category_product');
+        Schema::dropIfExists('coupons');
+        Schema::dropIfExists('coupon_user');
         Schema::dropIfExists('comments');
         Schema::dropIfExists('replies');
         Schema::dropIfExists('product_like');

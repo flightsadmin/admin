@@ -1,6 +1,6 @@
 <div class="mb-3">
     @if ($cartItems->count() > 0)
-        <div class="card m-0">
+        <div class="card">
             <div class="card-body">
                 <h4>Your Cart</h4>
                 <table class="table table-sm">
@@ -49,9 +49,21 @@
                 <div class="d-flex justify-content-between">
                     <div>
                         <div class="mb-3">
-                            <form action="#" target="_blank" class="d-flex gap-2">
-                                <input name="Coupon" class="form-control form-control-sm" placeholder="Enter Your Coupon">
-                                <button class="btn btn-sm btn-secondary">Apply</button>
+                            @if ($appliedCoupon === 1)
+                                <div class="text-success">
+                                    {{ 'Coupon: ' . $couponCode . ' Applied' }}
+                                </div>
+                            @elseif ($appliedCoupon === 2)
+                                <div class="text-danger">
+                                    Invalid Coupon Code
+                                </div>
+                            @else
+                                
+                            @endif
+                            <form wire:submit.prevent="applyCoupon" class="d-flex gap-2">
+                                <input wire:model="couponCode" name="couponCode" class="form-control form-control-sm"
+                                    placeholder="Enter Your Coupon">
+                                <button type="submit" class="btn btn-sm btn-secondary">Apply</button>
                             </form>
                         </div>
                         <div class="input-group input-group-sm mb-3">
@@ -63,18 +75,18 @@
                                 <option value="0.3"> 30% Tax</option>
                             </select>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label" for="flexCheckChecked"> Shipping (+10$) </label>
-                        </div>
                     </div>
                     <div class="text-end">
                         <div><strong>Subtotal:</strong> ${{ number_format($subtotals, 2) }}</div>
                         <div><strong>Taxes ({{ $taxRate * 100 }}%):</strong> ${{ number_format($taxes, 2) }}</div>
-                        <div><strong>Total:</strong> ${{ number_format($total, 2) }}</div>
+                        <div><strong>Discount:</strong> ${{ number_format($discount, 2) }}</div>
+                        <div><strong>Total:</strong> ${{ number_format($discounted, 2) }}</div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-sm btn-primary float-end mt-3" wire:click="checkout">Checkout</button>
+                <a wire:navigate href="{{ route('shop.checkout') }}">
+                    <button type="button" class="btn btn-sm btn-primary float-end mt-3">Checkout</button>
+                </a>
+
             </div>
         </div>
     @else

@@ -14,6 +14,15 @@
         <ul class="navbar-nav ms-auto">
             @include('components.layouts.includes.messages')
             @include('components.layouts.includes.notifications')
+            <!--Nav Bar Hooks - Do not delete!!-->
+            @role('super-admin|admin')
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
+            </li>
+            @endrole
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route(config('admin.shopRoute')) }}">{{ ucwords(config('admin.shopRoute'))}}</a>
+            </li>
             @guest
                 @if (Route::has('login'))
                     <li class="nav-item">

@@ -3,18 +3,15 @@
 namespace App\Livewire;
 
 use App\Models\Cart;
+use App\Models\Coupon;
 use Livewire\Component;
 use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 
 class Carts extends Component
 {
-    public $cartItems = [];
+    public $cartItems = [], $appliedCoupon = 3, $cartTotal = 0, $couponCode, $discount = 0, $taxRate = 0.1;
 
-    public $cart;
-
-    public $taxRate = 0.1;
-    
     #[On('UpdateCart')]
     public function render()
     {
@@ -26,10 +23,13 @@ class Carts extends Component
 
         $total = $subtotals + $taxes;
 
+        $totalAfterDiscount = $total - $this->discount;
+
         return view('livewire.shop.products.cart', [
             'subtotals' => $subtotals,
             'taxes' => $taxes,
             'total' => $total,
+            'discounted' => $totalAfterDiscount,
         ]);
     }
 
@@ -47,7 +47,7 @@ class Carts extends Component
         }
         return $subtotals;
     }
-    
+
     public function removeFromCart($itemId)
     {
         $item = Cart::find($itemId);
@@ -59,10 +59,11 @@ class Carts extends Component
         $this->loadCartItems();
     }
 
-    public function decrement($id) {
-       $cartData = Cart::where('product_id', $id)->where('user_id', Auth::id())->first();
+    public function decrement($id)
+    {
+        $cartData = Cart::where('product_id', $id)->where('user_id', Auth::id())->first();
 
-       if ($cartData && $cartData->quantity > 1) {
+        if ($cartData && $cartData->quantity > 1) {
             $cartData->decrement('quantity', 1);
             $this->dispatch(
                 'closeModal',
@@ -77,17 +78,43 @@ class Carts extends Component
             );
         }
     }
-    
-    public function increment($id) {
+
+    public function increment($id)
+    {
         $cartData = Cart::where('product_id', $id)->where('user_id', Auth::id())->first();
- 
+
         if ($cartData) {
-             $cartData->increment('quantity', 1);
-             $this->dispatch(
-                 'closeModal',
-                 icon: 'success',
-                 message: 'Quantity Updated.',
-             );
-         }
-     }
+            $cartData->increment('quantity', 1);
+            $this->dispatch(
+                'closeModal',
+                icon: 'success',
+                message: 'Quantity Updated.',
+            );
+        }
+    }
+
+    public function applyCoupon()
+    {
+        $coupon = Coupon::where('code', $this->couponCode)->first();
+        $user = Auth::user();
+        if ($coupon) {
+            $usedCoupon = $user->coupons->where('id', $coupon->id)->first();
+            if (!$usedCoupon) {
+                $this->discount = $coupon->discount;
+                $user->coupons()->attach($coupon->id, ['used_at' => now()]);
+                $this->appliedCoupon = 1;
+                $this->dispatch('UpdateCart');
+            } else {
+                $this->dispatch(
+                    'closeModal',
+                    icon: 'info',
+                    message: 'Coupon Already Used.',
+                );
+            }
+        } else {
+            $this->discount = 0;
+            $this->appliedCoupon = 2;
+            $this->dispatch('UpdateCart');
+        }
+    }
 }

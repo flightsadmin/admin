@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="{{ setting('site_theme')}}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="{{ setting('site_theme') }}">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -20,7 +20,9 @@
 <body class="layout-fixed-complete sidebar-expand-lg bg-body-tertiary">
     <div class="app-wrapper">
         @include('components.layouts.includes.header')
-        @include('components.layouts.includes.aside')
+        @if (request()->is('admin*'))
+            @include('components.layouts.includes.aside')
+        @endif
         <main class="app-main py-2">
             <div class="app-content">
                 <div class="container-fluid">
@@ -59,5 +61,6 @@
             }
         });
     </script>
-    </body>
+</body>
+
 </html>

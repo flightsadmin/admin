@@ -32,9 +32,10 @@ trait FileHandler
             });
             
             // Shop Routes
-            Route::middleware(['web'])->prefix(config("admin.shopRoute", "shop"))->group(function () {    
+            Route::middleware(['web'])->prefix(config("admin.shopRoute", "shop"))->group(function () {
                 Route::get('/', [App\Livewire\Products::class, 'renderUser'])->name(config("admin.shopRoute", "shop"));
-                Route::get('/{product:id}', [App\Livewire\Products::class, 'show'])->name('shop.show');
+                Route::get('/checkout', [App\Livewire\Products::class, 'checkout'])->name("shop.checkout");
+                Route::get('/product/{product:id}', [App\Livewire\Products::class, 'show'])->name('shop.show');
                 Route::get('/category/{slug}', [App\Livewire\Products::class, 'category'])->name('shop.category');
             });
             
@@ -52,7 +53,7 @@ trait FileHandler
             }
 
             //Updating NavBar
-            $layoutsFile = base_path('resources/views/components/layouts/app.blade.php');
+            $layoutsFile = base_path('resources/views/components/layouts/includes/header.blade.php');
             $layoutsData = $this->filesystem->get($layoutsFile);
             $spatieNavs  =
             <<<NAV
@@ -118,6 +119,11 @@ trait FileHandler
                 
                 public function hasAdded(Product \$product) {
                     return \$this->cartItems()->where('product_id', \$product->id)->exists();
+                }
+                
+                public function coupons()
+                {
+                    return \$this->belongsToMany(Coupon::class, 'coupon_user')->withPivot('used_at')->withTimestamps();
                 }
             
             NAV; 

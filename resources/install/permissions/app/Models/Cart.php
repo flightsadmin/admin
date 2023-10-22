@@ -20,4 +20,14 @@ class Cart extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
+    }
+
+    public function coupons()
+    {
+        return $this->belongsToMany(Coupon::class, 'cart_coupon')->withTimestamps();
+    }
 }

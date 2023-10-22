@@ -11,7 +11,8 @@
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="true">
                 <li class="nav-header"> DASHBOARD</li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.settings') }}" wire:navigate class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
+                    <a href="{{ route('admin.settings') }}" wire:navigate
+                        class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-gear"></i>
                         <p>Settings</p>
                     </a>
@@ -46,21 +47,21 @@
                     </ul>
                 </li>
                 @if (config('admin.modules.shop'))
-                <li class="nav-header"> Shop</li>
-                @role('super-admin|admin')
-                <li class="nav-item">
-                    <a href="{{ route('admin') }}" wire:navigate class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-file-spreadsheet-fill"></i>
-                        <p>{{ ucwords(config('admin.shopRoute'))}} Admin</p>
-                    </a>
-                </li>
-                @endrole
-                <li class="nav-item">
-                    <a href="{{ route('shop') }}" wire:navigate class="nav-link">
-                        <i class="nav-icon bi bi-newspaper"></i>
-                        <p>{{ ucwords(config('admin.shopRoute'))}} Page</p>
-                    </a>
-                </li>
+                    <li class="nav-header"> Shop</li>
+                    @role('super-admin|admin')
+                        <li class="nav-item">
+                            <a href="{{ route('admin') }}" wire:navigate class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+                                <i class="nav-icon bi bi-file-spreadsheet-fill"></i>
+                                <p>{{ ucwords(config('admin.shopRoute')) }} Admin</p>
+                            </a>
+                        </li>
+                    @endrole
+                    <li class="nav-item">
+                        <a href="{{ route('shop') }}" wire:navigate class="nav-link">
+                            <i class="nav-icon bi bi-newspaper"></i>
+                            <p>{{ ucwords(config('admin.shopRoute')) }} Page</p>
+                        </a>
+                    </li>
                 @endif
             </ul>
         </nav>

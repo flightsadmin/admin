@@ -59,6 +59,13 @@
                                 <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input wire:model="quantity" type="number" id="quantity" name="quantity" class="form-control">
+                            @error('quantity')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="col-md-12 mb-3">
                             <label for="description" class="form-label">Description</label>
                             <textarea wire:model="description" id="description" name="description" class="form-control">

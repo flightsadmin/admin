@@ -1,4 +1,4 @@
-@extends('components.layouts.app')
+@extends('components.layouts.admin')
 @section('title', __('Product'))
 @section('content')
     <div class="container-fluid">
@@ -10,7 +10,11 @@
                             alt="{{ $product->id }}" />
                     </div>
                     <div class="col-md-6">
-                        <div class="small mb-1">SKU: {{ $product->id }}</div>
+                        <div class="mb-1">SKU: {{ $product->id }}
+                            @foreach ($product->categories as $item)
+                                <span class="ms-4 text-info">{{ $item->title }}</span>
+                            @endforeach
+                        </div>
                         <h1 class="display-5 fw-bolder">{{ $product->name }}</h1>
                         <div class="fs-5 mb-5">
                             <span class="text-decoration-line-through">{{ $product->price }}</span>
@@ -18,11 +22,7 @@
                         </div>
                         <p class="lead">{{ $product->description }}</p>
                         <div class="d-flex gap-3">
-                            <input class="form-control text-center me-3" id="inputQuantity" type="text" value="1" style="max-width: 3rem" />
-                            <button class="btn btn-outline-dark flex-shrink-0" type="button" wire:click="addToCart({{ $product->id }})">
-                                <i class="bi bi-cart-fill me-1"></i>
-                                Add to cart
-                            </button>
+                            @livewire('action-button', ['product' => $product], key($product->id))
                         </div>
                     </div>
                 </div>
@@ -58,8 +58,8 @@
                                             @endfor
                                         </div>
                                         <!-- item price-->
-                                        <span class="text-muted text-decoration-line-through">$20.00</span>
-                                        {{ $item->price }}
+                                        <span class="text-muted text-decoration-line-through">${{ $item->price }}</span>
+                                        ${{ $item->price }}
                                     </div>
                                 </div>
                             </div>
