@@ -88,10 +88,8 @@
 @push('scripts')
     <script type="module">
         const genModal = new bootstrap.Modal('#dataModal');
-        const viewModal = new bootstrap.Modal('#viewModal');
         window.addEventListener('closeModal', () => {
             genModal.hide();
-            viewModal.hide();
         });
     </script>
 @endpush

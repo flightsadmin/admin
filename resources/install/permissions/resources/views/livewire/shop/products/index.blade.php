@@ -27,16 +27,12 @@
                     <div class="col-md-4">
                         <div class="card h-100">
                             <div>
-                                <button data-bs-toggle="modal" data-bs-target="#viewModal"
-                                    style="height: 200px; width: 100%; position: relative;"
-                                    class="btn text-decoration-none"
-                                    wire:click="edit({{ $product->id }})">
-                                    <img class="card-img-top rounded mb-2" src="{{ asset('storage/' . $product->image) }}"
-                                        style="height: 200px; width: 100%;" alt="{{ $product->id }}">
-                                    <span
-                                        class="text-danger h3 position-absolute top-0 end-0 p-3 {{ $product->featured ? 'bi bi-heart-fill' : '' }}">
-                                    </span>
-                                </button>
+                                <a wire:navigate href="{{ route('shop.show', $product->id) }}" class="gap-1 icon-link-hover">
+                                    <img class="card-img-top" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->id }}" />
+                                </a>
+                                <span
+                                    class="text-danger h3 position-absolute top-0 end-0 p-3 {{ $product->featured ? 'bi bi-heart-fill' : '' }}">
+                                </span>
                             </div>
                             <div class="card-body">
                                 <div style="display: flex; justify-content: space-between; align-items: center;">

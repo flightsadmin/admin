@@ -26,9 +26,13 @@
                         </div>
                     </div>
                 </div>
+                <div class="mt-4">
+                    <h3>Product Details</h3>
+                    @include("livewire.shop.products.review")
+                </div>
             </div>
         </section>
-        <section class="py-2 bg-light">
+        <section>
             <div class="px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Related Products</h2>
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4">
@@ -38,16 +42,12 @@
                                 @if ($item->featured)
                                     <div class="badge text-bg-danger position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                                 @endif
-                                <!-- item image-->
                                 <a wire:navigate href="{{ route('shop.show', $item->id) }}" class="gap-1 icon-link-hover">
                                     <img class="card-img-top" src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->id }}" />
                                 </a>
-                                <!-- item details-->
                                 <div class="card-body p-4">
                                     <div class="text-center">
-                                        <!-- item name-->
                                         <h5 class="fw-bolder">{{ $item->name }}</h5>
-                                        <!-- item reviews-->
                                         <div class="rating d-flex justify-content-center small gap-1 text-warning mb-2">
                                             @for ($i = 1; $i <= 5; $i++)
                                                 @if ($i <= round($item->likes->count()))
@@ -57,7 +57,6 @@
                                                 @endif
                                             @endfor
                                         </div>
-                                        <!-- item price-->
                                         <span class="text-muted text-decoration-line-through">${{ $item->price }}</span>
                                         ${{ $item->price }}
                                     </div>
@@ -68,8 +67,5 @@
                 </div>
             </div>
         </section>
-        <div>
-            @livewire('comments', ['product' => $product])
-        </div>
     </div>
 @endsection
