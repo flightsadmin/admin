@@ -55,7 +55,7 @@ class Carts extends Component
         if ($item) {
             $item->delete();
         }
-
+        $this->dispatch('UpdateCart');
         $this->loadCartItems();
     }
 
