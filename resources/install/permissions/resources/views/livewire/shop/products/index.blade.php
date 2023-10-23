@@ -9,11 +9,6 @@
                 <input wire:model.live.debounce.500ms="keyWord" type="text" class="form-control form-control-sm"
                     name="search" id="search" placeholder="Search Products">
             </div>
-            <div class="d-flex gap-2">
-                <input wire:model="productCount" type="text" size="4">
-                <button wire:click.prevent="seedProducts" class="btn btn-warning btn-sm bi bi-cloud-upload-fill"> Seed
-                    Products</button>
-            </div>
             <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                 Add Product
             </div>
