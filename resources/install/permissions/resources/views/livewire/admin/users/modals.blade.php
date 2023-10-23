@@ -101,7 +101,7 @@
                             @error('password_confirmation') <span class="text-danger small">{{ $message }}</span> @enderror
                         </div>
                         @endif
-                        @can('editUser')
+                        @can('ManageUsers')
                         <div class="col-md-12">
                             <div class="col-md-12 mb-3">
                                 <label class="h5">Assin Roles</label>
@@ -111,7 +111,7 @@
                                         <tr>
                                             <td class="text-center" width="40">
                                                 <input type="checkbox" id="selectedRoles.{{ $role->id }}" wire:model.blur="selectedRoles" value="{{ $role->id }}" class="form-check-input"
-                                                @checked(in_array($role->id, $selectedRoles))
+                                                @checked(in_array($role->id, $selectedRoles))>
                                             </td>
                                             <td>
                                                 <label class="form-check-label">{{ $role->name }}</label>

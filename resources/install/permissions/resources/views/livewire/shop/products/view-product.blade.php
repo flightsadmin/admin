@@ -12,7 +12,9 @@
                     <div class="col-md-6">
                         <div class="mb-1">SKU: {{ $product->id }}
                             @foreach ($product->categories as $item)
-                                <span class="ms-4 text-info">{{ $item->title }}</span>
+                                <a wire:navigate href="{{ route('shop.category', ['slug' => $item->slug]) }}" 
+                                    class="badge bg-secondary text-decoration-none link-light">{{ $item->title }}
+                                </a>
                             @endforeach
                         </div>
                         <h1 class="display-5 fw-bolder">{{ $product->name }}</h1>
@@ -28,7 +30,7 @@
                 </div>
                 <div class="mt-4">
                     <h3>Product Details</h3>
-                    @include("livewire.shop.products.review")
+                    @include('livewire.shop.products.review')
                 </div>
             </div>
         </section>

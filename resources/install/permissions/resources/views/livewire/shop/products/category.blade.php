@@ -7,7 +7,7 @@
                 <div class="text-center my-3">
 
                     <p class="text-muted mb-0">All Products Containing Category: <span
-                            class="fw-bolder badge bg-secondary text-decoration-none link-light">{{ $category->name }}</span>
+                            class="fw-bolder badge bg-secondary text-decoration-none link-light">{{ $category->title }}</span>
                     </p>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                                     <p>{{ $product->description }}</p>
                                     <a wire:navigate href="{{ route('shop.show', $product->id) }}"
                                         class="icon-link gap-1 icon-link-hover">
-                                        Read More... <span class="bi bi-chevron-right"></span>
+                                        Product Details <span class="bi bi-chevron-right"></span>
                                     </a>
                                 </div>
                             </div>

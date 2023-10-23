@@ -24,7 +24,7 @@
         <div class="col-md-12">
             <div class="row g-4">
                 @forelse ($products as $product)
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-lg-4">
                         <div class="card h-100">
                             <div>
                                 <a wire:navigate href="{{ route('shop.show', $product->id) }}" class="gap-1 icon-link-hover">
