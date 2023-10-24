@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use Carbon\Carbon;
 use App\Models\Product;
 use Livewire\Component;
 use App\Models\Category;
@@ -68,7 +67,6 @@ class Products extends Component
 
     public function show(Product $product)
     {
-        $product = $product->load('categories');
         $comments = $product->comments()->with('author')->get();
 
         $relatedProducts = Product::whereHas('categories', function ($query) use ($product) {
@@ -80,7 +78,7 @@ class Products extends Component
     #[On('UpdateCart')]
     public function renderUser()
     {
-        $products = Product::where('published_at', '<=', Carbon::now())->with('cartItems')->latest()->paginate();
+        $products = Product::where('quantity', '>', 0)->with('cartItems')->latest()->paginate();
         $featuredProducts = Product::where('featured', true)->latest()->paginate(5);
         return view('livewire.shop.products.view', compact('products', 'featuredProducts'))->extends('components.layouts.admin');
     }
