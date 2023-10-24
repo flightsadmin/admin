@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->decimal('price', 10, 2);
-            $table->integer('quantity')->default(0);
+            $table->integer('quantity')->default(5);
             $table->string('image')->nullable();
             $table->boolean('featured')->default(false);
             $table->timestamp('published_at')->nullable();
@@ -45,7 +45,23 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->string('quantity')->default('1');
+            $table->integer('quantity')->default('1');
+            $table->timestamps();
+        });
+
+        Schema::create('orders', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->decimal('total_price', 10, 2)->default(0);
+            $table->timestamps();
+        });
+
+        Schema::create('order_product', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('order_id')->constrained('orders')->onDelete('cascade');
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->integer('quantity');
+            $table->decimal('price', 10, 2);
             $table->timestamps();
         });
 
@@ -102,6 +118,8 @@ return new class extends Migration
         Schema::dropIfExists('products');
         Schema::dropIfExists('categories');
         Schema::dropIfExists('carts');
+        Schema::dropIfExists('orders');
+        Schema::dropIfExists('order_product');
         Schema::dropIfExists('category_product');
         Schema::dropIfExists('coupons');
         Schema::dropIfExists('coupon_user');

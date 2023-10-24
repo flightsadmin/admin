@@ -22,8 +22,8 @@ class Product extends Model
     ];
 
     protected $casts = [
-        'published_at'  => 'datetime',
-        'featured'      => 'boolean',
+        'published_at' => 'datetime',
+        'featured' => 'boolean',
     ];
 
     public function author()
@@ -31,7 +31,8 @@ class Product extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function likes() {
+    public function likes()
+    {
         return $this->belongsToMany(User::class, 'product_like')->withTimestamps();
     }
 
@@ -45,7 +46,8 @@ class Product extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function cartItems() {
+    public function cartItems()
+    {
         return $this->belongsToMany(User::class, 'carts')->withTimestamps();
     }
 }

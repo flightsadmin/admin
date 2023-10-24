@@ -2,7 +2,10 @@
     @if ($cartItems->count() > 0)
         <div class="card">
             <div class="card-body">
-                <h4>Your Cart</h4>
+                <div class="d-flex align-items-center">
+                    <h4>Your Cart</h4>
+                    <span class="text-danger ms-auto">{{ $message }}</span>
+                </div>
                 <table class="table table-sm">
                     <thead>
                         <tr>
@@ -58,7 +61,6 @@
                                     Invalid Coupon Code
                                 </div>
                             @else
-                                
                             @endif
                             <form wire:submit.prevent="applyCoupon" class="d-flex gap-2">
                                 <input wire:model="couponCode" name="couponCode" class="form-control form-control-sm"
@@ -83,13 +85,17 @@
                         <div><strong>Total:</strong> ${{ number_format($discounted, 2) }}</div>
                     </div>
                 </div>
-                <a wire:navigate href="{{ route('shop.checkout') }}">
-                    <button type="button" class="btn btn-sm btn-primary float-end mt-3">Checkout</button>
-                </a>
-
+                <div>
+                    <a wire:navigate href="{{ route('shop.checkout') }}">
+                        <button type="button" class="btn btn-sm btn-primary mt-3 bi-eye-fill"> View Cart</button>
+                    </a>
+                    <button wire:click="checkout" class="btn btn-sm btn-primary float-end mt-3 bi-cart4"> Complete Check</button>
+                </div>
             </div>
         </div>
     @else
-        <h4>Your cart is empty.</h4>
+        <div class="mb-3">
+            <h4>Your cart is empty.</h4>
+        </div>
     @endif
 </div>

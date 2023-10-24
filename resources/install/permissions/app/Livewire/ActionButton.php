@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Product;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Illuminate\Support\Facades\Auth;
 
 class ActionButton extends Component
@@ -40,7 +41,8 @@ class ActionButton extends Component
         $user->cartItems()->attach($this->product);
         $this->dispatch('UpdateCart');
     }
-
+    
+    #[On('UpdateCart')]
     public function render()
     {
         return view('livewire.shop.products.action-button');

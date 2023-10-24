@@ -26,7 +26,7 @@ class Comments extends Component
         $this->validate([
             'commentContent' => 'required|max:255'
         ]);
-       $comment = Comment::create([
+        $comment = Comment::create([
             'user_id' => Auth::id(),
             'product_id' => $this->product->id,
             'content' => $this->commentContent,

@@ -29,16 +29,16 @@ class Users extends Component
     public function submit()
     {
         $validatedData = $this->validate([
-            'name'          => 'required|min:6',
-            'email'         => 'required|email',
-            'phone'         => 'nullable|regex:/^\+?\d{9,11}$/',
-            'title'         => 'nullable|min:6',
+            'name' => 'required|min:6',
+            'email' => 'required|email',
+            'phone' => 'nullable|regex:/^\+?\d{9,11}$/',
+            'title' => 'nullable|min:6',
             'selectedRoles' => 'required',
-            'password'      => $this->userId ? 'nullable' : 'required|confirmed',
-            'photo'         => $this->userId ? 'nullable' : 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'password' => $this->userId ? 'nullable' : 'required|confirmed',
+            'photo' => $this->userId ? 'nullable' : 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         if ($this->photo && !is_string($this->photo)) {
-        $validatedData['photo'] = $this->photo->storeAs('users', explode('@', $validatedData['email'])[0] . '.'.$this->photo->getClientOriginalExtension() , 'public');
+            $validatedData['photo'] = $this->photo->storeAs('users', explode('@', $validatedData['email'])[0] . '.' . $this->photo->getClientOriginalExtension(), 'public');
         } else {
             unset($validatedData['photo']);
         }
@@ -50,19 +50,19 @@ class Users extends Component
 
         $user = User::updateOrCreate(['id' => $this->userId], $validatedData);
         $user->syncRoles($this->selectedRoles);
-        
-        if($user->wasRecentlyCreated){
+
+        if ($user->wasRecentlyCreated) {
             $emailData = [
-                'name'      => $this->name,
-                'email'     => $this->email,
-                'phone'     => $this->phone,
-                'roles'     => $user->roles->pluck('name')->toArray(),
-                'password'  => $this->password
+                'name' => $this->name,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'roles' => $user->roles->pluck('name')->toArray(),
+                'password' => $this->password
             ];
-            
-            Mail::send('mails.email', $emailData, function($message) use($emailData) {
+
+            Mail::send('mails.email', $emailData, function ($message) use ($emailData) {
                 $message->to($emailData['email'], $emailData['name'])
-                ->subject('New Account for '. $emailData['name']);
+                    ->subject('New Account for ' . $emailData['name']);
             });
         }
         $this->dispatch('closeModal');
@@ -74,7 +74,7 @@ class Users extends Component
     {
         $user = User::findOrFail($id);
         $this->userId = $id;
-        $this->name  = $user->name;
+        $this->name = $user->name;
         $this->email = $user->email;
         $this->phone = $user->phone;
         $this->photo = $user->photo;
@@ -86,7 +86,7 @@ class Users extends Component
     {
         $user = User::findOrFail($userId);
 
-        if($user->photo != 'users/noimage.jpg') {
+        if ($user->photo != 'users/noimage.jpg') {
             Storage::disk('public')->delete($user->photo);
         }
         $user->delete();

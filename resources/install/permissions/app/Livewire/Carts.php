@@ -3,14 +3,17 @@
 namespace App\Livewire;
 
 use App\Models\Cart;
+use App\Models\Order;
 use App\Models\Coupon;
+use App\Models\Product;
 use Livewire\Component;
 use Livewire\Attributes\On;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class Carts extends Component
 {
-    public $cartItems = [], $appliedCoupon = 3, $cartTotal = 0, $couponCode, $discount = 0, $taxRate = 0.1;
+    public $cartItems = [], $appliedCoupon = 3, $cartTotal = 0, $couponCode, $discount = 0, $taxRate = 0.1, $message;
 
     #[On('UpdateCart')]
     public function render()
@@ -61,35 +64,28 @@ class Carts extends Component
 
     public function decrement($id)
     {
-        $cartData = Cart::where('product_id', $id)->where('user_id', Auth::id())->first();
+        $this->reset('message');
+        $cart = Cart::with('product')->where('product_id', $id)->where('user_id', auth()->id())->first();
 
-        if ($cartData && $cartData->quantity > 1) {
-            $cartData->decrement('quantity', 1);
-            $this->dispatch(
-                'closeModal',
-                icon: 'success',
-                message: 'Quantity Updated.',
-            );
+        if ($cart && $cart->product->quantity > 1 && $cart->quantity > 1) {
+            $cart->decrement('quantity');
+            $cart->product->increment('quantity');
         } else {
-            $this->dispatch(
-                'closeModal',
-                icon: 'error',
-                message: 'Quantity must be greater than 1.',
-            );
+            $this->message = $cart->product->name . ' Cannot be Less than ' . $cart->quantity;
         }
     }
 
+
     public function increment($id)
     {
-        $cartData = Cart::where('product_id', $id)->where('user_id', Auth::id())->first();
+        $this->reset('message');
+        $cart = Cart::with('product')->where('product_id', $id)->where('user_id', auth()->id())->first();
 
-        if ($cartData) {
-            $cartData->increment('quantity', 1);
-            $this->dispatch(
-                'closeModal',
-                icon: 'success',
-                message: 'Quantity Updated.',
-            );
+        if ($cart && $cart->product->quantity < $cart->quantity) {
+            $this->message = $cart->product->name . ' Cannot be More than ' . $cart->quantity;
+        } else {
+            $cart->increment('quantity');
+            $cart->product->decrement('quantity');
         }
     }
 
@@ -116,5 +112,39 @@ class Carts extends Component
             $this->appliedCoupon = 2;
             $this->dispatch('UpdateCart');
         }
+    }
+
+    public function checkout()
+    {
+        $cart = Cart::with('product')->where('user_id', auth()->id())->get();
+
+        try {
+            DB::transaction(function () use ($cart) {
+                $order = Order::create([
+                    'user_id' => auth()->id(),
+                ]);
+
+                foreach ($cart as $cartProduct) {
+                    $order->products()->attach($cartProduct->product_id, [
+                        'quantity' => $cartProduct->quantity,
+                        'price' => $cartProduct->product->price,
+                    ]);
+                    $order->increment('total_price', $cartProduct->quantity * $cartProduct->product->price);
+                    Product::find($cartProduct->product_id)->decrement('quantity', $cartProduct->quantity);
+                }
+
+                Cart::where('user_id', auth()->id())->delete();
+                $this->dispatch('UpdateCart');
+                $this->dispatch(
+                    'closeModal',
+                    icon: 'success',
+                    message: 'Order Placed Successfully.',
+                );
+            });
+        } catch (\Exception $ex) {
+            $this->message = "Something went wrong, Try Again";
+        }
+        $this->dispatch('UpdateCart');
+        $this->redirect(route('shop'), true);
     }
 }

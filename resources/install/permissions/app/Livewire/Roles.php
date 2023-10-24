@@ -32,7 +32,7 @@ class Roles extends Component
         ]);
 
         $role = Role::updateOrCreate(['id' => $this->role_id], [
-            'name' => $this->name, 
+            'name' => $this->name,
             'guard_name' => config('auth.defaults.guard')
         ]);
         $role->permissions()->sync($this->permissions_selection);
