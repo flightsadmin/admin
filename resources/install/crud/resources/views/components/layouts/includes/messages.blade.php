@@ -4,15 +4,15 @@
         <span class="navbar-badge badge text-bg-danger"> @livewire('cart_count')</span>
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-        <a href="#" class="dropdown-item">
-            <!--begin::Message-->
-            <div class="d-flex">
-                <p>You have ( @livewire('cart_count') ) items in your cart</p>
+        <a wire:navigate href="{{ route('shop.checkout') }}" class="dropdown-item">
+            <div class="d-flex ">
+                <p> You have ( @livewire('cart_count') ) items in your cart</p>
             </div>
         </a>
         <div class="dropdown-divider"></div>
         @auth
-        <a wire:navigate href="{{ route('shop.checkout') }}" class="dropdown-item dropdown-footer">Checkout</a>
+            <a wire:navigate href="{{ route('shop.checkout') }}" class="dropdown-item dropdown-footer">Checkout <i
+                    class="bi-cart-check-fill"></i></a>
         @endauth
     </div>
 </li>

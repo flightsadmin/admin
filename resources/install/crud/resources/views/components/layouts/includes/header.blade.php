@@ -13,7 +13,7 @@
 
         <ul class="navbar-nav ms-auto">
             @include('components.layouts.includes.messages')
-            @include('components.layouts.includes.notifications')
+            {{-- @include('components.layouts.includes.notifications') --}}
             @role('super-admin|admin')
             <li class="nav-item">
                 <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>

@@ -79,7 +79,7 @@ class Products extends Component
     public function renderUser()
     {
         $products = Product::where('quantity', '>', 0)->with('cartItems')->latest()->paginate();
-        $featuredProducts = Product::where('featured', true)->latest()->paginate(5);
+        $featuredProducts = $products->where('featured', true);
         return view('livewire.shop.products.view', compact('products', 'featuredProducts'))->extends('components.layouts.admin');
     }
 
