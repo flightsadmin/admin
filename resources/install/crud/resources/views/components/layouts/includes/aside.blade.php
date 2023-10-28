@@ -1,8 +1,8 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a href="{{ route('home') }}" wire:navigate class="brand-link">
-            <img src="{{ asset('storage/assets/img/AdminLTELogo.png') }}"
-                alt="{{ config('admin.appName', 'app.name') }}" class="brand-image opacity-75 shadow">
+            <img src="{{ asset('storage/' . setting('site_logo')) }}" alt="{{ config('admin.appName', 'app.name') }}"
+                class="brand-image opacity-75 shadow">
             <span class="brand-text fw-light">{{ config('admin.appName', 'app.name') }}</span>
         </a>
     </div>
@@ -19,28 +19,28 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.parents') }}" wire:navigate
-                    class="nav-link {{ request()->is('admin/parents') ? 'active' : '' }}">
+                        class="nav-link {{ request()->is('admin/parents') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-shield-shaded"></i>
                         <p>Parents</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.teachers') }}" wire:navigate
-                    class="nav-link {{ request()->is('admin/teachers') ? 'active' : '' }}">
+                        class="nav-link {{ request()->is('admin/teachers') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-person"></i>
                         <p>Teachers</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.grades') }}" wire:navigate
-                    class="nav-link {{ request()->is('admin/grades') ? 'active' : '' }}">
+                        class="nav-link {{ request()->is('admin/grades') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-mortarboard"></i>
                         <p>Classes</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('admin.notices') }}" wire:navigate
-                    class="nav-link {{ request()->is('admin/notices') ? 'active' : '' }}">
+                        class="nav-link {{ request()->is('admin/notices') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-clipboard2-data-fill"></i>
                         <p>Notices</p>
                     </a>

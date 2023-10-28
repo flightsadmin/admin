@@ -5,7 +5,6 @@
             <div class="card-header">
                 <div class="d-flex align-items-center justify-content-between">
                     <h3 class="card-title">General Setting</h3>
-
                     <button type="submit" class="btn btn-sm btn-primary float-end" wire:click="updateSetting">
                         <i class="bi bi-save me-2"></i> Save changes
                     </button>
@@ -37,6 +36,10 @@
                         <label for="footerText">Footer Text</label>
                         <input wire:model="state.footer_text" type="text" class="form-control" id="footerText"
                             placeholder="Enter footer text">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="site_logo">Site Logo</label>
+                        <input wire:model="state.site_logo" type="file" class="form-control" id="site_logo">
                     </div>
                     <div class="col-md-6 form-group">
                         <label for="siteTheme" class="form-label">Site Theme</label>

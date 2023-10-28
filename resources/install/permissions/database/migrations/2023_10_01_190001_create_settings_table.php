@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('site_theme')->nullable()->default(null);
             $table->string('site_description')->nullable()->default(null);
             $table->string('footer_text')->nullable()->default(null);
+            $table->string('site_logo')->nullable()->default(null);
             $table->timestamps();
         });
         
