@@ -37,10 +37,8 @@
                                         <li><a href="" data-bs-toggle="modal" data-bs-target="#dataModal"
                                                 class="dropdown-item bi-pencil-square" wire:click.prevent="edit({{ $row->id }})">
                                                 Edit </a></li>
-                                        <div class="dropdown-divider"></div>
                                         <li><a wire:navigate href="{{ route('admin.teachers.show', ['id' => $row->id]) }}"
                                                 class="dropdown-item bi-eye-fill"> View</a></li>
-                                        <div class="dropdown-divider"></div>
                                         <li><a href="" class="dropdown-item bi-trash3"
                                                 wire:click.prevent="destroy({{ $row->id }})"
                                                 wire:confirm="Are you sure you want to delete this Teacher?"> Delete </a></li>
