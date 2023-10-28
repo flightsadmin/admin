@@ -26,10 +26,7 @@
                                 <div>Gender: {{ ucwords($row->gender) }}</div>
                                 <div>Address: {{ $row->address }}</div>
                             </div>
-                            <div class="col-md-2 mt-2">
-                                <a wire:navigate href="{{ route('admin.teachers.show', ['id' => $row->id]) }}"
-                                    class="bi bi-eye-fill h5 btn custom-btn-sm btn-secondary"></a>
-                            </div>
+
                             <div class="col-md-2 mt-2">
                                 <div class="dropdown float-end">
                                     <a class="btn custom-btn-sm text-white btn-secondary dropdown-toggle" href="#" role="button"
@@ -38,9 +35,13 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="" data-bs-toggle="modal" data-bs-target="#dataModal"
-                                                class="dropdown-item bi bi-pencil-square" wire:click.prevent="edit({{ $row->id }})">
+                                                class="dropdown-item bi-pencil-square" wire:click.prevent="edit({{ $row->id }})">
                                                 Edit </a></li>
-                                        <li><a href="" class="dropdown-item bi bi-trash3"
+                                        <div class="dropdown-divider"></div>
+                                        <li><a wire:navigate href="{{ route('admin.teachers.show', ['id' => $row->id]) }}"
+                                                class="dropdown-item bi-eye-fill"> View</a></li>
+                                        <div class="dropdown-divider"></div>
+                                        <li><a href="" class="dropdown-item bi-trash3"
                                                 wire:click.prevent="destroy({{ $row->id }})"
                                                 wire:confirm="Are you sure you want to delete this Teacher?"> Delete </a></li>
                                     </ul>
