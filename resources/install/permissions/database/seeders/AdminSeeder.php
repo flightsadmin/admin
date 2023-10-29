@@ -38,8 +38,8 @@ class AdminSeeder extends Seeder
                 'permissions' => ['ManageStudents'],
             ],
             [
-                'name' => 'admin',
-                'permissions' => ['ManageStudents', 'ManageUsers'],
+                'name' => 'principal',
+                'permissions' => ['ManageStudents', 'ManageTeachers', 'ManageParents'],
             ],
             [
                 'name' => 'super-admin',
