@@ -42,6 +42,10 @@ class AdminSeeder extends Seeder
                 'permissions' => ['ManageStudents', 'ManageTeachers', 'ManageParents'],
             ],
             [
+                'name' => 'admin',
+                'permissions' => ['ManageStudents', 'ManageTeachers', 'ManageParents'],
+            ],
+            [
                 'name' => 'super-admin',
                 'permissions' => Permission::pluck('name')->toArray(),
             ],
