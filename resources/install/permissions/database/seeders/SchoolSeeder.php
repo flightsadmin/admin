@@ -2,15 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-use App\Models\Board;
-use App\Models\Grade;
-use App\Models\Student;
-use App\Models\Subject;
-use App\Models\Teacher;
-use App\Models\Guardian;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
+use App\Models\{User, Board, Grade, Student, Subject, Teacher, Guardian};
 
 class SchoolSeeder extends Seeder
 {
@@ -66,7 +60,7 @@ class SchoolSeeder extends Seeder
                 'name' => $faker->name(),
                 'guardian_id' => Guardian::inRandomOrder()->first()->id,
                 'grade_id' => Grade::inRandomOrder()->first()->id,
-                'roll_number' => "S".str_pad($i, 5, '0', STR_PAD_LEFT),
+                'roll_number' => setting('site_short_code').'/'.date('Y').'/'. str_pad(Student::max('id') + 1, 5, 0, STR_PAD_LEFT),
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",
                 'address' => $faker->address(),
