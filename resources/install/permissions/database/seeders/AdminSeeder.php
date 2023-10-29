@@ -8,7 +8,6 @@ use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
-use Spatie\Permission\PermissionRegistrar;
 
 class AdminSeeder extends Seeder
 {
@@ -27,12 +26,20 @@ class AdminSeeder extends Seeder
          // create roles and assign created permissions
          $roles = [
             [
-                'name' => 'user',
+                'name' => 'student',
                 'permissions' => [],
             ],
             [
-                'name' => 'admin',
+                'name' => 'parent',
                 'permissions' => ['ManageStudents'],
+            ],
+            [
+                'name' => 'teacher',
+                'permissions' => ['ManageStudents'],
+            ],
+            [
+                'name' => 'admin',
+                'permissions' => ['ManageStudents', 'ManageUsers'],
             ],
             [
                 'name' => 'super-admin',
