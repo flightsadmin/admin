@@ -45,6 +45,8 @@
                                         <li><a href="" data-bs-toggle="modal" data-bs-target="#dataModal"
                                                 class="dropdown-item bi bi-pencil-square" wire:click.prevent="edit({{ $row->id }})">
                                                 Edit </a></li>
+                                        <li><a wire:navigate href="{{ route('admin.grades.show', ['id' => $row->id]) }}"
+                                            class="dropdown-item bi-eye-fill"> View</a></li>
                                         <li><a href="" class="dropdown-item bi bi-trash3"
                                                 wire:click.prevent="destroy({{ $row->id }})"
                                                 wire:confirm="Are you sure you want to delete this Class?"> Delete </a></li>

@@ -23,10 +23,9 @@ trait FileHandler
             $spatieRoutes = 
             <<<ROUTES
             // Admin Routes
-            Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
+            Route::middleware(['auth', 'role:super-admin|admin'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                 Route::get('/', [App\Livewire\Students::class, 'home'])->name('admin');
                 Route::get('/attendances', App\Livewire\Attendances::class);
-                Route::get('/grades', App\Livewire\Grades::class)->name('admin.grades');
                 Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
@@ -43,6 +42,10 @@ trait FileHandler
                 Route::group(['prefix' => 'teachers'], function () {
                     Route::get('/', App\Livewire\Teachers::class)->name('admin.teachers');
                     Route::get('/{id}', [App\Livewire\Teachers::class, 'details'])->name('admin.teachers.show');
+                });
+                Route::group(['prefix' => 'grades'], function () {
+                    Route::get('/', App\Livewire\Grades::class)->name('admin.grades');
+                    Route::get('/{id}', [App\Livewire\Grades::class, 'details'])->name('admin.grades.show');
                 });
                 Route::group(['prefix' => 'notices'], function () {
                     Route::get('/', App\Livewire\Boards::class)->name('admin.notices');

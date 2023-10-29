@@ -13,29 +13,52 @@
                 </div>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-12">
-                            <div class="row">
-                                <div class="col-lg-6 col-6 p-4 border">
-                                    <div class="bi bi-person-square fw-bold"> Name: {{ $teacher->name }}</div>
-                                    <div class="bi bi-person-vcard"> Staff ID: {{ $teacher->staff_number }}</div>
-                                    <div class="bi bi-person-standing-dress"> Gender: {{ ucwords($teacher->gender) }}</div>
-                                    <div class="bi bi-globe"> Address: {{ $teacher->address }}</div>
-                                </div>
-                                <div class="col-lg-3 col-6 p-4 border">
-                                    <b>Classes:</b>
-                                    <ol>
-                                        @foreach ($teacher->classes as $item)
-                                            <li>{{ $item->name }}</li>
-                                        @endforeach
-                                    </ol>
-                                </div>
-                                <div class="col-lg-3 col-6 p-4 border">
-                                    <b>Subjects:</b>
-                                    <ol>
-                                        @foreach ($teacher->subjects as $item)
-                                            <li>{{ $item->name }}</li>
-                                        @endforeach
-                                    </ol>
+                        <div class="col-12">
+                            <div class="mt-2">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <button class="nav-link active" id="nav-variants-tab" data-bs-toggle="tab"
+                                            data-bs-target="#details" type="button">Details</button>
+
+                                        <button class="nav-link" id="nav-home-tab" data-bs-toggle="tab"
+                                            data-bs-target="#classes" type="button">Classes</button>
+
+                                        <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab"
+                                            data-bs-target="#subjects" type="button">Subjects</button>
+                                    </div>
+                                </nav>
+
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="details">
+                                        <div class="col-lg-6 col-6 p-3">
+                                            <div class="bi bi-person-square fw-bold"> Name: {{ $teacher->name }}</div>
+                                            <div class="bi bi-person-vcard"> Staff ID: {{ $teacher->staff_number }}</div>
+                                            <div class="bi bi-person-standing-dress"> Gender: {{ ucwords($teacher->gender) }}</div>
+                                            <div class="bi bi-globe"> Address: {{ $teacher->address }}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade show" id="classes">
+                                        <div class="col-lg-3 col-6 p-3">
+                                            <b>Classes:</b>
+                                            <ol>
+                                                @foreach ($teacher->classes as $item)
+                                                    <li>{{ $item->name }}</li>
+                                                @endforeach
+                                            </ol>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="subjects">
+                                        <div class="col-lg-3 col-6 p-3">
+                                            <b>Subjects:</b>
+                                            <ol>
+                                                @foreach ($teacher->subjects as $item)
+                                                    <li>{{ $item->name }}</li>
+                                                @endforeach
+                                            </ol>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
