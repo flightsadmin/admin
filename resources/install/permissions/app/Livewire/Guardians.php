@@ -2,9 +2,10 @@
 
 namespace App\Livewire;
 
+use App\Models\User;
 use Livewire\Component;
-use Livewire\WithPagination;
 use App\Models\Guardian;
+use Livewire\WithPagination;
 use Livewire\WithFileUploads;
 
 class Guardians extends Component
@@ -33,7 +34,19 @@ class Guardians extends Component
             'phone'  => 'nullable'
         ]);
 
-        Guardian::updateOrCreate(['id' => $this->parent_id], $validatedData);
+        $guardian = Guardian::updateOrCreate(['id' => $this->parent_id], $validatedData);
+        if($guardian->wasRecentlyCreated){
+            $user = new User([
+                'name' => $guardian->name,
+                'email' => $guardian->email,
+                'phone' => $guardian->phone,
+                'title' => 'Guardian',
+                'password' => bcrypt('password'),
+            ]);
+            
+            $user->save();
+            $user->roles()->sync(['1']);
+        }
 
         $this->alert();
         $this->reset();

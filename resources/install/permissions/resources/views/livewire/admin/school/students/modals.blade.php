@@ -12,14 +12,15 @@
                     <div class="row">
                         <div class="form-group col-md-6 mb-2">
                             <label for="name">Students Name</label>
-                            <input type="text" id="name" class="form-control" wire:model.blur="name" autocomplete="off">
+                            <input type="text" id="name" class="form-control form-control-sm" wire:model.blur="name"
+                                autocomplete="off">
                             @error('name')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
-                            <label for="date_of_birth">Students Name</label>
-                            <input type="date" id="date_of_birth" class="form-control" wire:model.blur="date_of_birth"
+                            <label for="date_of_birth">Date of Birth</label>
+                            <input type="date" id="date_of_birth" class="form-control form-control-sm" wire:model.blur="date_of_birth"
                                 autocomplete="off">
                             @error('date_of_birth')
                                 <span class="text-danger small">{{ $message }}</span>
@@ -27,7 +28,7 @@
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="guardian_id">Parent Name</label>
-                            <select class="form-select" id="guardian_id" wire:model.blur="guardian_id">
+                            <select class="form-select form-select-sm" id="guardian_id" wire:model.blur="guardian_id">
                                 <option value="">Select Parent</option>
                                 @foreach ($parents as $parent)
                                     <option value="{{ $parent->id }}">{{ $parent->name }}</option>
@@ -39,7 +40,7 @@
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="grade_id" class="form-label">Class</label>
-                            <select class="form-select" id="grade_id" wire:model="grade_id">
+                            <select class="form-select form-select-sm" id="grade_id" wire:model="grade_id">
                                 <option value="">Select Class</option>
                                 @foreach ($classes as $class)
                                     <option value="{{ $class->id }}">{{ $class->name }}</option>
@@ -51,7 +52,7 @@
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="gender" class="form-label">Gender</label>
-                            <select class="form-select" id="gender" wire:model="gender">
+                            <select class="form-select form-select-sm" id="gender" wire:model="gender">
                                 <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -62,15 +63,22 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
-                            <label for="roll_number">Roll Number</label>
-                            <input type="text" class="form-control" id="roll_number" wire:model.blur="roll_number">
+                            <label for="roll_number" class="form-label">Staff Number</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="roll_number" wire:model.blur="roll_number"
+                                    disabled placeholder="Generate Admission Number">
+                                @if (!$roll_number)
+                                    <span type="button" class="btn btn-sm btn-secondary bi-check-circle"
+                                        wire:click.prevent="generateRollNumber"> Generate</span>
+                                @endif
+                            </div>
                             @error('roll_number')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group col-md-12 mb-2">
                             <label for="address">Address</label>
-                            <textarea class="form-control" id="address" wire:model.blur="address"></textarea>
+                            <textarea class="form-control form-control-sm" id="address" wire:model.blur="address"></textarea>
                             @error('address')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror

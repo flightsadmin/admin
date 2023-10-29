@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Models\Grade;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\WithFileUploads;
 
 class Grades extends Component
 { 

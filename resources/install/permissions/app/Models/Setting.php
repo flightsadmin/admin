@@ -13,6 +13,7 @@ class Setting extends Model
         'site_email',
         'site_name',
         'site_title',
+        'site_logo',
         'site_short_code',
         'site_description',
         'site_theme',

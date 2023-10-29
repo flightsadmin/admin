@@ -20,15 +20,14 @@
                 <div class="row">
                     @forelse($students as $row)
                         <div class="col-md-6 border d-flex justify-content-between">
-                            <div class="col-md-8 mt-2">
+                            <div class="col-md-8 my-2">
                                 <b><i class="bi bi-person-circle text-info"></i> {{ $row->name }}</b>
-                                <span class="badge rounded-pill text-bg-secondary float-end">{{ $row->grade->name }}</span>
                                 <div class="bi bi-person-vcard"> Registration Number: {{ $row->roll_number }}</div>
                                 <div>Gender: {{ ucwords($row->gender) }}</div>
                                 <div>Address: {{ $row->address }}</div>
                                 <b>Parent:</b>
-                                <a wire:navigate href="{{ route('admin.parents.show', ['id' => $row->parent->id]) }}"
-                                    style="text-decoration: none;">{{ $row->parent->name }}</a>
+                                <a wire:navigate href="{{ $row->parent ? route('admin.parents.show', ['id' => $row->parent->id]) : '#' }}"
+                                    style="text-decoration: none;">{{ $row->parent ? $row->parent->name : '' }}</a>                                
                             </div>
                             <div class="col-md-4 mt-2">
                                 <div class="dropdown float-end">

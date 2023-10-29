@@ -81,6 +81,15 @@ class Students extends Component
         );
     }
 
+    public function generateRollNumber()
+    {
+        if ($this->roll_number) {
+            return;
+        }
+        $lastRoll = Student::max('id');
+        $this->roll_number = setting('site_short_code').'/'.date('Y').'/'. str_pad($lastRoll + 1, 5, 0, STR_PAD_LEFT);
+    }
+
     public function destroy($id)
     {
         Student::findOrFail($id)->delete();

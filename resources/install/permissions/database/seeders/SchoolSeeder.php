@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Board;
 use App\Models\Grade;
@@ -19,7 +18,7 @@ class SchoolSeeder extends Seeder
     {
         $faker = Faker::create();
         
-        foreach (["Math", "English", "Kiswahili", "Chemistry", "Biology"] as $key => $value) {
+        foreach (["Math", "English", "Kiswahili", "Chemistry", "Biology"] as $value) {
            Subject::create([
             'name'          => $value,
             'description'   => $faker->realText(50, 2)
@@ -43,14 +42,16 @@ class SchoolSeeder extends Seeder
             // Seed Boards
             Board::create([
                 'title' => $faker->realText(20),
-                'body'  => $faker->realText(1000),
+                'body'  => $faker->realText(1500),
                 'user_id'=> User::inRandomOrder()->first()->id,
             ]);
 
             // Seed Teachers
             $teacher = Teacher::create([
                 'name' => $faker->name(),
-                'staff_number' => "T".str_pad($i, 5, '0', STR_PAD_LEFT),
+                'email'=> $faker->email(),
+                'phone' => '+25472000000'.$i,
+                'staff_number' => setting('site_short_code').'/'.date('Y').'/'. str_pad(Teacher::max('id') + 1, 5, 0, STR_PAD_LEFT),
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",
                 'address' => $faker->address(),

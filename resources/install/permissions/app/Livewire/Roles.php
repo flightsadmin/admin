@@ -2,10 +2,8 @@
 
 namespace App\Livewire;
 
-use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\Attributes\Rule;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 

@@ -14,7 +14,7 @@ class Teachers extends Component
 { 
     use WithPagination, WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    public $teacher_id, $name, $subjects = [], $grades = [], $gender, $date_of_birth, $staff_number, $keyWord, $address;
+    public $teacher_id, $name, $email, $phone, $subjects = [], $grades = [], $gender, $date_of_birth, $staff_number, $keyWord, $address;
 
     public function render()
     {
@@ -34,6 +34,8 @@ class Teachers extends Component
     {
         $validatedData = $this->validate([
             'name'          => 'required',
+            'email'         => 'required|email',
+            'phone'         => 'required',
             'staff_number'  => 'required|min:2',
             'gender'        => 'required',
             'address'       => 'required',
@@ -44,6 +46,19 @@ class Teachers extends Component
         $teacher->classes()->sync($this->grades);
         $teacher->subjects()->sync($this->subjects);
 
+        if($teacher->wasRecentlyCreated){
+            $user = new User([
+                'name' => $teacher->name,
+                'email' => $teacher->email,
+                'phone' => $teacher->phone,
+                'title' => 'Teacher',
+                'password' => bcrypt('password'),
+            ]);
+            
+            $user->save();
+            $user->roles()->sync(['1']);
+        }
+
         $this->alert();
         $this->reset();
     }
@@ -53,6 +68,8 @@ class Teachers extends Component
         $teacher = Teacher::findOrFail($id);
         $this->teacher_id = $id;
         $this->name = $teacher->name;
+        $this->email = $teacher->email;
+        $this->phone = $teacher->phone;
         $this->subjects = $teacher->subjects->pluck('id')->toArray();
         $this->grades = $teacher->classes->pluck('id')->toArray();
         $this->staff_number = $teacher->staff_number;
@@ -76,15 +93,13 @@ class Teachers extends Component
         );
     }
 
-    public function saveAccount() {
-        $validatedData = $this->validate([
-            'name'          => 'required',
-            'email'         => 'required|email',
-            'phone'         => 'nullable',
-            'selectedRoles' => 'required',
-            'password'      => Hash::make('password')
-        ]);
-        Guardian::create([$validatedData]);
+    public function generateStaffNumber()
+    {
+        if ($this->staff_number) {
+            return;
+        }
+        $lastStaff = Teacher::max('id');
+        $this->staff_number = setting('site_short_code').'/'.date('Y').'/'. str_pad($lastStaff + 1, 5, 0, STR_PAD_LEFT);
     }
 
     public function destroy($id)

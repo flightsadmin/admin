@@ -12,16 +12,35 @@
                     <div class="row">
                         <div class="form-group col-md-6 mb-2">
                             <label for="name">Teachers Name</label>
-                            <input type="text" id="name" class="form-control" wire:model.blur="name" autocomplete="off">
+                            <input type="text" id="name" class="form-control form-control-sm" wire:model.blur="name" autocomplete="off">
                             @error('name')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
+                            <label for="email">Teachers Email</label>
+                            <input type="text" id="email" class="form-control form-control-sm" wire:model.blur="email" autocomplete="off">
+                            @error('email')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6 mb-2">
                             <label for="date_of_birth">Date of Birth</label>
-                            <input type="date" id="date_of_birth" class="form-control" wire:model.blur="date_of_birth"
+                            <input type="date" id="date_of_birth" class="form-control form-control-sm" wire:model.blur="date_of_birth"
                                 autocomplete="off">
                             @error('date_of_birth')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6 mb-2">
+                            <label for="staff_number" class="form-label">Staff Number</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" id="staff_number" wire:model.blur="staff_number" disabled placeholder="Staff Number">
+                                @if (!$staff_number)
+                                    <span type="button" class="btn btn-sm btn-secondary bi-check-circle" wire:click.prevent="generateStaffNumber"> Generate</span>
+                                @endif
+                            </div>
+                            @error('staff_number')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>
@@ -61,7 +80,7 @@
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="gender" class="form-label">Gender</label>
-                            <select class="form-select" id="gender" wire:model="gender">
+                            <select class="form-select form-select-sm" id="gender" wire:model="gender">
                                 <option value="">Select Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -72,15 +91,16 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
-                            <label for="staff_number">Staff Number</label>
-                            <input type="text" class="form-control" id="staff_number" wire:model.blur="staff_number">
-                            @error('staff_number')
+                            <label class="form-label" for="phone">Phone</label>
+                            <input type="text" id="phone" class="form-control form-control-sm" wire:model.blur="phone"
+                                autocomplete="off">
+                            @error('phone')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group col-md-12 mb-2">
                             <label for="address">Address</label>
-                            <textarea class="form-control" id="address" wire:model.blur="address"></textarea>
+                            <textarea class="form-control form-control-sm" id="address" wire:model.blur="address"></textarea>
                             @error('address')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror

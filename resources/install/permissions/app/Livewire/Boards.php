@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Models\Board;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Livewire\WithFileUploads;
 
 class Boards extends Component
 { 
