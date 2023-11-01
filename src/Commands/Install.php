@@ -62,9 +62,10 @@ class Install extends Command
             
             $this->crudStubDir = __DIR__ . '/../../resources/install/crud';
             $this->generateCrudFiles();
-            $this->SchoolInstall();
             // Add Helper File in Composer.json
+            exec('composer dump-autoload');
             $this->updateComposer();
+            $this->SchoolInstall();
             // Update Auth Routes
             $authRoutes = "\nAuth::routes(['register' => false]);\nRoute::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');";
             $content = file_get_contents($routeFile);

@@ -34,7 +34,6 @@
                         <span class="d-none d-md-inline"> {{ Auth::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-                        <!--begin::User Image-->
                         <li class="user-header text-bg-primary">
                             <img src="{{ asset('storage/' . Auth::user()->photo) }}"class="rounded-circle shadow"
                                 alt="User Image">
@@ -44,9 +43,7 @@
                                 <small>Member since {{ Auth::user()->created_at->format('M Y') }}</small>
                             </p>
                         </li>
-                        <!--begin::Menu Body-->
                         <li class="user-body">
-                            <!--begin::Row-->
                             <div class="row">
                                 <div class="col-4 text-center">
                                     <a href="#">Followers</a>
@@ -59,9 +56,8 @@
                                 </div>
                             </div>
                         </li>
-                        <!--begin::Menu Footer-->
                         <li class="user-footer">
-                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            <a wire:navigate href="{{ route('admin.users.show', ['id' => auth()->id()])}}" class="btn btn-default btn-flat">Profile</a>
                             <a class="btn btn-default btn-flat float-end" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

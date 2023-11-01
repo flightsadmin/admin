@@ -156,12 +156,6 @@ trait FileHandler
                                 request()->merge([\$field => \$loginValue]);
                                 return \$field;
                             }
-                        
-                            protected function attemptLogin(Request \$request)
-                            {
-                                \$credentials = \$this->credentials(\$request);
-                                return \$this->guard()->attempt(\$credentials, \$request->filled('remember'));
-                            }
 
                         NAV;
 

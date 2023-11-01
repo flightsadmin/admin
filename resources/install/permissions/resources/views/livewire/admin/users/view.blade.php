@@ -50,9 +50,7 @@
                                         <button data-bs-toggle="modal" data-bs-target="#viewModal"
                                             class="btn btn-info custom-btn-sm text-white bi-eye" wire:click="edit({{ $user->id }})">
                                         </button>
-                                        @if (
-                                            $user->id == auth()->user()->id ||
-                                                auth()->user()->can('ManageUsers'))
+                                        @if ($user->id == auth()->user()->id || auth()->user()->can('ManageUsers'))
                                             <button data-bs-toggle="modal" data-bs-target="#dataModal"
                                                 class="btn btn-primary custom-btn-sm bi-pencil-square"
                                                 wire:click="edit({{ $user->id }})"> </button>
