@@ -22,39 +22,39 @@ trait FileHandler
             $updatedData = $this->filesystem->get($routeFile);
             $spatieRoutes =
                 <<<ROUTES
-                // Admin Routes
-                Route::middleware(['auth'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                    Route::get('/', [App\Livewire\Students::class, 'home'])->name('admin');
-                    Route::get('/attendances', App\Livewire\Attendances::class);
-                    Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
-                    Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
-                    Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
-                    
-                    Route::group(['prefix' => 'users'], function () {
-                        Route::get('/', App\Livewire\Users::class)->name('admin.users');
-                        Route::get('/{id}', [App\Livewire\Users::class, 'details'])->name('admin.users.show');
-                    });
-                    Route::group(['prefix' => 'students'], function () {
-                        Route::get('/', App\Livewire\Students::class)->name('admin.students');
-                        Route::get('/{id}', [App\Livewire\Students::class, 'details'])->name('admin.students.show');
-                    });
-                    Route::group(['prefix' => 'parents'], function () {
-                        Route::get('/', App\Livewire\Guardians::class)->name('admin.parents');
-                        Route::get('/{id}', [App\Livewire\Guardians::class, 'details'])->name('admin.parents.show');
-                    });
-                    Route::group(['prefix' => 'teachers'], function () {
-                        Route::get('/', App\Livewire\Teachers::class)->name('admin.teachers');
-                        Route::get('/{id}', [App\Livewire\Teachers::class, 'details'])->name('admin.teachers.show');
-                    });
-                    Route::group(['prefix' => 'grades'], function () {
-                        Route::get('/', App\Livewire\Grades::class)->name('admin.grades');
-                        Route::get('/{id}', [App\Livewire\Grades::class, 'details'])->name('admin.grades.show');
-                    });
-                    Route::group(['prefix' => 'notices'], function () {
-                        Route::get('/', App\Livewire\Boards::class)->name('admin.notices');
-                        Route::get('/{id}', [App\Livewire\Boards::class, 'details'])->name('admin.notices.show');
-                    });
+            // Admin Routes
+            Route::middleware(['auth'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
+                Route::get('/', [App\Livewire\Students::class, 'home'])->name('admin');
+                Route::get('/attendances', App\Livewire\Attendances::class);
+                Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
+                Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
+                Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
+                
+                Route::group(['prefix' => 'users'], function () {
+                    Route::get('/', App\Livewire\Users::class)->name('admin.users');
+                    Route::get('/{id}', [App\Livewire\Users::class, 'details'])->name('admin.users.show');
                 });
+                Route::group(['prefix' => 'students'], function () {
+                    Route::get('/', App\Livewire\Students::class)->name('admin.students');
+                    Route::get('/{id}', [App\Livewire\Students::class, 'details'])->name('admin.students.show');
+                });
+                Route::group(['prefix' => 'parents'], function () {
+                    Route::get('/', App\Livewire\Guardians::class)->name('admin.parents');
+                    Route::get('/{id}', [App\Livewire\Guardians::class, 'details'])->name('admin.parents.show');
+                });
+                Route::group(['prefix' => 'teachers'], function () {
+                    Route::get('/', App\Livewire\Teachers::class)->name('admin.teachers');
+                    Route::get('/{id}', [App\Livewire\Teachers::class, 'details'])->name('admin.teachers.show');
+                });
+                Route::group(['prefix' => 'grades'], function () {
+                    Route::get('/', App\Livewire\Grades::class)->name('admin.grades');
+                    Route::get('/{id}', [App\Livewire\Grades::class, 'details'])->name('admin.grades.show');
+                });
+                Route::group(['prefix' => 'notices'], function () {
+                    Route::get('/', App\Livewire\Boards::class)->name('admin.notices');
+                    Route::get('/{id}', [App\Livewire\Boards::class, 'details'])->name('admin.notices.show');
+                });
+            });
             ROUTES;
 
             $fileHook = "//Route Hooks - Do not delete//";
