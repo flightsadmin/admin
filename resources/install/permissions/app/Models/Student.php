@@ -10,20 +10,24 @@ class Student extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'user_id',
         'guardian_id',
         'grade_id',
-        'roll_number',
         'gender',
         'date_of_birth',
         'address',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function parent()
     {
         return $this->belongsTo(Guardian::class, 'guardian_id');
     }
-    
+
     public function grade()
     {
         return $this->belongsTo(Grade::class);

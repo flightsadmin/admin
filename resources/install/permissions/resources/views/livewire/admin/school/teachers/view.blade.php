@@ -10,7 +10,7 @@
                             id="search" placeholder="Search Teacher">
                     </div>
 
-                    <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+                    <div class="btn btn-sm btn-info bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                         Add Teacher
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                     @forelse($teachers as $row)
                         <div class="col-md-6 border d-flex justify-content-between">
                             <div class="col-md-8 mt-2">
-                                <b><i class="bi bi-person-circle text-info"></i> {{ $row->name }}</b>
+                                <b><i class="bi-person-circle text-info"></i> {{ $row->user->name }}</b>
                                 <div>Staff Number: {{ $row->staff_number }}</div>
                                 <div>Gender: {{ ucwords($row->gender) }}</div>
                                 <div>Address: {{ $row->address }}</div>

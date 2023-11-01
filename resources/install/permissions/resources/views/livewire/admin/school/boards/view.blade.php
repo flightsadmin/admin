@@ -10,7 +10,7 @@
                             id="search" placeholder="Search Notice">
                     </div>
 
-                    <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+                    <div class="btn btn-sm btn-info bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                         Add Notice
                     </div>
                 </div>
@@ -33,11 +33,11 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="" data-bs-toggle="modal" data-bs-target="#dataModal"
-                                            class="dropdown-item bi bi-pencil-square" wire:click.prevent="edit({{ $row->id }})">
+                                            class="dropdown-item bi-pencil-square" wire:click.prevent="edit({{ $row->id }})">
                                             Edit </a></li>
                                         <li><a wire:navigate href="{{ route('admin.notices.show', ['id' => $row->id]) }}"
-                                            style="text-decoration: none;" class="dropdown-item bi bi-eye-fill"> View</a></li>                                        
-                                        <li><a href="" class="dropdown-item bi bi-trash3"
+                                            style="text-decoration: none;" class="dropdown-item bi-eye-fill"> View</a></li>                                        
+                                        <li><a href="" class="dropdown-item bi-trash3"
                                                 wire:click.prevent="destroy({{ $row->id }})"
                                                 wire:confirm="Are you sure you want to delete this Notice?"> Delete </a></li>
                                     </ul>

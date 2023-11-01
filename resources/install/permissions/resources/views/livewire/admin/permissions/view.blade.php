@@ -6,7 +6,7 @@
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div class="card-title"> Permissions</div>
 
-                    <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+                    <div class="btn btn-sm btn-info bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                         Add Permission
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                                     <td>{{ $permission->name }}</td>
                                     <td>
                                         @foreach ($permission->roles as $role)
-                                            <button class="btn btn-warning custom-btn-sm mb-1 bi bi-shield-shaded">
+                                            <button class="btn btn-warning custom-btn-sm mb-1 bi-shield-shaded">
                                                 {{ $role->name }}</button>
                                         @endforeach
                                     </td>
@@ -43,10 +43,10 @@
                                             <ul class="dropdown-menu">
                                                 <li>
                                                     <a data-bs-toggle="modal" data-bs-target="#dataModal"
-                                                        class="dropdown-item bi bi-pencil-square"
+                                                        class="dropdown-item bi-pencil-square"
                                                         wire:click="edit({{ $permission->id }})"> Edit </a>
                                                 </li>
-                                                <li><a class="dropdown-item bi bi-trash3"
+                                                <li><a class="dropdown-item bi-trash3"
                                                         wire:click.prevent="destroy({{ $permission->id }})"
                                                         wire:confirm="Are you sure you want to delete this Permission?"> Delete </a></li>
                                             </ul>

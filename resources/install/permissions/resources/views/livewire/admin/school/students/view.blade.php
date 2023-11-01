@@ -5,12 +5,7 @@
             <div class="card-header py-2">
                 <div class="d-flex align-items-center justify-content-between">
                     <h3 class="card-title">Students</h3>
-                    <div>
-                        <input wire:model.live.debounce.500ms="keyWord" type="text" class="form-control form-control-sm" name="search"
-                            id="search" placeholder="Search Student">
-                    </div>
-
-                    <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+                    <div class="btn btn-sm btn-info bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                         Add Student
                     </div>
                 </div>
@@ -21,13 +16,13 @@
                     @forelse($students as $row)
                         <div class="col-md-6 border d-flex justify-content-between">
                             <div class="col-md-8 my-2">
-                                <b><i class="bi bi-person-circle text-info"></i> {{ $row->name }}</b>
-                                <div class="bi bi-person-vcard"> Registration Number: {{ $row->roll_number }}</div>
+                                <b><i class="bi-person-circle text-info"></i> {{ $row->user->name }}</b>
+                                <div class="bi-person-vcard"> Registration Number: {{ $row->user->username }}</div>
                                 <div>Gender: {{ ucwords($row->gender) }}</div>
                                 <div>Address: {{ $row->address }}</div>
                                 <b>Parent:</b>
                                 <a wire:navigate href="{{ $row->parent ? route('admin.parents.show', ['id' => $row->parent->id]) : '#' }}"
-                                    style="text-decoration: none;">{{ $row->parent ? $row->parent->name : '' }}</a>                                
+                                    style="text-decoration: none;">{{ $row->parent ? $row->parent->user->name : '' }}</a>
                             </div>
                             <div class="col-md-4 mt-2">
                                 <div class="dropdown float-end">
@@ -37,9 +32,11 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="" data-bs-toggle="modal" data-bs-target="#dataModal"
-                                                class="dropdown-item bi bi-pencil-square" wire:click.prevent="edit({{ $row->id }})">
+                                                class="dropdown-item bi-pencil-square" wire:click.prevent="edit({{ $row->id }})">
                                                 Edit </a></li>
-                                        <li><a href="" class="dropdown-item bi bi-trash3"
+                                        <li><a wire:navigate href="{{ route('admin.students.show', ['id' => $row->id]) }}"
+                                                class="dropdown-item bi-eye-fill"> View</a></li>
+                                        <li><a href="" class="dropdown-item bi-trash3"
                                                 wire:click.prevent="destroy({{ $row->id }})"
                                                 wire:confirm="Are you sure you want to delete this Student?"> Delete </a></li>
                                     </ul>

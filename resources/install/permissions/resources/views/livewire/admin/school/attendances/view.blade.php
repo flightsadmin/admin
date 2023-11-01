@@ -8,7 +8,7 @@
                     <input type="date" class="form-control form-control-sm" wire:model.live="attendanceDate">
                 </div>
                 <button type="submit" class="btn btn-sm btn-primary float-end" wire:click="store">
-                    <i class="bi bi-save me-2"></i> Save changes
+                    <i class="bi-save me-2"></i> Save changes
                 </button>
             </div>
         </div>

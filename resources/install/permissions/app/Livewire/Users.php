@@ -20,7 +20,7 @@ class Users extends Component
     public function render()
     {
         return view('livewire.admin.users.view', [
-            'users' => User::latest()->paginate(),
+            'users' => User::whereIn('title', ['super-admin', 'admin', 'user', 'principal'])->latest()->paginate(),
             'roles' => Role::with('permissions')->get()
         ])->extends('components.layouts.admin');
     }
@@ -30,12 +30,13 @@ class Users extends Component
         $validatedData = $this->validate([
             'name'          => 'required|min:5',
             'email'         => 'required|email',
-            'phone'         => 'nullable|regex:/^\+?\d{9,13}$/',
-            'title'         => 'nullable|min:5',
+            'phone'         => 'nullable|min:10|max:13',
+            'title'         => 'required',
             'selectedRoles' => 'required',
             'password'      => $this->userId ? 'nullable' : 'required|confirmed',
             'photo'         => $this->userId ? 'nullable' : 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+        
         if ($this->photo && !is_string($this->photo)) {
         $validatedData['photo'] = $this->photo->storeAs('users', explode('@', $validatedData['email'])[0] . '.'.$this->photo->getClientOriginalExtension() , 'public');
         } else {

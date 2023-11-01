@@ -6,8 +6,8 @@
             <div class="card">
                 <div class="card-header py-2">
                     <div class="d-flex align-items-center justify-content-between">
-                        <h3 class="card-title">Details for: {{ $teacher->name }}</h3>
-                        <a class="btn btn-sm btn-secondary bi bi-backspace-fill text-decoration-none text-white"
+                        <h3 class="card-title">Details for: {{ $teacher->user->name }}</h3>
+                        <a class="btn btn-sm btn-secondary bi-backspace-fill text-decoration-none text-white"
                             wire:navigate href="{{ URL::previous() }}"> Back </a>
                     </div>
                 </div>
@@ -31,10 +31,10 @@
                                 <div class="tab-content" id="nav-tabContent">
                                     <div class="tab-pane fade show active" id="details">
                                         <div class="col-lg-6 col-6 p-3">
-                                            <div class="bi bi-person-square fw-bold"> Name: {{ $teacher->name }}</div>
-                                            <div class="bi bi-person-vcard"> Staff ID: {{ $teacher->staff_number }}</div>
-                                            <div class="bi bi-person-standing-dress"> Gender: {{ ucwords($teacher->gender) }}</div>
-                                            <div class="bi bi-globe"> Address: {{ $teacher->address }}</div>
+                                            <div class="bi-person-square fw-bold"> Name: {{ $teacher->user->name }}</div>
+                                            <div class="bi-person-vcard"> Staff ID: {{ $teacher->staff_number }}</div>
+                                            <div class="bi-person-standing-dress"> Gender: {{ ucwords($teacher->gender) }}</div>
+                                            <div class="bi-globe"> Address: {{ $teacher->address }}</div>
                                         </div>
                                     </div>
 

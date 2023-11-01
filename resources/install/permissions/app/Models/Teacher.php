@@ -10,24 +10,24 @@ class Teacher extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'email',
-        'phone',
-        'subject_id',
-        'grade_id',
-        'staff_number',
+        'user_id',
         'gender',
         'date_of_birth',
         'address',
     ];
 
-    public function classes()
+    public function user()
     {
-        return $this->belongsToMany(Grade::class, 'grade_teacher')->withTimestamps();
+        return $this->belongsTo(User::class);
     }
     
+    public function classes()
+    {
+        return $this->belongsToMany(Grade::class)->withTimestamps();
+    }
+
     public function subjects()
     {
-        return $this->belongsToMany(Subject::class, 'subject_teacher')->withTimestamps();
+        return $this->belongsToMany(Subject::class)->withTimestamps();
     }
 }

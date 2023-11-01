@@ -14,19 +14,19 @@
                                 alt="{{ $title }}">
                         </div>
                         <div class="d-flex align-items-center justify-content-between border-bottom">
-                            <p class="py-2 bi bi-person-vcard-fill"> Full Name</p>
+                            <p class="py-2 bi-person-vcard-fill"> Full Name</p>
                             <p class="py-2 text-muted">{{ $name }}</p>
                         </div>
                         <div class="d-flex align-items-center justify-content-between border-bottom">
-                            <p class="py-2 bi bi-envelope-at-fill"> Email</p>
+                            <p class="py-2 bi-envelope-at-fill"> Email</p>
                             <p class="py-2 text-muted"> {{ $email }}</p>
                         </div>
                         <div class="d-flex align-items-center justify-content-between border-bottom">
-                            <p class="py-2 bi bi-telephone-fill"> Phone</p>
+                            <p class="py-2 bi-telephone-fill"> Phone</p>
                             <p class="py-2 text-muted">{{ $phone }}</p>
                         </div>
                         <div class="d-flex align-items-center justify-content-between border-bottom">
-                            <p class="py-2 bi bi-geo-alt-fill"> Title</p>
+                            <p class="py-2 bi-geo-alt-fill"> Title</p>
                             <p class="py-2 text-muted">{{ $title }}</p>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="name">Name</label>
-                            <input type="text" id="name" class="form-control" wire:model.blur="name" placeholder="Name"
+                            <input type="text" id="name" class="form-control form-control-sm" wire:model.blur="name" placeholder="Name"
                                 autocomplete="off">
                             @error('name')
                                 <span class="text-danger small">{{ $message }}</span>
@@ -64,7 +64,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="email">Email</label>
-                            <input type="email" id="email" wire:model.blur="email" placeholder="Email" class="form-control"
+                            <input type="email" id="email" wire:model.blur="email" placeholder="Email" class="form-control form-control-sm"
                                 autocomplete="off">
                             @error('email')
                                 <span class="text-danger small">{{ $message }}</span>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="phone">Phone</label>
-                            <input type="text" id="phone" wire:model.blur="phone" placeholder="Phone" class="form-control"
+                            <input type="text" id="phone" wire:model.blur="phone" placeholder="Phone" class="form-control form-control-sm"
                                 autocomplete="off">
                             @error('phone')
                                 <span class="text-danger small">{{ $message }}</span>
@@ -80,8 +80,12 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="title">Title</label>
-                            <input type="text" id="title" wire:model.blur="title" placeholder="Title" class="form-control"
-                                autocomplete="off">
+                            <select name="title" id="title" wire:model.blur="title" class="form-select form-select-sm">
+                                <option value="">Select Title</option>
+                                <option value="Admin">Admin</option>
+                                <option value="User">User</option>
+                                <option value="Principal">Principal</option>
+                            </select>
                             @error('title')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
@@ -89,7 +93,7 @@
                         <div class="col-md-6 mb-3">
                             <label for="photo">Photo</label>
                             <input accept="image/png, image/jpeg, image/jpg" type="file" id="photo" wire:model="photo"
-                                placeholder="Photo" class="form-control">
+                                placeholder="Photo" class="form-control form-control-sm">
                             @error('photo')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
@@ -98,7 +102,7 @@
                             <div class="col-md-2 text-center" style="position: relative;">
                                 <img class="profile-img mb-2" src="{{ $userId ? asset('storage/' . $photo) : $photo->temporaryUrl() }}"
                                     style="height:70px; width:70px;">
-                                <a href="" wire:click.prevent="$set('photo', null)" class="bi bi-trash3-fill text-danger"
+                                <a href="" wire:click.prevent="$set('photo', null)" class="bi-trash3-fill text-danger"
                                     style="position: absolute;"></a>
                             </div>
                         @endif
@@ -116,7 +120,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="password">Password</label>
                                 <input type="password" id="password" wire:model.blur="password" placeholder="Password"
-                                    class="form-control">
+                                    class="form-control form-control-sm">
                                 @error('password')
                                     <span class="text-danger small">{{ $message }}</span>
                                 @enderror
@@ -124,7 +128,7 @@
                             <div class="col-md-6 mb-3">
                                 <label for="password_confirmation">Confirm Password</label>
                                 <input type="password" id="password_confirmation" wire:model.blur="password_confirmation"
-                                    placeholder="Confirm Password" class="form-control">
+                                    placeholder="Confirm Password" class="form-control form-control-sm">
                                 @error('password_confirmation')
                                     <span class="text-danger small">{{ $message }}</span>
                                 @enderror
@@ -172,7 +176,7 @@
             <div class="modal-footer mt-3 d-flex align-items-center justify-content-between">
                 <button wire:loading.attr="disabled" wire:click="$refresh" data-bs-dismiss="modal"
                     class="btn btn-sm btn-primary">Back</button>
-                <button wire:loading.attr="disabled" wire:click.prevent="submit" class="btn btn-sm btn-primary bi bi-check2-circle">
+                <button wire:loading.attr="disabled" wire:click.prevent="submit" class="btn btn-sm btn-primary bi-check2-circle">
                     {{ $userId ? 'Edit Changes' : 'Add User' }}</button>
             </div>
         </div>

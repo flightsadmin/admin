@@ -12,13 +12,14 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->after('email', function ($table) {
+            $table->after('name', function ($table) {
+                $table->string('email', 100)->nullable()->change();
                 $table->string('phone')->nullable();
+                $table->string('username')->unique()->nullable();
                 $table->string('title')->nullable();
                 $table->string('photo')->default('users/noimage.jpg');
                 $table->string('auth_type')->default('email');
             });
-            $table->softDeletes();
         });
     }
 
@@ -28,7 +29,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['phone', 'title', 'photo', 'auth_type']);
+            $table->dropColumn(['phone', 'username', 'title', 'photo', 'auth_type']);
         });
     }
 };

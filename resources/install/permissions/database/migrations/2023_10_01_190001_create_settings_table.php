@@ -23,9 +23,9 @@ return new class extends Migration
         
         Schema::create('guardians', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phone');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->enum('gender', ['male', 'female', 'other']);
+            $table->string('address');
             $table->timestamps();
         });
 
@@ -38,10 +38,7 @@ return new class extends Migration
 
         Schema::create('teachers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('staff_number');
-            $table->string('phone');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->enum('gender', ['male', 'female', 'other']);
             $table->date('date_of_birth');
             $table->string('address');
@@ -57,10 +54,9 @@ return new class extends Migration
 
         Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('guardian_id')->nullable()->constrained('guardians')->onDelete('set null');
             $table->foreignId('grade_id')->nullable()->constrained('grades')->onDelete('set null');
-            $table->string('roll_number');
             $table->enum('gender', ['male', 'female', 'other']);
             $table->date('date_of_birth');
             $table->string('address');

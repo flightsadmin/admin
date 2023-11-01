@@ -31,7 +31,7 @@
                             <select class="form-select form-select-sm" id="guardian_id" wire:model.blur="guardian_id">
                                 <option value="">Select Parent</option>
                                 @foreach ($parents as $parent)
-                                    <option value="{{ $parent->id }}">{{ $parent->name }}</option>
+                                    <option value="{{ $parent->id }}">{{ $parent->user->name }}</option>
                                 @endforeach
                             </select>
                             @error('guardian_id')
@@ -63,16 +63,16 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
-                            <label for="roll_number" class="form-label">Staff Number</label>
+                            <label for="username" class="form-label">Username</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" id="roll_number" wire:model.blur="roll_number"
+                                <input type="text" class="form-control form-control-sm" id="username" wire:model.blur="username"
                                     disabled placeholder="Generate Admission Number">
-                                @if (!$roll_number)
+                                @if (!$username)
                                     <span type="button" class="btn btn-sm btn-secondary bi-check-circle"
-                                        wire:click.prevent="generateRollNumber"> Generate</span>
+                                        wire:click.prevent="generateUserName"> Generate</span>
                                 @endif
                             </div>
-                            @error('roll_number')
+                            @error('username')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>
@@ -88,7 +88,7 @@
             </div>
             <div class="modal-footer d-flex align-items-center justify-content-between">
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button wire:click.prevent="save" type="button" class="btn btn-sm btn-primary bi bi-check2-circle"> Save</button>
+                <button wire:click.prevent="save" type="button" class="btn btn-sm btn-primary bi-check2-circle"> Save</button>
             </div>
         </div>
     </div>

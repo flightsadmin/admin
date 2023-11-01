@@ -20,13 +20,6 @@ class SchoolSeeder extends Seeder
         }
 
         for ($i = 1; $i <= 5; $i++) {
-            // Seed Parents
-            Guardian::create([
-                'name' => $faker->name(),
-                'email' => $faker->safeEmail(),
-                'phone' => '+25472000000'.$i,
-            ]);
-
             // Seed Grades
             Grade::create([
                 'name' => "Class $i",
@@ -39,13 +32,22 @@ class SchoolSeeder extends Seeder
                 'body'  => $faker->realText(1500),
                 'user_id'=> User::inRandomOrder()->first()->id,
             ]);
+        }
+        // Seed Parents
+        $guardians = User::where('title', 'Parent')->count();
+        for ($i = 1; $i <= $guardians; $i++) {
+            $teacher = Guardian::create([
+                'user_id' => User::where('title', 'Parent')->inRandomOrder()->first()->id,
+                'gender' => ($i % 2 == 0) ? 'female' : 'male',
+                'address' => $faker->address(),
+            ]);
+        }
 
-            // Seed Teachers
+        // Seed Teachers
+        $teachers = User::where('title', 'Teacher')->count();
+        for ($i = 1; $i <= $teachers; $i++) {
             $teacher = Teacher::create([
-                'name' => $faker->name(),
-                'email'=> $faker->email(),
-                'phone' => '+25472000000'.$i,
-                'staff_number' => setting('site_short_code').'/'.date('Y').'/'. str_pad(Teacher::max('id') + 1, 5, 0, STR_PAD_LEFT),
+                'user_id' => User::where('title', 'Teacher')->inRandomOrder()->first()->id,
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",
                 'address' => $faker->address(),
@@ -55,12 +57,12 @@ class SchoolSeeder extends Seeder
         }
 
         // Seed Students
-        for ($i = 1; $i <= 20; $i++) {
+        $students = User::where('title', 'Student')->count();
+        for ($i = 1; $i <= $students; $i++) {
             Student::create([
-                'name' => $faker->name(),
+                'user_id' => User::where('title', 'Student')->inRandomOrder()->first()->id,
                 'guardian_id' => Guardian::inRandomOrder()->first()->id,
                 'grade_id' => Grade::inRandomOrder()->first()->id,
-                'roll_number' => setting('site_short_code').'/'.date('Y').'/'. str_pad(Student::max('id') + 1, 5, 0, STR_PAD_LEFT),
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",
                 'address' => $faker->address(),

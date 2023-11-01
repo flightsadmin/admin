@@ -33,14 +33,14 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
-                            <label for="staff_number" class="form-label">Staff Number</label>
+                            <label for="username" class="form-label">Username</label>
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" id="staff_number" wire:model.blur="staff_number" disabled placeholder="Staff Number">
-                                @if (!$staff_number)
-                                    <span type="button" class="btn btn-sm btn-secondary bi-check-circle" wire:click.prevent="generateStaffNumber"> Generate</span>
+                                <input type="text" class="form-control form-control-sm" id="username" wire:model.blur="username" disabled placeholder="Staff Number">
+                                @if (!$username)
+                                    <span type="button" class="btn btn-sm btn-secondary bi-check-circle" wire:click.prevent="generateUserName"> Generate</span>
                                 @endif
                             </div>
-                            @error('staff_number')
+                            @error('username')
                                 <span class="text-danger small">{{ $message }}</span>
                             @enderror
                         </div>
@@ -110,7 +110,7 @@
             </div>
             <div class="modal-footer d-flex align-items-center justify-content-between">
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button wire:click.prevent="save" type="button" class="btn btn-sm btn-primary bi bi-check2-circle"> Save</button>
+                <button wire:click.prevent="save" type="button" class="btn btn-sm btn-primary bi-check2-circle"> Save</button>
             </div>
         </div>
     </div>

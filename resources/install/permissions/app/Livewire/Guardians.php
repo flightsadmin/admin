@@ -7,68 +7,76 @@ use Livewire\Component;
 use App\Models\Guardian;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 
 class Guardians extends Component
-{ 
+{
     use WithPagination, WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    public $parent_id, $name, $email, $phone, $keyWord;
+    public $parent_id, $name, $email, $phone, $gender, $address;
 
     public function render()
     {
-        $keyWord = '%'. $this->keyWord .'%';
-        $parents = Guardian::with('students')
-                    ->orWhere('name', 'LIKE', $keyWord)
-                    ->orWhere('email', 'LIKE', $keyWord)
-                    ->paginate();
+        $parents = Guardian::with('students', 'user')->paginate();
         return view('livewire.admin.school.parents.view', [
             'parents' => $parents
         ])->extends('components.layouts.admin');
     }
-    
+
     public function save()
     {
         $validatedData = $this->validate([
-            'name'   => 'required',
-            'email'  => 'required|email',
-            'phone'  => 'nullable'
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'gender' => 'required',
+            'address' => 'required',
         ]);
 
-        $guardian = Guardian::updateOrCreate(['id' => $this->parent_id], $validatedData);
-        if($guardian->wasRecentlyCreated){
-            $user = new User([
-                'name' => $guardian->name,
-                'email' => $guardian->email,
-                'phone' => $guardian->phone,
-                'title' => 'Guardian',
-                'password' => bcrypt('password'),
-            ]);
-            
-            $user->save();
-            $user->roles()->sync(['1']);
-        }
+        try {
+            DB::transaction(function () use ($validatedData) {
+                $user = User::updateOrCreate(['email' => $this->email], [
+                    'name' => $validatedData['name'],
+                    'email' => $validatedData['email'],
+                    'phone' => $validatedData['phone'],
+                    'title' => 'Parent',
+                    'password' => bcrypt('password')
+                ])->assignRole('parent');
 
-        $this->alert();
-        $this->reset();
+                $parent = $user->parent()->updateOrCreate(['id' => $this->parent_id], [
+                    'user_id' => $user->id,
+                    'gender' => $validatedData['gender'],
+                    'address' => $validatedData['address'],
+                ]);
+            });
+            $this->alert();
+            $this->reset();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
     }
 
     public function edit($id)
     {
         $parent = Guardian::findOrFail($id);
         $this->parent_id = $id;
-        $this->name = $parent->name;
-        $this->email = $parent->email;
-        $this->phone = $parent->phone;
+        $this->name = $parent->user->name;
+        $this->email = $parent->user->email;
+        $this->phone = $parent->user->phone;
+        $this->gender = $parent->gender;
+        $this->address = $parent->address;
     }
 
-    public function details($id) {
+    public function details($id)
+    {
         $parent = Guardian::findOrFail($id);
         return view('livewire.admin.school.parents.details', [
             'parent' => $parent
         ]);
     }
 
-    public function alert() {
+    public function alert()
+    {
         $this->dispatch(
             'closeModal',
             icon: "success",

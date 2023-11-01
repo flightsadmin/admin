@@ -9,83 +9,89 @@ use App\Models\Teacher;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\DB;
 
 class Teachers extends Component
-{ 
+{
     use WithPagination, WithFileUploads;
     protected $paginationTheme = 'bootstrap';
-    public $teacher_id, $name, $email, $phone, $subjects = [], $grades = [], $gender, $date_of_birth, $staff_number, $keyWord, $address;
+    public $teacher_id, $name, $email, $phone, $subjects = [], $grades = [], $gender, $date_of_birth, $username, $keyWord, $address;
 
     public function render()
     {
-        $keyWord = '%'. $this->keyWord .'%';
-        $teachers = Teacher::with('classes', 'subjects')
-                    ->orWhere('name', 'LIKE', $keyWord)
-                    ->orWhere('staff_number', 'LIKE', $keyWord)
-                    ->paginate();
+        $teachers = Teacher::with('classes', 'subjects')->paginate();
         return view('livewire.admin.school.teachers.view', [
-            'teachers'  => $teachers,
-            'classes'   => Grade::all(),
-            'lessons'   => Subject::all()
+            'teachers' => $teachers,
+            'classes' => Grade::all(),
+            'lessons' => Subject::all()
         ])->extends('components.layouts.admin');
     }
-    
+
     public function save()
     {
         $validatedData = $this->validate([
-            'name'          => 'required',
-            'email'         => 'required|email',
-            'phone'         => 'required',
-            'staff_number'  => 'required|min:2',
-            'gender'        => 'required',
-            'address'       => 'required',
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'username' => 'required|min:2',
+            'gender' => 'required',
+            'address' => 'required',
             'date_of_birth' => 'required|date'
         ]);
 
-        $teacher = Teacher::updateOrCreate(['id' => $this->teacher_id], $validatedData);
-        $teacher->classes()->sync($this->grades);
-        $teacher->subjects()->sync($this->subjects);
+        try {
+            DB::transaction(function () use ($validatedData) {
+                $user = User::updateOrCreate(['username' => $this->username], [
+                    'name' => $validatedData['name'],
+                    'email' => $validatedData['email'],
+                    'phone' => $validatedData['phone'],
+                    'username' => $validatedData['username'],
+                    'title' => 'Teacher',
+                    'password' => bcrypt('password')
+                ])->assignRole('teacher');
 
-        if($teacher->wasRecentlyCreated){
-            $user = new User([
-                'name' => $teacher->name,
-                'email' => $teacher->email,
-                'phone' => $teacher->phone,
-                'title' => 'Teacher',
-                'password' => bcrypt('password'),
-            ]);
-            
-            $user->save();
-            $user->roles()->sync(['1']);
+                $teacher = $user->teacher()->updateOrCreate(['id' => $this->teacher_id], [
+                    'user_id' => $user->id,
+                    'gender' => $validatedData['gender'],
+                    'date_of_birth' => $validatedData['date_of_birth'],
+                    'address' => $validatedData['address'],
+                ]);
+
+                $teacher->classes()->sync($this->grades);
+                $teacher->subjects()->sync($this->subjects);
+                $this->alert();
+                $this->reset();
+            });
+        } catch (\Throwable $th) {
+            throw $th;
         }
-
-        $this->alert();
-        $this->reset();
     }
 
     public function edit($id)
     {
         $teacher = Teacher::findOrFail($id);
         $this->teacher_id = $id;
-        $this->name = $teacher->name;
-        $this->email = $teacher->email;
-        $this->phone = $teacher->phone;
+        $this->name = $teacher->user->name;
+        $this->email = $teacher->user->email;
+        $this->phone = $teacher->user->phone;
+        $this->username = $teacher->user->username;
         $this->subjects = $teacher->subjects->pluck('id')->toArray();
         $this->grades = $teacher->classes->pluck('id')->toArray();
-        $this->staff_number = $teacher->staff_number;
         $this->gender = $teacher->gender;
         $this->address = $teacher->address;
         $this->date_of_birth = $teacher->date_of_birth;
     }
 
-    public function details($id) {
+    public function details($id)
+    {
         $teacher = Teacher::findOrFail($id);
         return view('livewire.admin.school.teachers.details', [
             'teacher' => $teacher
         ]);
     }
 
-    public function alert() {
+    public function alert()
+    {
         $this->dispatch(
             'closeModal',
             icon: "success",
@@ -93,13 +99,13 @@ class Teachers extends Component
         );
     }
 
-    public function generateStaffNumber()
+    public function generateUserName()
     {
-        if ($this->staff_number) {
+        if ($this->username) {
             return;
         }
-        $lastStaff = Teacher::max('id');
-        $this->staff_number = setting('site_short_code').'/'.date('Y').'/'. str_pad($lastStaff + 1, 5, 0, STR_PAD_LEFT);
+        $lastStaff = User::max('id');
+        $this->username = setting('site_short_code') . '/' . date('Y') . '/' . str_pad($lastStaff + 1, 5, 0, STR_PAD_LEFT);
     }
 
     public function destroy($id)

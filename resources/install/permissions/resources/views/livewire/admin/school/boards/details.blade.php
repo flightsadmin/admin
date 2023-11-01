@@ -7,7 +7,7 @@
                 <div class="card-header py-2">
                     <div class="d-flex align-items-center justify-content-between">
                         <h3 class="card-title">Notice Board Details</h3>
-                        <a class="btn btn-sm btn-secondary bi bi-backspace-fill text-decoration-none text-white" 
+                        <a class="btn btn-sm btn-secondary bi-backspace-fill text-decoration-none text-white" 
                             wire:navigate href="{{ URL::previous() }}"> Back </a>
                     </div>
                 </div>
