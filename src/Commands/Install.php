@@ -67,7 +67,7 @@ class Install extends Command
             $this->updateComposer();
             $this->SchoolInstall();
             // Update Auth Routes
-            $authRoutes = "\nAuth::routes(['register' => false]);\nRoute::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');";
+            $authRoutes = "\nAuth::routes(['register' => false]);";
             $content = file_get_contents($routeFile);
             $content = str_replace("Auth::routes();\n\nRoute::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');", '', $content);
             if (strpos($content, $authRoutes) === false) {
