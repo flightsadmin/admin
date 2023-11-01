@@ -20,8 +20,8 @@ trait FileHandler
             $routeFile = base_path('routes/web.php');
             $routeData = file_get_contents($routeFile);
             $updatedData = $this->filesystem->get($routeFile);
-            $spatieRoutes = 
-            <<<ROUTES
+            $spatieRoutes =
+                <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                 Route::get('/', [App\Livewire\Students::class, 'home'])->name('admin');
@@ -53,7 +53,7 @@ trait FileHandler
                 });
             });
             ROUTES;
-            
+
             $fileHook = "//Route Hooks - Do not delete//";
 
             if (!Str::contains($updatedData, trim($spatieRoutes))) {
@@ -65,8 +65,8 @@ trait FileHandler
             //Updating NavBar
             $layoutsFile = base_path('resources/views/components/layouts/app.blade.php');
             $layoutsData = $this->filesystem->get($layoutsFile);
-            $spatieNavs  =
-            <<<NAV
+            $spatieNavs =
+                <<<NAV
                                     @role('super-admin|admin')
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
@@ -98,16 +98,85 @@ trait FileHandler
             $fileData = $this->filesystem->get($userModelFile);
             $modelReplacements = [
                 "class User extends Authenticatable\n{" => "\tuse HasRoles",
-                "namespace App\Models;\n"               => "use Spatie\Permission\Traits\HasRoles;",
-                "protected \$fillable = ["              => "\t\t'username',\t\t'phone',\n\t\t'photo',\n\t\t'title',",
+                "namespace App\Models;\n" => "use Spatie\Permission\Traits\HasRoles;",
+                "protected \$fillable = [" => "\t\t'username',\t\t'phone',\n\t\t'photo',\n\t\t'title',",
             ];
-            
+
             foreach ($modelReplacements as $key => $value) {
                 if (!Str::contains($fileData, $value)) {
                     $fileData = str_replace($key, $key . PHP_EOL . $value, $fileData);
                     $this->filesystem->put($userModelFile, $fileData);
-                    $this->warn($userModelFile . ' Updated with <info>' . trim($value). '</info>');
+                    $this->warn($userModelFile . ' Updated with <info>' . trim($value) . '</info>');
                 }
+            }
+
+            // Update Relationship
+            $userUpdate =
+                <<<NAV
+                            public function teacher()
+                            {
+                                return \$this->hasOne(Teacher::class);
+                            }
+                        
+                            public function student()
+                            {
+                                return \$this->hasOne(Student::class);
+                            }
+                        
+                            public function parent()
+                            {
+                                return \$this->hasOne(Guardian::class);
+                            }
+                        
+                        NAV;
+
+            $userHook = "}";
+            
+            $lastPosition = strrpos($fileData, $userHook);
+
+            if (!Str::contains($fileData, $userUpdate)) {
+                if ($lastPosition !== false) {
+                    $UserModelContents = substr_replace($fileData, PHP_EOL . $userUpdate, $lastPosition, 0);
+                } else {
+                    $UserModelContents = $fileData . PHP_EOL . $userUpdate;
+                }
+                $this->filesystem->put($userModelFile, $UserModelContents);
+                $this->warn($userModelFile . ' Updated');
+            }
+
+            // Updating Login Controller
+            $loginControllerFile = app_path('Http\Controllers\Auth\LoginController.php');
+            $loginData = $this->filesystem->get($loginControllerFile);
+            $loginUpdate =
+                <<<NAV
+                            protected function username()
+                            {
+                                \$loginValue = request()->input('login');
+                                \$field = filter_var(\$loginValue, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+                                request()->merge([\$field => \$loginValue]);
+                                return \$field;
+                            }
+                        
+                            protected function attemptLogin(Request \$request)
+                            {
+                                \$credentials = \$this->credentials(\$request);
+                                return \$this->guard()->attempt(\$credentials, \$request->filled('remember'));
+                            }
+
+                        NAV;
+
+            $loginHook = "}";
+            
+            $lastPosition = strrpos($loginData, $loginHook);
+
+            if (!Str::contains($loginData, $loginUpdate)) {
+                if ($lastPosition !== false) {
+                    $LoginContents = substr_replace($loginData, PHP_EOL . $loginUpdate, $lastPosition, 0);
+                } else {
+                    $LoginContents = $loginData . PHP_EOL . $loginUpdate;
+                }
+                $this->filesystem->put($loginControllerFile, $LoginContents);
+                $this->warn($loginControllerFile . ' Updated');
             }
 
             $this->warn('Publishing School Management Files');
@@ -123,7 +192,8 @@ trait FileHandler
         }
     }
 
-    public function socialLoginInstall() {
+    public function socialLoginInstall()
+    {
         if ($this->confirm('Do you want to Use AdminLTE v4?', true, true)) {
             //Copy AdminLTE Assets
             $sourcePath = base_path('node_modules/admin-lte/dist/assets');
@@ -154,7 +224,7 @@ trait FileHandler
             copy($source, $destination);
         }
     }
-    
+
     public function generateSchoolFiles()
     {
         $files = $this->filesystem->allFiles($this->permStubDir, true);
