@@ -6,7 +6,6 @@ use App\Models\Grade;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Guardian;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -27,9 +26,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
+        $user = auth()->user();
         
-        if ($user->hasRole('super-admin')) {
+        if ($user->hasRole('super-admin|admin')) {
             $parents = Guardian::with('students')->latest()->get();
             $teachers = Teacher::with('subjects', 'classes')->latest()->get();
             $students = Student::with('parent')->latest()->get();
@@ -39,8 +38,8 @@ class HomeController extends Controller
             $teacher = Teacher::with('user', 'subjects', 'classes')->withCount('subjects', 'classes')->findOrFail($user->teacher->id);
             return view('home', compact('teacher'));
         } elseif ($user->hasRole('parent')) {
-            $parents = Guardian::with('students')->withCount('students')->findOrFail($user->parent->id);
-            return view('home', compact('parents'));
+            $parent = Guardian::with('students')->withCount('students')->findOrFail($user->parent->id);
+            return view('home', compact('parent'));
         } elseif ($user->hasRole('student')) {
             $student = Student::with('user', 'parent', 'grade')->findOrFail($user->student->id);
             return view('home', compact('student'));

@@ -10,78 +10,10 @@
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="true">
                 <li class="nav-header"> DASHBOARD</li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.students') }}" wire:navigate
-                        class="nav-link {{ request()->is('admin/students') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-people-fill"></i>
-                        <p>Students</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.parents') }}" wire:navigate
-                        class="nav-link {{ request()->is('admin/parents') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-shield-shaded"></i>
-                        <p>Parents</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.teachers') }}" wire:navigate
-                        class="nav-link {{ request()->is('admin/teachers') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-person"></i>
-                        <p>Teachers</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.grades') }}" wire:navigate
-                        class="nav-link {{ request()->is('admin/grades') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-mortarboard"></i>
-                        <p>Classes</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.notices') }}" wire:navigate
-                        class="nav-link {{ request()->is('admin/notices') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-clipboard2-data-fill"></i>
-                        <p>Notices</p>
-                    </a>
-                </li>
-                <li class="nav-header"> ADMIN</li>
-                <li class="nav-item">
-                    <a href="{{ route('admin.settings') }}" wire:navigate
-                        class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-gear"></i>
-                        <p>Settings</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-box-arrow-in-right"></i>
-                        <p>
-                            Auth
-                            <i class="nav-arrow bi bi-chevron-right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="{{ route('admin.users') }}" wire:navigate class="nav-link">
-                                <i class="nav-icon bi bi-people-fill"></i>
-                                <p>Users</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.roles') }}" wire:navigate class="nav-link">
-                                <i class="nav-icon bi bi-shield-shaded"></i>
-                                <p>Roles</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.permissions') }}" wire:navigate class="nav-link">
-                                <i class="nav-icon bi bi-person-fill-lock"></i>
-                                <p>Permissions</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                @includeWhen(auth()->user()->hasRole("admin|super-admin"), "components.layouts.includes.menu.admin")
+                @includeWhen(auth()->user()->hasRole("teacher"), "components.layouts.includes.menu.teacher")
+                @includeWhen(auth()->user()->hasRole("parent"), "components.layouts.includes.menu.parent")
+                @includeWhen(auth()->user()->hasRole("student"), "components.layouts.includes.menu.student")
             </ul>
         </nav>
     </div>
