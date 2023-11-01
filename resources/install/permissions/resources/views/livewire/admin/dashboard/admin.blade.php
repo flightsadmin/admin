@@ -75,7 +75,8 @@
                     @foreach ($teachers as $teacher)
                         <div class="col-lg-6 col-6 p-3">
                             <div class="bi-person-square fw-bold"> Name: {{ $teacher->user->name }}</div>
-                            <div class="bi-person-vcard"> Staff ID: {{ $teacher->staff_number }}</div>
+                            <div class="bi-person-vcard"> Staff ID: {{ $teacher->user->username }}</div>
+                            <div class="envelope-at-fill"> Email: {{ ucwords($teacher->user->email) }}</div>
                             <div class="bi-person-standing-dress"> Gender: {{ ucwords($teacher->gender) }}</div>
                             <div class="bi-globe"> Address: {{ $teacher->address }}</div>
                         </div>
