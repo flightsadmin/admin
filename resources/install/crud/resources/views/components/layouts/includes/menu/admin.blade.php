@@ -29,7 +29,7 @@
     </li>
 
     @include('components.layouts.includes.menu.general')
-    
+
     <li class="nav-header"> ADMIN</li>
     <li class="nav-item">
         <a href="{{ route('admin.settings') }}" wire:navigate
