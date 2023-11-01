@@ -89,6 +89,10 @@ class Users extends Component
         );
     }
 
+    public function details() {
+        $user = auth()->user();
+        return view('livewire.admin.users.details', compact('user'));
+    }
     public function destroy($id)
     {
         $user = User::findOrFail($id);

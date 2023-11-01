@@ -1,7 +1,7 @@
 @extends('components.layouts.admin')
 @section('title', __('User Details'))
 @section('content')
-    <div class="col-md-4 mx-auto">
+    <div class="col-md-4 mx-auto shadow">
         <div class="card">
             <div class="card-body">
                 <div class="text-center">
