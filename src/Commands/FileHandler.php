@@ -97,7 +97,7 @@ trait FileHandler
             $userModelFile = app_path('Models/User.php');
             $fileData = $this->filesystem->get($userModelFile);
             $modelReplacements = [
-                "class User extends Authenticatable\n{" => "\tuse HasRoles",
+                "class User extends Authenticatable\n{" => "\tuse HasRoles;",
                 "namespace App\Models;\n" => "use Spatie\Permission\Traits\HasRoles;",
                 "protected \$fillable = [" => "\t\t'username',\t\t'phone',\n\t\t'photo',\n\t\t'title',",
             ];
