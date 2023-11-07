@@ -27,7 +27,20 @@
             <p>Classes</p>
         </a>
     </li>
-
+    <li class="nav-item">
+        <a href="{{ route('admin.timetable') }}" wire:navigate
+            class="nav-link {{ Route::is('admin.timetable') ? 'active' : '' }}">
+            <i class="nav-icon bi-calendar4-week"></i>
+            <p>Timetable</p>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="{{ route('admin.schedules') }}" wire:navigate
+            class="nav-link {{ Route::is('admin.schedules') ? 'active' : '' }}">
+            <i class="nav-icon bi-database-fill-check"></i>
+            <p>Schedule</p>
+        </a>
+    </li>
     @include('components.layouts.includes.menu.general')
 
     <li class="nav-header"> ADMIN</li>
