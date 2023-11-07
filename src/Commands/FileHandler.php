@@ -34,8 +34,8 @@ trait FileHandler
                     Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
                     
                     Route::group(['prefix' => 'timetable'], function () {
-                        Route::get('/', App\Livewire\Timetables::class)->name("timetable");
-                        Route::get('/schedules', App\Livewire\Schedules::class)->name("schedules");
+                        Route::get('/', App\Livewire\Timetables::class)->name('admin.timetable');
+                        Route::get('/schedules', App\Livewire\Schedules::class)->name('admin.schedules');
                     });
             
                     Route::group(['prefix' => 'users'], function () {
