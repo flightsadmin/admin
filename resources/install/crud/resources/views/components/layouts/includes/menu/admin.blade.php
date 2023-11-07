@@ -28,7 +28,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="{{ route('admin.timetable') }}" wire:navigate
+        <a href="{{ route('admin.timetable') }}"
             class="nav-link {{ Route::is('admin.timetable') ? 'active' : '' }}">
             <i class="nav-icon bi-calendar4-week"></i>
             <p>Timetable</p>

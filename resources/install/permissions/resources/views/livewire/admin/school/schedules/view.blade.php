@@ -98,7 +98,6 @@
                                 <th>Subject</th>
                                 <th>Start</th>
                                 <th>End</th>
-                                <th>End</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,8 +109,6 @@
                                     <td>{{ $row->name }}</td>
                                     <td>{{ $row->start_time }}</td>
                                     <td>{{ $row->end_time }}</td>
-                                    <td><a href="" wire:click.prevent="edit({{ $row->id }})"
-                                            class="bi-pencil-fill text-success"></a></td>
                                 </tr>
                             @empty
                                 <tr>
