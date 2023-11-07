@@ -92,6 +92,15 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
+
+        Schema::create('timetables', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->timestamp('start_time');
+            $table->timestamp('end_time');
+            $table->foreignId('grade_id')->constrained();
+            $table->timestamps();
+        });
     }
 
     public function down()
@@ -106,5 +115,6 @@ return new class extends Migration
         Schema::dropIfExists('attendances');
         Schema::dropIfExists('grade_teacher');
         Schema::dropIfExists('subject_teacher');
+        Schema::dropIfExists('timetables');
     }
 };

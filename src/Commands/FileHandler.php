@@ -25,13 +25,18 @@ trait FileHandler
             Route::group(['middleware' => 'auth'], function () {
                 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
                 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-            
+                
                 Route::middleware(['role:admin|super-admin'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                     Route::get('/', [App\Livewire\Students::class, 'home'])->name('admin');
                     Route::get('/attendances', App\Livewire\Attendances::class);
                     Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
                     Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
                     Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
+                    
+                    Route::group(['prefix' => 'timetable'], function () {
+                        Route::get('/', App\Livewire\Timetables::class)->name("timetable");
+                        Route::get('/schedules', App\Livewire\Schedules::class)->name("schedules");
+                    });
             
                     Route::group(['prefix' => 'users'], function () {
                         Route::get('/', App\Livewire\Users::class)->name('admin.users');
@@ -66,7 +71,7 @@ trait FileHandler
                 Route::group(['prefix' => 'parent'], function () {
                     Route::get('/', App\Livewire\Guardians::class)->name('parent');
                 });
-
+            
                 Route::group(['prefix' => 'student'], function () {
                     Route::get('/', App\Livewire\Students::class)->name('student');
                 });

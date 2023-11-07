@@ -4,19 +4,19 @@ namespace Database\Seeders;
 
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
-use App\Models\{User, Board, Grade, Student, Subject, Teacher, Guardian};
+use App\Models\{User, Board, Grade, Student, Subject, Teacher, Guardian, Timetable};
 
 class SchoolSeeder extends Seeder
 {
     public function run()
     {
         $faker = Faker::create();
-        
-        foreach (["Math", "English", "Kiswahili", "Chemistry", "Biology"] as $value) {
-           Subject::create([
-            'name'          => $value,
-            'description'   => $faker->realText(50, 2)
-           ]);
+        $subjects = ["Math", "English", "Kiswahili", "Chemistry", "Biology"];
+        foreach ($subjects as $value) {
+            Subject::create([
+                'name' => $value,
+                'description' => $faker->realText(50, 2)
+            ]);
         }
 
         for ($i = 1; $i <= 5; $i++) {
@@ -29,8 +29,8 @@ class SchoolSeeder extends Seeder
             // Seed Boards
             Board::create([
                 'title' => $faker->realText(20),
-                'body'  => $faker->realText(1500),
-                'user_id'=> User::inRandomOrder()->first()->id,
+                'body' => $faker->realText(1500),
+                'user_id' => User::inRandomOrder()->first()->id,
             ]);
         }
         // Seed Parents
@@ -66,6 +66,15 @@ class SchoolSeeder extends Seeder
                 'gender' => ($i % 2 == 0) ? 'female' : 'male',
                 'date_of_birth' => "2000-01-0$i",
                 'address' => $faker->address(),
+            ]);
+        }
+
+        foreach ($subjects as $key => $value) {
+            Timetable::create([
+                'name' => $value,
+                'start_time' => now(),
+                'end_time' => now()->addMinutes(40),
+                'grade_id' => $key + 1,
             ]);
         }
     }
