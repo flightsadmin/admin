@@ -85,6 +85,5 @@ class Schedules extends Component
         }
         session()->flash('message', 'Schedule Created Successfully.');
         $this->reset(['selectedDays', 'flightNumbers', 'flightFields']);
-        return $this->redirect(route('schedules'), true);
     }
 }
