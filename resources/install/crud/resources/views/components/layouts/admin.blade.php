@@ -15,7 +15,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     @vite(['resources/js/app.js'])
-    @stack('css')
+    @stack('extra-css')
 </head>
 
 <body class="layout-fixed-complete sidebar-expand-lg bg-body-tertiary">

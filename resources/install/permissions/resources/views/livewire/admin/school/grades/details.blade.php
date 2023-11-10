@@ -16,8 +16,10 @@
                         <div class="mt-2">
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <button class="nav-link active" id="nav-variants-tab" data-bs-toggle="tab"
+                                    <button class="nav-link active" id="nav-details-tab" data-bs-toggle="tab"
                                         data-bs-target="#details" type="button">Details</button>
+                                    <button class="nav-link" id="nav-timetable-tab" data-bs-toggle="tab"
+                                        data-bs-target="#timetables" type="button">Timetable</button>
                                 </div>
                             </nav>
 
@@ -38,39 +40,37 @@
                                         </ol>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="row grid-calendar">
-                            <div class="row calendar-week-header">
-                                @foreach ($days->take(7) as $day)
-                                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 grid-cell">
-                                        <div>
-                                            <div><span>{{ $day['day'] }}</span></div>
+                                <div class="tab-pane fade show" id="timetables">
+                                    <div class="col-lg-12 col-12 p-3">
+                                        <div class="row">
+                                            <div class="row grid-calendar">
+                                                <div class="row calendar-week-header">
+                                                    @foreach ($days->take(7) as $day)
+                                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 grid-cell">
+                                                            <div>
+                                                                <div><span>{{ $day['day'] }}</span></div>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                                <div class="row calendar-week">
+                                                    @foreach ($days as $item)
+                                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 grid-cell border">
+                                                            <div>
+                                                                <div>{{ $item['date'] }}</div>
+                                                                <ol>
+                                                                    @foreach ($item['timetable'] as $time)
+                                                                        <li>{{ $time }}</li>
+                                                                    @endforeach
+                                                                </ol>
+                                                            </div>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                @endforeach
-                            </div>
-                            <div class="row calendar-week">
-                                @foreach ($days as $item)
-                                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 grid-cell border">
-                                        <div>
-                                            <div>{{ $item['date'] }}</div>
-                                            <ol>
-                                                @foreach ($item['timetable'] as $time)
-                                                    <li>{{ $time }}</li>
-                                                @endforeach
-                                            </ol>
-                                        </div>
-                                    </div>
-                                @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -79,7 +79,7 @@
         </div>
     </div>
 @endsection
-@push('css')
+@push('extra-css')
     <style>
         :root {
             --min-width: 320px;
