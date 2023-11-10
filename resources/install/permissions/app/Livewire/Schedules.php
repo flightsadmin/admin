@@ -49,8 +49,8 @@ class Schedules extends Component
         $timetable = Timetable::findOrFail($id);
         $this->flightNumbers[] = [rand(100, 999)];
         $this->flightFields[] = [
-            'start'=> $timetable->start_time,
-            'end'=> $timetable->end_time,
+            'start' => $timetable->start_time,
+            'end' => $timetable->end_time,
         ];
     }
 
@@ -66,13 +66,11 @@ class Schedules extends Component
         foreach ($this->selectedDays as $selectedDay) {
             list($flightNumber, $day) = explode('-', $selectedDay);
 
-            // Calculate the first occurrence of the selected day within the date range
             $date = Carbon::parse($this->startDate)->next($day);
             if ($date->lt($this->startDate)) {
                 $date = $date->next($day);
             }
 
-            // Create flights for each occurrence of the selected day within the date range
             while ($date->lte($this->endDate)) {
                 $flight = new Timetable;
                 $flight->grade_id = $this->flightFields[$flightNumber]['grade_id'];

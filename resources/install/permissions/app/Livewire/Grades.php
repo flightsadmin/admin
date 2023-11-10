@@ -2,32 +2,35 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use App\Models\Grade;
 use Livewire\Component;
+use App\Models\Timetable;
 use Livewire\WithPagination;
 
 class Grades extends Component
-{ 
+{
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $grade_id, $name, $description, $keyWord;
+    public $timetable;
 
     public function render()
     {
-        $keyWord = '%'. $this->keyWord .'%';
+        $keyWord = '%' . $this->keyWord . '%';
         $grades = Grade::with('students')
-                    ->orWhere('name', 'LIKE', $keyWord)
-                    ->paginate();
+            ->orWhere('name', 'LIKE', $keyWord)
+            ->paginate();
         return view('livewire.admin.school.grades.view', [
             'grades' => $grades
         ])->extends('components.layouts.admin');
     }
-    
+
     public function save()
     {
         $validatedData = $this->validate([
-            'name'          => 'required',
-            'description'   => 'required|min:10'
+            'name' => 'required',
+            'description' => 'required|min:10'
         ]);
 
         Grade::updateOrCreate(['id' => $this->grade_id], $validatedData);
@@ -44,14 +47,32 @@ class Grades extends Component
         $this->description = $grade->description;
     }
 
-    public function details($id) {
+    public function details($id)
+    {
         $grade = Grade::findOrFail($id);
+
+        $firstDay = Carbon::create(date('Y'), date('m'), 1);
+        $lastDay = Carbon::create(date('Y'), date('m'), $firstDay->daysInMonth);
+
+        $days = collect();
+
+        for ($day = $firstDay; $day->lte($lastDay); $day->addDay()) {
+            $dayInfo = [
+                'day' => $day->format('D'),
+                'date' => $day->format('d'),
+                'timetable' => Timetable::where('grade_id', $id)->where('start_time', '>=', $day->format('Y-m-d') . ' 00:00:00')
+                    ->where('end_time', '<=', $day->format('Y-m-d') . ' 23:59:59')->pluck('name')->toArray(),
+            ];
+            $days->push($dayInfo);
+        }
         return view('livewire.admin.school.grades.details', [
-            'grade' => $grade
+            'grade' => $grade,
+            'days' => $days,
         ]);
     }
 
-    public function alert() {
+    public function alert()
+    {
         $this->dispatch(
             'closeModal',
             icon: "success",
