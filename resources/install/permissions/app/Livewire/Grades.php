@@ -51,8 +51,8 @@ class Grades extends Component
     {
         $grade = Grade::findOrFail($id);
 
-        $firstDay = Carbon::create(date('Y'), date('m'), 1);
-        $lastDay = Carbon::create(date('Y'), date('m'), $firstDay->daysInMonth);
+        $firstDay = now()->firstOfMonth();
+        $lastDay = now()->lastOfMonth();
 
         $days = collect();
 
@@ -60,11 +60,14 @@ class Grades extends Component
             $dayInfo = [
                 'day' => $day->format('D'),
                 'date' => $day->format('d'),
-                'timetable' => Timetable::where('grade_id', $id)->where('start_time', '>=', $day->format('Y-m-d') . ' 00:00:00')
-                    ->where('end_time', '<=', $day->format('Y-m-d') . ' 23:59:59')->pluck('name')->toArray(),
+                'timetable' => Timetable::where('grade_id', $id)
+                    ->where('start_time', ">=", $day->startOfDay()->format('Y-m-d H:i:s'))
+                    ->where('end_time', "<=", $day->endOfDay()->format('Y-m-d H:i:s'))
+                    ->pluck('name')->toArray(),
             ];
             $days->push($dayInfo);
         }
+
         return view('livewire.admin.school.grades.details', [
             'grade' => $grade,
             'days' => $days,

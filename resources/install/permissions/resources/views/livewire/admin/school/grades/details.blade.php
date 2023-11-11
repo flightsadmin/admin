@@ -41,32 +41,19 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane fade show" id="timetables">
-                                    <div class="col-lg-12 col-12 p-3">
-                                        <div class="row">
-                                            <div class="row grid-calendar">
-                                                <div class="row calendar-week-header">
-                                                    @foreach ($days->take(7) as $day)
-                                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 grid-cell">
-                                                            <div>
-                                                                <div><span>{{ $day['day'] }}</span></div>
-                                                            </div>
+                                    <div class="col-lg-12 col-12">
+                                        <div class="container mt-2">
+                                            <div class="calendar-grid">
+                                                @foreach ($days as $item)
+                                                    <div class="day">
+                                                        <span class="date">{{ $item['date'] }}</span>
+                                                        <div class="tasks">
+                                                            @foreach ($item['timetable'] as $time)
+                                                                <p class="m-0">{{ $time }}</p>
+                                                            @endforeach
                                                         </div>
-                                                    @endforeach
-                                                </div>
-                                                <div class="row calendar-week">
-                                                    @foreach ($days as $item)
-                                                        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1 grid-cell border">
-                                                            <div>
-                                                                <div>{{ $item['date'] }}</div>
-                                                                <ol>
-                                                                    @foreach ($item['timetable'] as $time)
-                                                                        <li>{{ $time }}</li>
-                                                                    @endforeach
-                                                                </ol>
-                                                            </div>
-                                                        </div>
-                                                    @endforeach
-                                                </div>
+                                                    </div>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -81,57 +68,39 @@
 @endsection
 @push('extra-css')
     <style>
-        :root {
-            --min-width: 320px;
-            --number-of-days: 7;
-            --column-width: calc(100% / var(--number-of-days));
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
         }
 
-        .grid-calendar {
-            min-width: var(--min-width);
-        }
-
-        .row {
-            margin: 0;
-        }
-
-        .calendar-week .grid-cell {
-            background-color: #f6f6f6;
-            border: 1px solid #fff;
-        }
-
-        .calendar-week-header .grid-cell>div>div {
-            padding-bottom: 10px;
-            height: auto;
-        }
-
-        .grid-cell {
-            display: inline-block;
-            float: left;
-            min-height: 1px;
-            padding: 0;
+        .day {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 150px;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
             position: relative;
-            width: var(--column-width);
+            overflow: hidden;
+        }
 
-            &.previous-month {
-                background-color: #e1e1e1;
-                color: #a6a6a6;
-            }
+        .day:hover {
+            background-color: #d5e5f4;
+        }
 
-            &.next-month {
-                background-color: #e1e1e1;
-            }
+        .date {
+            font-weight: bold;
+            position: absolute;
+            top: 5px;
+            left: 5px;
+        }
 
-            >div {
-                display: flex;
-                justify-content: center;
-                width: 100%;
-
-                >div {
-                    height: 0;
-                    padding: calc(50% / 1) 0;
-                }
-            }
+        .tasks {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     </style>
 @endpush

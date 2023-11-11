@@ -69,13 +69,15 @@ class SchoolSeeder extends Seeder
             ]);
         }
 
-        foreach ($subjects as $key => $value) {
-            Timetable::create([
-                'name' => $value,
-                'start_time' => now(),
-                'end_time' => now()->addMinutes(40),
-                'grade_id' => $key + 1,
-            ]);
+        foreach ($subjects as $value) {
+            for ($i = 1; $i <= now()->endOfMonth()->format('d'); $i++) {
+                Timetable::create([
+                    'name' => $value,
+                    'start_time' => now()->startOfMonth()->addDays($i),
+                    'end_time' => now()->startOfMonth()->addDays($i)->addMinutes(40),
+                    'grade_id' => Grade::inRandomOrder()->first()->id,
+                ]);
+            }
         }
     }
 }
