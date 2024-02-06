@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="{{ setting('site_theme')}}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-bs-theme="{{ setting('site_theme') }}">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -7,7 +7,8 @@
     <title> @hasSection('title') @yield('title') | @endif {{ config('admin.appName', 'app.name') }} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- blade-formatter-disable-next-line --}}
-    <meta name="title" content="@hasSection('title') @yield('title') | @endif {{ config('admin.appName', 'app.name') }}">
+    <meta name="title"
+        content="@hasSection('title') @yield('title') | @endif {{ config('admin.appName', 'app.name') }}">
     <meta name="author" content="{{ config('admin.appName', 'app.name') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.1.0/styles/overlayscrollbars.min.css"
         integrity="sha256-LWLZPJ7X1jJLI5OG5695qDemW1qQ7lNdbTfQ64ylbUY=" crossorigin="anonymous">
@@ -20,7 +21,9 @@
 <body class="layout-fixed-complete sidebar-expand-lg bg-body-tertiary">
     <div class="app-wrapper">
         @include('components.layouts.includes.header')
+        @if (request()->is('admin*'))
         @include('components.layouts.includes.aside')
+        @endif
         <main class="app-main py-2">
             <div class="app-content">
                 <div class="container-fluid">
@@ -59,5 +62,6 @@
             }
         });
     </script>
-    </body>
+</body>
+
 </html>

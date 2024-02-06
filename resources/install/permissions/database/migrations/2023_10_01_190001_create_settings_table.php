@@ -19,29 +19,10 @@ return new class extends Migration
             $table->string('footer_text')->nullable()->default(null);
             $table->timestamps();
         });
-
-        Schema::create('conversations', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('sender_id');
-            $table->unsignedBigInteger('receiver_id');
-            $table->foreign('sender_id')->references('id')->on('users');
-            $table->foreign('receiver_id')->references('id')->on('users');
-            $table->timestamps();
-        });
-
-        Schema::create('messages', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('conversation_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->text('body');
-            $table->timestamps();
-        });
     }
 
     public function down()
     {
         Schema::dropIfExists('settings');
-        Schema::dropIfExists('messages');
-        Schema::dropIfExists('conversations');
     }
 };

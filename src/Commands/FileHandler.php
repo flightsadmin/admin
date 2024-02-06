@@ -9,12 +9,12 @@ use Illuminate\Support\Str;
 
 trait FileHandler
 {
-    public function spatiePermissionsInstall()
+    public function BlogInstall()
     {
         //Spatie Laravel Permission Installation
-        if ($this->confirm('Do you want to Install Spatie Laravel Permission?', true, true)) {
+        if ($this->confirm('Do you want to Install Blog Module?', true, true)) {
             $this->permStubDir = __DIR__ . '/../../resources/install/permissions';
-            $this->generatePermissionFiles();
+            $this->generateBlogFiles();
 
             //Updating Routes
             $routeFile = base_path('routes/web.php');
@@ -25,12 +25,6 @@ trait FileHandler
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                 Route::get('/', App\Livewire\Posts::class)->name(config("admin.adminRoute", "admin"));
-                Route::get('/flights', App\Livewire\Flights::class)->name('admin.flights');
-                Route::get('/airlines', App\Livewire\Airlines::class)->name('admin.airlines');
-                Route::get('/delays', App\Livewire\Delays::class)->name('admin.delays');
-                Route::get('/services', App\Livewire\Services::class)->name('admin.services');
-                Route::get('/registrations', App\Livewire\Registrations::class)->name('admin.registrations');
-                Route::get('/schedules', App\Livewire\Schedules::class)->name('admin.schedules');
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
@@ -59,7 +53,7 @@ trait FileHandler
             }
 
             //Updating NavBar
-            $layoutsFile = base_path('resources/views/components/layouts/app.blade.php');
+            $layoutsFile = base_path('resources/views/components/layouts/includes/header.blade.php');
             $layoutsData = $this->filesystem->get($layoutsFile);
             $spatieNavs  =
             <<<NAV
@@ -69,7 +63,7 @@ trait FileHandler
                                     </li>
                                     @endrole
                                     <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="{{ route(config('admin.blogRoute')) }}">{{ ucwords(config('admin.blogRoute'))}}</a>
+                                        <a class="nav-link active" href="{{ route(config('admin.blogRoute')) }}">{{ ucwords(config('admin.blogRoute'))}}</a>
                                     </li>
             NAV;
             $spatieFileHook = "<!--Nav Bar Hooks - Do not delete!!-->";
@@ -111,14 +105,14 @@ trait FileHandler
             // Update Relationship
             $userUpdate = 
             <<<NAV
-                public function likes() {
-                    return \$this->belongsToMany(Post::class, 'post_like')->withTimestamps();
-                }
-                
-                public function hasLiked(Post \$post) {
-                    return \$this->likes()->where('post_id', \$post->id)->exists();
-                }
+            public function likes() {
+                return \$this->belongsToMany(Post::class, 'post_like')->withTimestamps();
+            }
             
+            public function hasLiked(Post \$post) {
+                return \$this->likes()->where('post_id', \$post->id)->exists();
+            }
+        
             NAV; 
             
             $userHook = "}";
@@ -146,9 +140,9 @@ trait FileHandler
             Artisan::call('migrate:fresh', [], $this->getOutput());
             Artisan::call('optimize:clear', [], $this->getOutput());
             Artisan::call('storage:link', [], $this->getOutput());
-            Artisan::call('db:seed', ['--class' => 'AdminDatabaseSeeder'], $this->getOutput());
-            if ($this->confirm('Do you want to Seed Testing Data?', true, true)) {
-                Artisan::call('db:seed', ['--class' => 'FlightsDatabaseSeeder'], $this->getOutput());
+            Artisan::call('db:seed', ['--class' => 'AdminSeeder'], $this->getOutput());
+            if ($this->confirm('Do you want to Seed Blog Data?', true, true)) {
+                Artisan::call('db:seed', ['--class' => 'BlogSeeder'], $this->getOutput());
             }
         }
     }
@@ -223,7 +217,7 @@ trait FileHandler
         }
     }
     
-    public function generatePermissionFiles()
+    public function generateBlogFiles()
     {
         $files = $this->filesystem->allFiles($this->permStubDir, true);
         foreach ($files as $file) {

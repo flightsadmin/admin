@@ -19,7 +19,7 @@ class Install extends Command
     private $replaces = [];
 	
     protected $signature = 'admin:install';
-    protected $description = 'Install Livewire CRUD Generator, compile and publish it\'s assets';
+    protected $description = 'Install Livewire Blog Manager, compile and publish it\'s assets';
 
     public function handle()
     {
@@ -30,14 +30,14 @@ class Install extends Command
 		(new Filesystem)->ensureDirectoryExists(resource_path('views/livewire'));
 		(new Filesystem)->ensureDirectoryExists(resource_path('views/components/layouts'));
 		
-        if ($this->confirm('This will delete compiled assets in public folder. It will Re-Compile this. Do you want to proceed?', false, true)) { 
+        if ($this->confirm('This will delete compiled assets in public folder. It will Re-Compile this. Do you want to proceed?', true, true)) { 
             $routeFile = base_path('routes/web.php');
             $routeData = file_get_contents($routeFile);
             if (!str_contains($routeData, '//Route Hooks - Do not delete//')) {
                 file_put_contents($routeFile, "\n//Route Hooks - Do not delete//", FILE_APPEND);
             }
             
-			if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App', false, true)) {
+			if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App', true, true)) {
                 Artisan::call('ui:auth', ['--force' => true], $this->getOutput());
 			}
 
@@ -62,7 +62,7 @@ class Install extends Command
             
             $this->crudStubDir = __DIR__ . '/../../resources/install/crud';
             $this->generateCrudFiles();
-            $this->spatiePermissionsInstall();
+            $this->BlogInstall();
             // Add Helper File in Composer.json
             $this->updateComposer();
             // Update Auth Routes
@@ -103,7 +103,7 @@ class Install extends Command
         $this->correctLayoutExtention($viewsDirectory, $searchExtends, $replaceExtends);
         $this->line('');
         
-        $this->warn('All set, Your Flights are ready to take off');		
+        $this->warn('All set, Your Blog Site is ready!');		
 	  }
 		else $this->warn('Installation Aborted, No file was changed');
     }
