@@ -1,6 +1,6 @@
 <li class="nav-item dropdown">
     <a class="nav-link" data-bs-toggle="dropdown" href="#">
-        <i class="bi bi-chat-text"></i>
+        <i class="bi-chat-text"></i>
         <span class="navbar-badge badge text-bg-danger">3</span>
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
@@ -14,11 +14,11 @@
                 <div class="flex-grow-1">
                     <h3 class="dropdown-item-title">
                         Brad Diesel
-                        <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
+                        <span class="float-end fs-7 text-danger"><i class="bi-star-fill"></i></span>
                     </h3>
                     <p class="fs-7">Call me whenever you can...</p>
                     <p class="fs-7 text-secondary">
-                        <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
+                        <i class="bi-clock-fill me-1"></i> 4 Hours Ago
                     </p>
                 </div>
             </div>
@@ -35,12 +35,12 @@
                     <h3 class="dropdown-item-title">
                         John Pierce
                         <span class="float-end fs-7 text-secondary">
-                            <i class="bi bi-star-fill"></i>
+                            <i class="bi-star-fill"></i>
                         </span>
                     </h3>
                     <p class="fs-7">I got your message bro</p>
                     <p class="fs-7 text-secondary">
-                        <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
+                        <i class="bi-clock-fill me-1"></i> 4 Hours Ago
                     </p>
                 </div>
             </div>
@@ -57,12 +57,12 @@
                     <h3 class="dropdown-item-title">
                         Nora Silvester
                         <span class="float-end fs-7 text-warning">
-                            <i class="bi bi-star-fill"></i>
+                            <i class="bi-star-fill"></i>
                         </span>
                     </h3>
                     <p class="fs-7">The subject goes here</p>
                     <p class="fs-7 text-secondary">
-                        <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
+                        <i class="bi-clock-fill me-1"></i> 4 Hours Ago
                     </p>
                 </div>
             </div>

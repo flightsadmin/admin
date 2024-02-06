@@ -16,7 +16,7 @@
                             name="name" value="{{ old('name') }}" required autocomplete="name" autofocus
                             placeholder="Full Name">
                         <div class="input-group-text">
-                            <span class="bi bi-person"></span>
+                            <span class="bi-person"></span>
                         </div>
                         @error('name')
                             <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
@@ -28,7 +28,7 @@
                             name="email" value="{{ old('email') }}" required autocomplete="email"
                             placeholder="Email">
                         <div class="input-group-text">
-                            <span class="bi bi-envelope"></span>
+                            <span class="bi-envelope"></span>
                         </div>
                         @error('email')
                             <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
@@ -40,7 +40,7 @@
                             class="form-control @error('password') is-invalid @enderror" name="password" required
                             autocomplete="current-password" placeholder="Password">
                         <div class="input-group-text">
-                            <span class="bi bi-lock-fill"></span>
+                            <span class="bi-lock-fill"></span>
                         </div>
                         @error('password')
                             <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
@@ -52,7 +52,7 @@
                             class="form-control @error('password-confirm') is-invalid @enderror" name="password_confirmation" required
                             autocomplete="new-password" placeholder="Confirm Password">
                         <div class="input-group-text">
-                            <span class="bi bi-lock-fill"></span>
+                            <span class="bi-lock-fill"></span>
                         </div>
                         @error('password')
                             <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
@@ -80,7 +80,7 @@
                     <div class="social-auth-links text-center mb-3 d-grid gap-2">
                         <p>- OR -</p>
                         <a href="/auth/google/redirect" class="btn btn-danger">
-                            <i class="bi bi-google me-2"></i> Sign in using Google+
+                            <i class="bi-google me-2"></i> Sign in using Google+
                         </a>
                     </div>
                 @endif

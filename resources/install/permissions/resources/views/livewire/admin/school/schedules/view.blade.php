@@ -75,7 +75,7 @@
                                         @endforeach
                                         <td>
                                             <a href="" wire:click.prevent="removeFlights({{ $index }})"
-                                                class="text-danger bi bi-trash3"></a>
+                                                class="text-danger bi-trash3"></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -93,7 +93,7 @@
                         <thead class="thead">
                             <tr>
                                 <td>#</td>
-                                <td><a href="" wire:click.prevent="deleteSelected" class="text-danger bi bi-trash3-fill"></a></td>
+                                <td><a href="" wire:click.prevent="deleteSelected" class="text-danger bi-trash3-fill"></a></td>
                                 <th>Class</th>
                                 <th>Subject</th>
                                 <th>Start</th>

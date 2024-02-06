@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5><span class="text-center bi bi-house-check"></span> @yield('title')</h5>
+                    <h5><span class="text-center bi-house-check"></span> @yield('title')</h5>
                 </div>
                 <div class="card-body">
                     <div class="app-content">
