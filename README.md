@@ -5,12 +5,12 @@
 
 Get multiple admin panels using different branches of this package. Below Modules are supported.
 
-| ## Module   |      ## Branch      |  ## Installation |
-|:----------|:-------------:|------:|
-| Flights |  main | ` composer require flightsadmin/admin:dev-main ` |
-| School |  school | composer require flightsadmin/admin:dev-school |
-| Shop |  shop | composer require flightsadmin/admin:dev-shop |
-| Blog |  blog | composer require flightsadmin/admin:dev-blog |
+| # | Module   |      Branch      |  Installation |
+| [x] |:----------|:-------------|:------|
+| [x] | Flights Admin |  main | ` composer require flightsadmin/admin:dev-main `|
+| [x] | School Admin |  school | ` composer require flightsadmin/admin:dev-school `|
+| [x] | Shop Admin |  shop | ` composer require flightsadmin/admin:dev-shop  `|
+| [x] | Blog Admin |  blog | ` composer require flightsadmin/admin:dev-blog `|
 
 ## Documentation
 
