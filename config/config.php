@@ -5,10 +5,10 @@
  */
 return [
     // App Name
-    "appName" => "Flight Admin",
+    "appName" => "Blog Admin",
 
     // Purpose
-    "purpose" => "Flight Management",
+    "purpose" => "Blog Management",
 
     // Allow Social Login
     "sociallogin" => true,
@@ -19,8 +19,8 @@ return [
 
     // Modules
     "modules"   => [
-        'flights'   => true,
         'blog'      => true,
+        'flights'   => true,
         'shopping'  => true,
     ],
 ];
