@@ -38,6 +38,10 @@
                             placeholder="Enter footer text">
                     </div>
                     <div class="col-md-6 form-group">
+                        <label for="site_logo">Site Logo</label>
+                        <input wire:model="state.site_logo" type="file" class="form-control" id="site_logo">
+                    </div>
+                    <div class="col-md-6 form-group">
                         <label for="siteTheme" class="form-label">Site Theme</label>
                         <select wire:model="state.site_theme" class="form-select form-select-sm">
                             <option value="">Choose an option...</option>
