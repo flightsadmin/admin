@@ -71,9 +71,9 @@
                                                     </a>
                                                     <div class="col-lg-8">
                                                         <h6 class="mb-0">{{ $product->name }}</h6>
-                                                        <small class="text-body-secondary bi bi-clock">
+                                                        <small class="text-body-secondary bi-clock">
                                                             {{ $product->published_at->format('d F, Y') }}</small>
-                                                        <p class="small text-body-primary bi bi-person-circle"> {{ $product->author->name }}</p>
+                                                        <p class="small text-body-primary bi-person-circle"> {{ $product->author->name }}</p>
                                                         <div>@livewire('action-button', ['product' => $product], key($product->id))</div>
                                                     </div>
                                                 </div>

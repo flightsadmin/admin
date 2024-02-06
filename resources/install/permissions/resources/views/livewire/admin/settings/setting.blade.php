@@ -6,7 +6,7 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <h3 class="card-title">General Setting</h3>
                     <button type="submit" class="btn btn-sm btn-primary float-end" wire:click="updateSetting">
-                        <i class="bi bi-save me-2"></i> Save changes
+                        <i class="bi-save me-2"></i> Save changes
                     </button>
                 </div>
             </div>

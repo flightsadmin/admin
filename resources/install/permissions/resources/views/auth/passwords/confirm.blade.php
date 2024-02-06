@@ -17,7 +17,7 @@
                             class="form-control @error('password') is-invalid @enderror" name="password" required
                             autocomplete="current-password" placeholder="Password">
                         <div class="input-group-text">
-                            <span class="bi bi-lock-fill"></span>
+                            <span class="bi-lock-fill"></span>
                         </div>
                         @error('password')
                             <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>

@@ -41,7 +41,7 @@
                                 <td>${{ $item->product->price * $item->quantity }}</td>
                                 <td>
                                     <a href="" wire:click.prevent="removeFromCart({{ $item->id }})"
-                                        class="bi bi-trash-fill text-danger"></a>
+                                        class="bi-trash-fill text-danger"></a>
                                 </td>
                             </tr>
                         @endforeach

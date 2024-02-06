@@ -30,13 +30,13 @@
                 </div>
                 <div class="ms-4">
                     <div class="fw-bold">{{ $comment->author->name }}</div>
-                    <div class="bi bi-chat-text"> {{ $comment->content }}</div>
+                    <div class="bi-chat-text"> {{ $comment->content }}</div>
                 </div>
             </div>
             <div class="col-md-4">
                 @auth
                     <button class="btn btn-sm shadow mb-2" wire:click="$toggle('toggleReply')">
-                        Reply <span class="bi bi-chat-text"></span>
+                        Reply <span class="bi-chat-text"></span>
                     </button>
                     @if ($toggleReply)
                         <form wire:submit.prevent="addReply({{ $comment->id }})">

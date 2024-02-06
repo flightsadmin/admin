@@ -3,7 +3,7 @@
         <div wire:loading wire:target="toggleLike" class="spinner-border"
             style="width: 0.8rem; height: 0.8rem; border-width: 0.1rem;" role="status">
         </div>
-        <span wire:loading.delay.remove class="{{ Auth::user()?->hasLiked($product) ? 'text-danger' : '' }} bi bi-heart-fill">
+        <span wire:loading.delay.remove class="{{ Auth::user()?->hasLiked($product) ? 'text-danger' : '' }} bi-heart-fill">
             {{ $product->likes()->count() }} Likes</span>
     </button>
 
@@ -11,7 +11,7 @@
         <div wire:loading wire:target="toggleCart" class="spinner-border"
             style="width: 0.8rem; height: 0.8rem; border-width: 0.1rem;" role="status">
         </div>
-        <span wire:loading.delay.remove class="{{ Auth::user()?->hasAdded($product) ? 'text-danger' : '' }} bi bi-cart-check-fill">
+        <span wire:loading.delay.remove class="{{ Auth::user()?->hasAdded($product) ? 'text-danger' : '' }} bi-cart-check-fill">
             {{ Auth::user()?->hasAdded($product) ? 'Remove from Cart' : 'Add to Cart' }}</span>
     </button>
 </div>

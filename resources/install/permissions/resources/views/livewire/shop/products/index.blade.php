@@ -9,7 +9,7 @@
                 <input wire:model.live.debounce.500ms="keyWord" type="text" class="form-control form-control-sm"
                     name="search" id="search" placeholder="Search Products">
             </div>
-            <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+            <div class="btn btn-sm btn-info bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                 Add Product
             </div>
         </div>
@@ -26,7 +26,7 @@
                                     <img class="card-img-top" src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->id }}" />
                                 </a>
                                 <span
-                                    class="text-danger h3 position-absolute top-0 end-0 p-3 {{ $product->featured ? 'bi bi-heart-fill' : '' }}">
+                                    class="text-danger h3 position-absolute top-0 end-0 p-3 {{ $product->featured ? 'bi-heart-fill' : '' }}">
                                 </span>
                             </div>
                             <div class="card-body">
@@ -41,12 +41,12 @@
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a data-bs-toggle="modal" data-bs-target="#dataModal"
-                                                    class="dropdown-item bi bi-pencil-square"
+                                                    class="dropdown-item bi-pencil-square"
                                                     wire:click="edit({{ $product->id }})"> Edit
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item bi bi-trash3"
+                                                <a class="dropdown-item bi-trash3"
                                                     onclick="confirm('Confirm Delete Registration id {{ $product->id }}? \nDeleted Registration cannot be recovered!')||event.stopImmediatePropagation()"
                                                     wire:click="destroy({{ $product->id }})"> Delete
                                                 </a>

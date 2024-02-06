@@ -11,34 +11,34 @@
                 <li class="nav-header"> DASHBOARD</li>
                 <li class="nav-item">
                     <a href="{{ route('admin.settings') }}" wire:navigate class="nav-link {{ request()->is('admin/settings') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-gear"></i>
+                        <i class="nav-icon bi-gear"></i>
                         <p>Settings</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon bi bi-box-arrow-in-right"></i>
+                        <i class="nav-icon bi-box-arrow-in-right"></i>
                         <p>
                             Auth
-                            <i class="nav-arrow bi bi-chevron-right"></i>
+                            <i class="nav-arrow bi-chevron-right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="{{ route('admin.users') }}" wire:navigate class="nav-link">
-                                <i class="nav-icon bi bi-people-fill"></i>
+                                <i class="nav-icon bi-people-fill"></i>
                                 <p>Users</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.roles') }}" wire:navigate class="nav-link">
-                                <i class="nav-icon bi bi-shield-shaded"></i>
+                                <i class="nav-icon bi-shield-shaded"></i>
                                 <p>Roles</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('admin.permissions') }}" wire:navigate class="nav-link">
-                                <i class="nav-icon bi bi-person-fill-lock"></i>
+                                <i class="nav-icon bi-person-fill-lock"></i>
                                 <p>Permissions</p>
                             </a>
                         </li>
@@ -49,14 +49,14 @@
                 @role('super-admin|admin')
                 <li class="nav-item">
                     <a href="{{ route('admin') }}" wire:navigate class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-file-spreadsheet-fill"></i>
+                        <i class="nav-icon bi-file-spreadsheet-fill"></i>
                         <p>{{ ucwords(config('admin.shopRoute'))}} Admin</p>
                     </a>
                 </li>
                 @endrole
                 <li class="nav-item">
                     <a href="{{ route('shop') }}" wire:navigate class="nav-link">
-                        <i class="nav-icon bi bi-newspaper"></i>
+                        <i class="nav-icon bi-newspaper"></i>
                         <p>{{ ucwords(config('admin.shopRoute'))}} Page</p>
                     </a>
                 </li>

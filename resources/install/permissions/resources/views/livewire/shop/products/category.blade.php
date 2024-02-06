@@ -49,7 +49,7 @@
                                     <p>{{ $product->description }}</p>
                                     <a wire:navigate href="{{ route('shop.show', $product->id) }}"
                                         class="icon-link gap-1 icon-link-hover">
-                                        Product Details <span class="bi bi-chevron-right"></span>
+                                        Product Details <span class="bi-chevron-right"></span>
                                     </a>
                                 </div>
                             </div>

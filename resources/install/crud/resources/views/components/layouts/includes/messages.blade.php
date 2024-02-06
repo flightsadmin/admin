@@ -1,6 +1,6 @@
 <li class="nav-item dropdown">
     <a class="nav-link" data-bs-toggle="dropdown" href="#">
-        <i class="bi bi-cart4"></i>
+        <i class="bi-cart4"></i>
         <span class="navbar-badge badge text-bg-danger"> @livewire('cart_count')</span>
     </a>
     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">

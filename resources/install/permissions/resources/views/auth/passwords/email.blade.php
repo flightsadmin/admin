@@ -20,7 +20,7 @@
                             name="email" value="{{ old('email') }}" required autocomplete="email" autofocus
                             placeholder="Email">
                         <div class="input-group-text">
-                            <span class="bi bi-envelope"></span>
+                            <span class="bi-envelope"></span>
                         </div>
                         @error('email')
                             <span class="invalid-feedback" role="alert"> <strong>{{ $message }}</strong> </span>
