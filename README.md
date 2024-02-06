@@ -1,4 +1,4 @@
-# Very short description of the package
+# Admin Manager for multiple Modules
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/flightsadmin/admin.svg?style=flat-square)](https://packagist.org/packages/flightsadmin/admin)
 [![Total Downloads](https://img.shields.io/packagist/dt/flightsadmin/admin.svg?style=flat-square)](https://packagist.org/packages/flightsadmin/admin)
