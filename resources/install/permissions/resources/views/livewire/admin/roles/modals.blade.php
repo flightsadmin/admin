@@ -46,7 +46,7 @@
             </div>
             <div class="modal-footer d-flex align-items-center justify-content-between">
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button wire:click.prevent="store" type="button" class="btn btn-sm btn-primary bi bi-check2-circle"> Save</button>
+                <button wire:click.prevent="store" type="button" class="btn btn-sm btn-primary bi-check2-circle"> Save</button>
             </div>
         </div>
     </div>
@@ -56,7 +56,7 @@
 <div id="statusToast" class="toast position-fixed top-0 end-0 p-3 text-bg-success" style="margin-top:5px; margin-bottom:0px;" role="alert"
     aria-live="assertive" aria-atomic="true">
     <div class="toast-header text-bg-success">
-        <i class="me-2 bi bi-send-fill"></i>
+        <i class="me-2 bi-send-fill"></i>
         <strong class="me-auto text-black">Success</strong>
         <small class="text-white">{{ now() }}</small>
         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

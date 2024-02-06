@@ -31,7 +31,7 @@
                                         <div class="h4 mb-3">{{ $post->title }}</div>
                                         <p>{{ $post->getExcerpt() }}</p>
                                         <a wire:navigate href="{{ route('blog.show', $post->id) }}" class="">
-                                            Read More... <span class="bi bi-chevron-right"></span>
+                                            Read More... <span class="bi-chevron-right"></span>
                                         </a>
                                         <span class="float-end">{{ $post->getReadingTime() }} min read</span>
                                     </div>
@@ -62,9 +62,9 @@
                                                     width="100%" height="100">
                                                 <div class="col-lg-8">
                                                     <h6 class="mb-0">{{ $post->title }}</h6>
-                                                    <small class="text-body-secondary bi bi-clock">
+                                                    <small class="text-body-secondary bi-clock">
                                                         {{ $post->published_at->format('d F, Y') }}</small>
-                                                    <p class="small text-body-primary bi bi-person-circle"> {{ $post->author->name }}</p>
+                                                    <p class="small text-body-primary bi-person-circle"> {{ $post->author->name }}</p>
                                                 </div>
                                             </a>
                                         </li>

@@ -18,7 +18,7 @@
                                 <p>{{ $post->getExcerpt() }}</p>
                                 <a wire:navigate href="{{ route('blog.show', $post->id) }}"
                                     class="icon-link gap-1 icon-link-hover stretched-link">
-                                    Read More... <span class="bi bi-chevron-right"></span>
+                                    Read More... <span class="bi-chevron-right"></span>
                                 </a>
                                 <span class="float-end">{{ $post->getReadingTime() }} min read</span>
                             </div>

@@ -13,19 +13,19 @@
                         <img class="profile-img mb-2" src="{{ asset('storage/' . $photo) }}"  style="height:100px; width:100px;"  alt="{{ $title }}">
                     </div>
                     <div class="d-flex align-items-center justify-content-between border-bottom">
-                        <p class="py-2 bi bi-person-vcard-fill"> Full Name</p>
+                        <p class="py-2 bi-person-vcard-fill"> Full Name</p>
                         <p class="py-2 text-muted">{{ $name }}</p>
                     </div>
                     <div class="d-flex align-items-center justify-content-between border-bottom">
-                        <p class="py-2 bi bi-envelope-at-fill"> Email</p>
+                        <p class="py-2 bi-envelope-at-fill"> Email</p>
                         <p class="py-2 text-muted"> {{ $email }}</p>
                     </div>
                     <div class="d-flex align-items-center justify-content-between border-bottom">
-                        <p class="py-2 bi bi-telephone-fill"> Phone</p>
+                        <p class="py-2 bi-telephone-fill"> Phone</p>
                         <p class="py-2 text-muted">{{ $phone }}</p>
                     </div>
                     <div class="d-flex align-items-center justify-content-between border-bottom">
-                        <p class="py-2 bi bi-geo-alt-fill"> Title</p>
+                        <p class="py-2 bi-geo-alt-fill"> Title</p>
                         <p class="py-2 text-muted">{{ $title }}</p>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                         @if ($photo)
                         <div class="col-md-2 text-center" style="position: relative;">
                             <img class="profile-img mb-2" src="{{ $userId ? asset('storage/' . $photo) : $photo->temporaryUrl() }}" style="height:70px; width:70px;">
-                            <a href="" wire:click.prevent="$set('photo', null)" class="bi bi-trash3-fill text-danger" style="position: absolute;"></a>
+                            <a href="" wire:click.prevent="$set('photo', null)" class="bi-trash3-fill text-danger" style="position: absolute;"></a>
                         </div>
                         @endif
                         <div class="col-md-4 mb-3 d-flex align-items-center justify-content-evenly">
@@ -138,7 +138,7 @@
             </div>            
             <div class="modal-footer mt-3 d-flex align-items-center justify-content-between">
                 <button wire:loading.attr="disabled" wire:click="$refresh" data-bs-dismiss="modal" class="btn btn-sm btn-primary">Back</button>
-                <button wire:loading.attr="disabled" wire:click.prevent="submit" class="btn btn-sm btn-primary bi bi-check2-circle"> {{ $userId ? 'Edit Changes' : 'Add User'}}</button>
+                <button wire:loading.attr="disabled" wire:click.prevent="submit" class="btn btn-sm btn-primary bi-check2-circle"> {{ $userId ? 'Edit Changes' : 'Add User'}}</button>
             </div>
         </div>
     </div>
@@ -147,7 +147,7 @@
 <!-- Success Message Toast  -->
 <div  id="statusToast" class="toast position-fixed top-0 end-0 p-3 text-bg-success" style="margin-top:5px; margin-bottom:0px;" role="alert" aria-live="assertive" aria-atomic="true">
   <div class="toast-header text-bg-success">
-    <i class="me-2 bi bi-send-fill"></i>
+    <i class="me-2 bi-send-fill"></i>
     <strong class="me-auto text-black">Success</strong>
     <small class="text-white">{{ now() }}</small>
     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

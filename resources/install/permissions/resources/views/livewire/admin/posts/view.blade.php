@@ -11,10 +11,10 @@
             </div>
             <div class="d-flex gap-2">
                 <input wire:model="postCount" type="text" size="4">
-                <button wire:click.prevent="seedPosts" class="btn btn-warning btn-sm bi bi-cloud-upload-fill"> Seed
+                <button wire:click.prevent="seedPosts" class="btn btn-warning btn-sm bi-cloud-upload-fill"> Seed
                     Posts</button>
             </div>
-            <div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+            <div class="btn btn-sm btn-info bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
                 Add Post
             </div>
         </div>
@@ -34,7 +34,7 @@
                                     <img class="rounded mb-2" src="{{ asset('storage/' . $post->image) }}"
                                         style="height: 200px; width: 100%;" alt="{{ $post->id }}">
                                     <span
-                                        class="text-danger h3 position-absolute top-0 end-0 p-3 {{ $post->featured ? 'bi bi-heart-fill' : '' }}">
+                                        class="text-danger h3 position-absolute top-0 end-0 p-3 {{ $post->featured ? 'bi-heart-fill' : '' }}">
                                     </span>
                                 </button>
                             </div>
@@ -51,12 +51,12 @@
                                         <ul class="dropdown-menu">
                                             <li>
                                                 <a data-bs-toggle="modal" data-bs-target="#dataModal"
-                                                    class="dropdown-item bi bi-pencil-square"
+                                                    class="dropdown-item bi-pencil-square"
                                                     wire:click="edit({{ $post->id }})"> Edit
                                                 </a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item bi bi-trash3"
+                                                <a class="dropdown-item bi-trash3"
                                                     onclick="confirm('Confirm Delete Registration id {{ $post->id }}? \nDeleted Registration cannot be recovered!')||event.stopImmediatePropagation()"
                                                     wire:click="destroy({{ $post->id }})"> Delete
                                                 </a>

@@ -11,8 +11,8 @@
                                 <h1 class="fw-bolder mb-1">{{ $post->title }}</h1>
                                 <div class="text-muted fst-italic mb-2" style="display: flex; justify-content: space-between; align-items: right;">
                                     Posted on {{ $post->published_at->format('F d, Y') }} by {{ $post->author->name }}
-                                    <p class="bi bi-chat-dots-fill me-4"> {{ $post->comments->count() }} Comments</p>
-                                    <p class="bi bi-clock-fill"> {{ $post->getReadingTime() }} min read</p>
+                                    <p class="bi-chat-dots-fill me-4"> {{ $post->comments->count() }} Comments</p>
+                                    <p class="bi-clock-fill"> {{ $post->getReadingTime() }} min read</p>
                                     <p>@livewire('like-button', ['post' => $post], key($post->id))</p>
                                 </div>
                             </header>
