@@ -70,7 +70,7 @@
             </div>
             <div class="modal-footer d-flex align-items-center justify-content-between">
                 <button wire:click="$refresh" type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button wire:click.prevent="store" type="button" class="btn btn-sm btn-primary bi bi-check2-circle"> Save</button>
+                <button wire:click.prevent="store" type="button" class="btn btn-sm btn-primary bi-check2-circle"> Save</button>
             </div>
         </div>
     </div>
@@ -90,8 +90,8 @@
                         <div class="d-flex align-items-center justify-content-between">
                             <div>
                                 <h5> {{ $selectedFlight->flight_no }} - {{ $selectedFlight->registration }}</h5>
-                                <span class="text-warning bi bi-arrow-up-right-circle-fill"> </span> {{ $selectedFlight->destination }} {{ date('H:i', strtotime($selectedFlight->scheduled_time_arrival)) }}
-                                <span class="text-success bi bi-arrow-down-right-circle-fill"></span> {{ $selectedFlight->origin }} {{ date('H:i', strtotime($selectedFlight->scheduled_time_departure)) }}
+                                <span class="text-warning bi-arrow-up-right-circle-fill"> </span> {{ $selectedFlight->destination }} {{ date('H:i', strtotime($selectedFlight->scheduled_time_arrival)) }}
+                                <span class="text-success bi-arrow-down-right-circle-fill"></span> {{ $selectedFlight->origin }} {{ date('H:i', strtotime($selectedFlight->scheduled_time_departure)) }}
                             </div>
                             <div class="text-center">
                                 <p> {{ config('admin.appName', 'app.name') }} </p>
@@ -99,7 +99,7 @@
                             </div>
                             <div class="text-end">
                                 <h5> Work-Oder No: {{ preg_replace('/\b(\w)\w*\s*/', '$1', ucwords(config('admin.appName', 'app.name'))) }}{{ str_pad($selectedFlight->id, 6, '0', STR_PAD_LEFT) }}</h5>
-                                <p class="bi bi-calendar-month"> <span> Date: {{ $selectedFlight->created_at->format('d M, Y') }}</span> </p>
+                                <p class="bi-calendar-month"> <span> Date: {{ $selectedFlight->created_at->format('d M, Y') }}</span> </p>
                             </div>
                         </div>
                         <hr class="m-2">
@@ -126,7 +126,7 @@
                                             <td>{{ date('H:i', strtotime($value->finish) - strtotime($value->start)) }}</td>
                                             @role('super-admin|admin')
                                             <td class="text-end">{{ $value->service->price. " $" }}</td>
-                                            <td><a href="" wire:click.prevent="destroyService('{{ $value->service_id }}')" class="text-danger bi bi-trash3-fill text-end px-2"></a></td>
+                                            <td><a href="" wire:click.prevent="destroyService('{{ $value->service_id }}')" class="text-danger bi-trash3-fill text-end px-2"></a></td>
                                             @endrole()
                                         </tr>
                                     @empty
@@ -167,7 +167,7 @@
                                 </select>
                                 <input class="form-control form-control-sm" type="datetime-local" wire:model="ServiceTypes.{{ $index }}.start">
                                 <input class="form-control  form-control-sm" type="datetime-local"wire:model="ServiceTypes.{{ $index }}.finish">
-                                <a href="" class="text-danger bi bi-trash3-fill px-2" wire:click.prevent="removeService({{$index}})"></a>
+                                <a href="" class="text-danger bi-trash3-fill px-2" wire:click.prevent="removeService({{$index}})"></a>
                             </div>
                         @endforeach
                         @endif
@@ -183,11 +183,11 @@
                     </div>
                 </div>
                 <div class="card-body border py-2 d-flex align-items-center justify-content-between">
-                    <button wire:click.prevent="addService" class="btn btn-sm btn-secondary bi bi-plus-lg"> Add a Service</button>
+                    <button wire:click.prevent="addService" class="btn btn-sm btn-secondary bi-plus-lg"> Add a Service</button>
                     @role('super-admin|admin')
-                    <button  wire:loading.attr="disabled" wire:click.prevent="generatePDF" class="btn btn-sm btn-warning bi bi-file-earmark-pdf-fill"> Generate PDF</button>
+                    <button  wire:loading.attr="disabled" wire:click.prevent="generatePDF" class="btn btn-sm btn-warning bi-file-earmark-pdf-fill"> Generate PDF</button>
                     @endrole
-                    <button wire:click.prevent="createServices" class="btn btn-sm btn-primary float-end bi bi-check2-circle"> Create Service</button>
+                    <button wire:click.prevent="createServices" class="btn btn-sm btn-primary float-end bi-check2-circle"> Create Service</button>
                 </div>
             </div>
         </div>
@@ -206,7 +206,7 @@
                 @if ($flight_id)
                     <div class="card-body border d-flex justify-content-between pt-1">
                         <div>
-                            <i class="text-warning bi bi-clock-history"> Last Saved Movement</i>
+                            <i class="text-warning bi-clock-history"> Last Saved Movement</i>
                             <p>MVT</p>
                             {{ $selectedFlight->flight_no }}/{{ ($selectedFlight->flight_type == 'arrival') ? 
                                 date("d", strtotime($selectedFlight->scheduled_time_arrival)) . "." . $selectedFlight->registration . "." . $selectedFlight->destination : 
@@ -226,7 +226,7 @@
                             @endif
                         </div>
                         <div class="small">
-                            <i class="text-primary me-4 bi bi-clock-history"> History <small>(Last 2 Movements)</small></i>
+                            <i class="text-primary me-4 bi-clock-history"> History <small>(Last 2 Movements)</small></i>
                             <input name="history" wire:click="$toggle('history')" class="form-check-input mt-0 ms-2" type="checkbox">
                             @if($history)
                             @forelse($selectedFlight->movement->take(2) as $movement)
@@ -313,12 +313,12 @@
                                             </select>
                                             <input maxlength="5" class="form-control form-control-sm" type="text" wire:model="delayCodes.{{ $index }}.duration" placeholder="0000">
                                             <input class="form-control form-control-sm" type="text" wire:model="delayCodes.{{ $index }}.description" placeholder="Decription">
-                                            <a href="" class="bi bi-trash3-fill text-danger text-center px-4" wire:click.prevent="removeDelay({{ $index }})"></a>
+                                            <a href="" class="bi-trash3-fill text-danger text-center px-4" wire:click.prevent="removeDelay({{ $index }})"></a>
                                         </div>
                                         @error('delayCodes.'.$index.'.duration') <span class="text-danger small">{{ $message }}</span> @enderror
                                     @endforeach
                                     @if (count($delayCodes) < 4 )
-                                        <button class="btn custom-btn-sm btn-secondary bi bi-plus-circle" type="button" wire:click.prevent="addDelay"> Add Delay</button>
+                                        <button class="btn custom-btn-sm btn-secondary bi-plus-circle" type="button" wire:click.prevent="addDelay"> Add Delay</button>
                                     @endif
                                 </div>
                             @endif
@@ -337,9 +337,9 @@
                     </div>
                 </div>
                 <div class="card-body border py-2 d-flex align-items-center justify-content-between">
-                    <button wire:click="$refresh" data-bs-dismiss="modal" type="button" class="btn btn-sm btn-secondary bi bi-backspace-fill"> Close</button>
-                    <button wire:loading.attr="disabled" wire:click.prevent="sendMovement" type="button" class="btn btn-sm btn-success bi bi-envelope-check-fill"> Send Movement</button>
-                    <button wire:loading.attr="disabled" wire:click.prevent="saveMovement" type="button" class="btn btn-sm btn-primary bi bi-clock-history"> Save Movement</button>
+                    <button wire:click="$refresh" data-bs-dismiss="modal" type="button" class="btn btn-sm btn-secondary bi-backspace-fill"> Close</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="sendMovement" type="button" class="btn btn-sm btn-success bi-envelope-check-fill"> Send Movement</button>
+                    <button wire:loading.attr="disabled" wire:click.prevent="saveMovement" type="button" class="btn btn-sm btn-primary bi-clock-history"> Save Movement</button>
                 </div>
             </div>
         </div>
@@ -349,7 +349,7 @@
 <!-- Success Message Toast  -->
 <div  id="statusToast" class="toast position-fixed top-0 end-0 p-3 text-bg-success" style="margin-top:5px; margin-bottom:0px;" role="alert" aria-live="assertive" aria-atomic="true">
   <div class="toast-header text-bg-success">
-    <i class="me-2 bi bi-send-fill"></i>
+    <i class="me-2 bi-send-fill"></i>
     <strong class="me-auto text-black">Success</strong>
     <small class="text-white">{{ now() }}</small>
     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

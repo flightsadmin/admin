@@ -20,12 +20,12 @@
 							<div class="d-flex gap-4">
 								<input type="file" accept=".csv, .xlsx" class="form-control form-control-sm mr-2" id="file" wire:model.live="file">
 								@error('file') <span class="text-danger small">{{ $message }}</span> @enderror
-								<button type="submit" class="btn btn-success btn-sm bi bi-cloud-upload-fill"></button>
+								<button type="submit" class="btn btn-success btn-sm bi-cloud-upload-fill"></button>
 							</div>
 						</form>
-						<button wire:click="downloadDelays" class="btn btn-warning btn-sm bi bi-cloud-download-fill"> Download Sample</button>
+						<button wire:click="downloadDelays" class="btn btn-warning btn-sm bi-cloud-download-fill"> Download Sample</button>
 					</div>
-					<div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+					<div class="btn btn-sm btn-info bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
 							Add Delay Code
 					</div>
 				</div>
@@ -60,8 +60,8 @@
 										Actions
 									</a>
 									<ul class="dropdown-menu">
-										<li><a href="" data-bs-toggle="modal" data-bs-target="#dataModal" class="dropdown-item bi bi-pencil-square" wire:click.prevent="edit({{$row->id}})"> Edit </a></li>
-										<li><a href="" class="dropdown-item bi bi-trash3" onclick="confirm('Confirm Delete Flight id {{$row->id}}? \nDeleted Flight cannot be recovered!')||event.stopImmediatePropagation()" wire:click.prevent="destroy({{$row->id}})"> Delete </a></li>  
+										<li><a href="" data-bs-toggle="modal" data-bs-target="#dataModal" class="dropdown-item bi-pencil-square" wire:click.prevent="edit({{$row->id}})"> Edit </a></li>
+										<li><a href="" class="dropdown-item bi-trash3" onclick="confirm('Confirm Delete Flight id {{$row->id}}? \nDeleted Flight cannot be recovered!')||event.stopImmediatePropagation()" wire:click.prevent="destroy({{$row->id}})"> Delete </a></li>  
 									</ul>
 								</div>
 							</td>

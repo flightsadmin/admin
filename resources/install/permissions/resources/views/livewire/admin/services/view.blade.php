@@ -10,7 +10,7 @@
 					<div>
 						<input wire:model.live.debounce.500ms="keyWord" type="text" class="form-control form-control-sm" name="search" id="search" placeholder="Search Service">
 					</div>
-					<div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+					<div class="btn btn-sm btn-info bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
 							Add Service
 					</div>
 				</div>
@@ -21,8 +21,8 @@
 					@forelse($services as $row)
 					<div class="col-md-4 border d-flex justify-content-between" wire:key="{{ $row->id }}">
 						<div class="p-2">
-							<b><i class="bi bi-building-check text-success"></i> {{ $row->service }}</b>
-							<p> <i class="bi bi-cash-coin text-info"> </i> $ {{ number_format($row->price, 2) }}</p>
+							<b><i class="bi-building-check text-success"></i> {{ $row->service }}</b>
+							<p> <i class="bi-cash-coin text-info"> </i> $ {{ number_format($row->price, 2) }}</p>
 						</div>
 						<div>
 							<div class="dropdown p-2">
@@ -30,8 +30,8 @@
 									Actions
 								</a>
 								<ul class="dropdown-menu">
-									<li><a data-bs-toggle="modal" data-bs-target="#dataModal" class="dropdown-item bi bi-pencil-square" wire:click="edit({{$row->id}})"> Edit </a></li>
-									<li><a class="dropdown-item bi bi-trash3" onclick="confirm('Confirm Delete Service id {{$row->id}}? \nDeleted Service cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"> Delete </a></li>  
+									<li><a data-bs-toggle="modal" data-bs-target="#dataModal" class="dropdown-item bi-pencil-square" wire:click="edit({{$row->id}})"> Edit </a></li>
+									<li><a class="dropdown-item bi-trash3" onclick="confirm('Confirm Delete Service id {{$row->id}}? \nDeleted Service cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"> Delete </a></li>  
 								</ul>
 							</div>
 						</div>

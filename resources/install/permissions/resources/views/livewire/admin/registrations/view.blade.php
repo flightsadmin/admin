@@ -15,12 +15,12 @@
 							<div class="d-flex gap-4">
 								<input type="file" accept=".csv, .xlsx" class="form-control form-control-sm mr-2" id="file" wire:model.live="file">
 								@error('file') <span class="text-danger small">{{ $message }}</span> @enderror
-								<button type="submit" class="btn btn-success btn-sm bi bi-cloud-upload-fill"></button>
+								<button type="submit" class="btn btn-success btn-sm bi-cloud-upload-fill"></button>
 							</div>
 						</form>
-						<button wire:click="registrationSample" class="btn btn-warning btn-sm bi bi-cloud-download-fill"> Download Sample</button>
+						<button wire:click="registrationSample" class="btn btn-warning btn-sm bi-cloud-download-fill"> Download Sample</button>
 					</div>
-					<div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+					<div class="btn btn-sm btn-info bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
 						Add Registration
 					</div>
 				</div>
@@ -56,8 +56,8 @@
 										Actions
 									</a>
 									<ul class="dropdown-menu">
-										<li><a data-bs-toggle="modal" data-bs-target="#dataModal" class="dropdown-item bi bi-pencil-square" wire:click="edit({{$row->id}})"> Edit </a></li>
-										<li><a class="dropdown-item bi bi-trash3" onclick="confirm('Confirm Delete Registration id {{$row->id}}? \nDeleted Registration cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"> Delete </a></li>  
+										<li><a data-bs-toggle="modal" data-bs-target="#dataModal" class="dropdown-item bi-pencil-square" wire:click="edit({{$row->id}})"> Edit </a></li>
+										<li><a class="dropdown-item bi-trash3" onclick="confirm('Confirm Delete Registration id {{$row->id}}? \nDeleted Registration cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"> Delete </a></li>  
 									</ul>
 								</div>
 							</td>

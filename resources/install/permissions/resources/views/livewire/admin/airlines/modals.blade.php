@@ -36,7 +36,7 @@
             </div>
             <div class="modal-footer d-flex align-items-center justify-content-between">
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button wire:click.prevent="saveAirline" type="button" class="btn btn-sm btn-primary bi bi-check2-circle"> Save</button>
+                <button wire:click.prevent="saveAirline" type="button" class="btn btn-sm btn-primary bi-check2-circle"> Save</button>
             </div>
         </div>
     </div>
@@ -79,11 +79,11 @@
                                 <label for="emails">Emails:</label>
                                 <div class="d-flex gap-4">
                                     <input type="text" id="emails" class="form-control form-control-sm" wire:model.blur="email" placeholder="example test@test.com">
-                                    <a href="" wire:click.prevent="addEmail('{{ $email }}')" class="text-danger h5 bi bi-envelope-plus-fill"></a>
+                                    <a href="" wire:click.prevent="addEmail('{{ $email }}')" class="text-danger h5 bi-envelope-plus-fill"></a>
                                 </div>
                                 <ol class="mt-2">
                                     @foreach ($emails as $email)
-                                        <li>{{ $email }} <a href="" wire:click.prevent="removeEmail('{{ $email }}')" class="bi bi-trash"></a></li>
+                                        <li>{{ $email }} <a href="" wire:click.prevent="removeEmail('{{ $email }}')" class="bi-trash"></a></li>
                                     @endforeach
                                 </ol>
                                 @error('email') <span class="text-danger small">{{ $message }}</span> @enderror
@@ -94,7 +94,7 @@
             </div>
             <div class="modal-footer d-flex align-items-center justify-content-between">
                 <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button class="btn btn-sm btn-primary bi bi-check2-circle" wire:click.prevent="saveRoute"> Save</span>
+                <button class="btn btn-sm btn-primary bi-check2-circle" wire:click.prevent="saveRoute"> Save</span>
                 </button>
             </div>
         </div>
@@ -104,7 +104,7 @@
 <!-- Success Message Toast  -->
 <div  id="statusToast" class="toast position-fixed top-0 end-0 p-3 text-bg-success" style="margin-top:5px; margin-bottom:0px;" role="alert" aria-live="assertive" aria-atomic="true">
   <div class="toast-header text-bg-success">
-    <i class="me-2 bi bi-send-fill"></i>
+    <i class="me-2 bi-send-fill"></i>
     <strong class="me-auto text-black">Success</strong>
     <small class="text-white">{{ now() }}</small>
     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>

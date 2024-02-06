@@ -15,9 +15,9 @@
 					</div>
 					<div class="d-flex gap-4">
 						@role('super-admin|admin')
-							<a href="{{ route('admin.schedules') }}" class="btn btn-sm btn-warning bi bi-newspaper"> Generate Schedule </a>
+							<a href="{{ route('admin.schedules') }}" class="btn btn-sm btn-warning bi-newspaper"> Generate Schedule </a>
 						@endrole
-						<div class="btn btn-sm btn-info bi bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
+						<div class="btn btn-sm btn-info bi-plus-lg" data-bs-toggle="modal" data-bs-target="#dataModal">
 								Add Flight
 						</div>
 					</div>
@@ -44,7 +44,7 @@
 						@forelse($flights as $row)
 						<tr wire:key="{{ $row->id }}">
 							<td>{{ $loop->iteration }}</td>
-							<td class="text-center px-0"><span class="{{ ($row->flight_type == 'arrival') ? 'text-secondary h5 bi bi-arrow-down-right-circle-fill' : 'text-info h5 bi bi-arrow-up-right-circle-fill'}}"></span></td>
+							<td class="text-center px-0"><span class="{{ ($row->flight_type == 'arrival') ? 'text-secondary h5 bi-arrow-down-right-circle-fill' : 'text-info h5 bi-arrow-up-right-circle-fill'}}"></span></td>
 							<td>{{ $row->flight_no }}</td>
 							<td>{{ $row->registration }}</td>
 							<td>{{ $row->scheduled_time_arrival }}</td>
@@ -57,10 +57,10 @@
 										Actions
 									</a>
 									<ul class="dropdown-menu">
-										<li><a href="" data-bs-toggle="modal" data-bs-target="#viewModal" class="dropdown-item bi bi-database-add" wire:click.prevent="viewFlight({{ $row->id }})" > Services </a></li>
-										<li><a href="" data-bs-toggle="modal" data-bs-target="#mvtModal" class="dropdown-item bi bi-watch" wire:click.prevent="viewFlight({{ $row->id }})" > Movements </a></li>
-										<li><a href="" data-bs-toggle="modal" data-bs-target="#dataModal" class="dropdown-item bi bi-pencil-square" wire:click.prevent="edit({{$row->id}})"> Edit </a></li>
-										<li><a href="" class="dropdown-item bi bi-trash3" onclick="confirm('Confirm Delete Flight {{$row->flight_no}}? \nDeleted Flight cannot be recovered!')||event.stopImmediatePropagation()" wire:click.prevent="destroy({{$row->id}})"> Delete </a></li>  
+										<li><a href="" data-bs-toggle="modal" data-bs-target="#viewModal" class="dropdown-item bi-database-add" wire:click.prevent="viewFlight({{ $row->id }})" > Services </a></li>
+										<li><a href="" data-bs-toggle="modal" data-bs-target="#mvtModal" class="dropdown-item bi-watch" wire:click.prevent="viewFlight({{ $row->id }})" > Movements </a></li>
+										<li><a href="" data-bs-toggle="modal" data-bs-target="#dataModal" class="dropdown-item bi-pencil-square" wire:click.prevent="edit({{$row->id}})"> Edit </a></li>
+										<li><a href="" class="dropdown-item bi-trash3" onclick="confirm('Confirm Delete Flight {{$row->flight_no}}? \nDeleted Flight cannot be recovered!')||event.stopImmediatePropagation()" wire:click.prevent="destroy({{$row->id}})"> Delete </a></li>  
 									</ul>
 								</div>
 							</td>

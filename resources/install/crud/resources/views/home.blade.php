@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <h5><span class="text-center bi bi-house-check"></span> @yield('title')</h5>
+                <h5><span class="text-center bi-house-check"></span> @yield('title')</h5>
             </div>
             <div class="card-body">
                 <div class="app-content">
@@ -25,7 +25,7 @@
                                     </svg>
                                     <a href="{{ route('admin.registrations')}}" wire:navigate
                                         class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                                        More info <i class="bi bi-link-45deg"></i>
+                                        More info <i class="bi-link-45deg"></i>
                                     </a>
                                 </div>
                             </div>
@@ -43,7 +43,7 @@
                                     </svg>
                                     <a href="{{ route('admin.airlines')}}" wire:navigate
                                         class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                                        More info <i class="bi bi-link-45deg"></i>
+                                        More info <i class="bi-link-45deg"></i>
                                     </a>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                     </svg>
                                     <a href="{{ route('admin.users')}}" wire:navigate
                                         class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                                        More info <i class="bi bi-link-45deg"></i>
+                                        More info <i class="bi-link-45deg"></i>
                                     </a>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                                     </svg>
                                     <a href="{{ route('admin.flights')}}" wire:navigate
                                         class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover">
-                                        More info <i class="bi bi-link-45deg"></i>
+                                        More info <i class="bi-link-45deg"></i>
                                     </a>
                                 </div>
                             </div>

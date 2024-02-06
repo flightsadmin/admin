@@ -12,10 +12,10 @@
                             <div class="d-flex gap-4">
                                 <input type="file" accept=".csv, .xlsx" class="form-control form-control-sm mr-2" id="file" wire:model.live="file">
                                 @error('file') <span class="text-danger small">{{ $message }}</span> @enderror
-                                <button type="submit" class="btn btn-success btn-sm bi bi-cloud-upload-fill"></button>
+                                <button type="submit" class="btn btn-success btn-sm bi-cloud-upload-fill"></button>
                             </div>
                         </form>
-                        <button wire:click="downloadSample" class="btn btn-warning btn-sm bi bi-cloud-download-fill"> Download Sample</button>
+                        <button wire:click="downloadSample" class="btn btn-warning btn-sm bi-cloud-download-fill"> Download Sample</button>
                     </div>
                     <div class="row float-end">
                         <div class="col-md">
@@ -87,7 +87,7 @@
                                 </td>
                                 @endforeach
                                 <td>
-                                    <a href="" wire:click.prevent="removeFlights({{$index}})" class="text-danger bi bi-trash3"></a>
+                                    <a href="" wire:click.prevent="removeFlights({{$index}})" class="text-danger bi-trash3"></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -105,7 +105,7 @@
                         <thead class="thead">
                             <tr> 
                                 <td>#</td>
-                                <td><a href="" wire:click.prevent="deleteSelected" class="text-danger bi bi-trash3-fill"></a></td>
+                                <td><a href="" wire:click.prevent="deleteSelected" class="text-danger bi-trash3-fill"></a></td>
                                 <th>Flight No</th>
                                 <th>Registration</th>
                                 <th>STA</th>
