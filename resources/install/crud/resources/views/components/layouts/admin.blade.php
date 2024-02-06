@@ -21,9 +21,7 @@
 <body class="layout-fixed-complete sidebar-expand-lg bg-body-tertiary">
     <div class="app-wrapper">
         @include('components.layouts.includes.header')
-        @if (request()->is('admin*'))
-        @include('components.layouts.includes.aside')
-        @endif
+        @includeWhen(request()->is('admin*'), 'components.layouts.includes.aside')
         <main class="app-main py-2">
             <div class="app-content">
                 <div class="container-fluid">
