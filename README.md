@@ -3,21 +3,18 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/flightsadmin/admin.svg?style=flat-square)](https://packagist.org/packages/flightsadmin/admin)
 [![Total Downloads](https://img.shields.io/packagist/dt/flightsadmin/admin.svg?style=flat-square)](https://packagist.org/packages/flightsadmin/admin)
 
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
+Get multiple admin panels using different branches of this package. Below Modules are supported.
 
-## Installation
+| ## Module   |      ## Branch      |  ## Installation |
+|:----------|:-------------:|------:|
+| Flights |  main | ` composer require flightsadmin/admin:dev-main ` |
+| School |  school | composer require flightsadmin/admin:dev-school |
+| Shop |  shop | composer require flightsadmin/admin:dev-shop |
+| Blog |  blog | composer require flightsadmin/admin:dev-blog |
 
-You can install the package via composer:
+## Documentation
 
-```bash
-composer require flightsadmin/admin
-```
-
-## Usage
-
-```php
-php artisan admin:install
-```
+Details documentation coming soon.
 
 ### Changelog
 
