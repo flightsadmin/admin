@@ -11,16 +11,13 @@ return [
     "purpose" => "Flight Management",
 
     // Allow Social Login
-    "sociallogin" => true,
+    "sociallogin" => false,
 
     // Routes
-    "adminRoute" => "admin",
-    "blogRoute"  => "blog",
+    "adminRoute"   => "admin",
 
     // Modules
     "modules"   => [
         'flights'   => true,
-        'blog'      => true,
-        'shopping'  => true,
     ],
 ];

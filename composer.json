@@ -20,7 +20,6 @@
         "dompdf/dompdf": "^2",
         "laravel/framework": ">9.19",
         "laravel/ui": "^4",
-        "laravel/socialite": "^5.9",
         "livewire/livewire": "^3",
         "spatie/laravel-permission": "^5"
     },

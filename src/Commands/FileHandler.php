@@ -24,7 +24,7 @@ trait FileHandler
             <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/', App\Livewire\Posts::class)->name(config("admin.adminRoute", "admin"));
+                Route::get('/', App\Livewire\Flights::class)->name(config("admin.adminRoute", "admin"));
                 Route::get('/flights', App\Livewire\Flights::class)->name('admin.flights');
                 Route::get('/airlines', App\Livewire\Airlines::class)->name('admin.airlines');
                 Route::get('/delays', App\Livewire\Delays::class)->name('admin.delays');
@@ -36,18 +36,6 @@ trait FileHandler
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
                 Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
             });
-            
-            // User Routes
-            Route::middleware(['web'])->prefix(config("admin.blogRoute", "blog"))->group(function () {
-                Route::get('/', App\Livewire\BlogPosts::class)->name(config("admin.blogRoute", "blog"));
-                Route::get('/{post:id}', [App\Livewire\BlogPosts::class, 'show'])->name('blog.show');
-                Route::get('/category/{slug}', [App\Livewire\BlogPosts::class, 'category'])->name('blog.category');
-                Route::get('/archive/{year}/{month}', [App\Livewire\BlogPosts::class, 'archive'])->name('blog.archive');
-            });
-
-            // Social Login Routes
-            Route::get('/auth/{provider}/redirect', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirect']);
-            Route::get('/auth/{provider}/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'callback']);
             ROUTES;
             
             $fileHook = "//Route Hooks - Do not delete//";
@@ -59,7 +47,7 @@ trait FileHandler
             }
 
             //Updating NavBar
-            $layoutsFile = base_path('resources/views/components/layouts/app.blade.php');
+            $layoutsFile = base_path('resources/views/components/layouts/includes/header.blade.php');
             $layoutsData = $this->filesystem->get($layoutsFile);
             $spatieNavs  =
             <<<NAV
@@ -68,9 +56,6 @@ trait FileHandler
                                         <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
                                     </li>
                                     @endrole
-                                    <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="{{ route(config('admin.blogRoute')) }}">{{ ucwords(config('admin.blogRoute'))}}</a>
-                                    </li>
             NAV;
             $spatieFileHook = "<!--Nav Bar Hooks - Do not delete!!-->";
 
@@ -108,37 +93,6 @@ trait FileHandler
                     $this->warn($userModelFile . ' Updated with <info>' . trim($value). '</info>');
                 }
             }
-            // Update Relationship
-            $userUpdate = 
-            <<<NAV
-                public function likes() {
-                    return \$this->belongsToMany(Post::class, 'post_like')->withTimestamps();
-                }
-                
-                public function hasLiked(Post \$post) {
-                    return \$this->likes()->where('post_id', \$post->id)->exists();
-                }
-            
-            NAV; 
-            
-            $userHook = "}";
-
-            // Find the position of the last occurrence of "];"
-            $lastPosition = strrpos($fileData, $userHook);
-
-            if (!Str::contains($fileData, $userUpdate)) {
-                // Add the content after the last occurrence of "];"
-                if ($lastPosition !== false) {
-                    $UserModelContents = substr_replace($fileData, PHP_EOL . $userUpdate, $lastPosition, 0);
-                } else {
-                    // If "];" is not found, add the content at the end of the file
-                    $UserModelContents = $fileData . PHP_EOL . $userUpdate;
-                }
-
-                // Write the updated content back to the file
-                $this->filesystem->put($userModelFile, $UserModelContents);
-                $this->warn($userModelFile . ' Updated');
-            }
 
             $this->warn('Publishing Laravel Permissions Files');
             Artisan::call('vendor:publish', ['--provider' => 'Spatie\Permission\PermissionServiceProvider'], $this->getOutput());
@@ -146,52 +100,16 @@ trait FileHandler
             Artisan::call('migrate:fresh', [], $this->getOutput());
             Artisan::call('optimize:clear', [], $this->getOutput());
             Artisan::call('storage:link', [], $this->getOutput());
-            Artisan::call('db:seed', ['--class' => 'AdminDatabaseSeeder'], $this->getOutput());
-            if ($this->confirm('Do you want to Seed Testing Data?', true, true)) {
-                Artisan::call('db:seed', ['--class' => 'FlightsDatabaseSeeder'], $this->getOutput());
+            Artisan::call('db:seed', ['--class' => 'AdminSeeder'], $this->getOutput());
+            if ($this->confirm('Do you want to Seed Flight Data?', true, true)) {
+                Artisan::call('db:seed', ['--class' => 'FlightSeeder'], $this->getOutput());
             }
         }
     }
 
-    public function socialLoginInstall() {
-        if ($this->confirm('Do you want to Enable Social Login?', true, true)) {
-            // Update ENV File
-            $envFile = base_path('.env');
-            $socialID = "GOOGLE_CLIENT_ID=969178219302-a013oqprusp6hki4gjsu978uae0fine6.apps.googleusercontent.com\nGOOGLE_CLIENT_SECRET=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";
-            $envData = file_get_contents($envFile);
-            if (!str_contains($envData, $socialID)) {
-                file_put_contents($envFile, "\n$socialID", FILE_APPEND);
-                $this->warn($envFile. " Updated");
-            }
-            //Update Services File
-            $servicesFile = base_path('config/services.php');
-            $servicesData = $this->filesystem->get($servicesFile);
-            $servicesUpdate = 
-            <<<SERVICE
-                'google' => [
-                    'client_id' => env('GOOGLE_CLIENT_ID'),
-                    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-                    'redirect' => '/auth/google/callback',
-                ],
-            
-            SERVICE; 
-            
-            $serviceFileHook = "];";
-
-            // Find the position of the last occurrence of "];"
-            $lastPosition = strrpos($servicesData, $serviceFileHook);
-            if (!Str::contains($servicesData, $servicesUpdate)) {
-                if ($lastPosition !== false) {
-                    $UserModelContents = substr_replace($servicesData, PHP_EOL . $servicesUpdate, $lastPosition, 0);
-                } else {
-                    $UserModelContents = $servicesData . PHP_EOL . $servicesUpdate;
-                }
-
-                $this->filesystem->put($servicesFile, $UserModelContents);
-                $this->warn($servicesFile . ' Updated');
-            }
-
-            //Copy AdminLTE Assets
+    public function installAdminLTE() {
+        if ($this->confirm('Do you want to Install AdminLTE?', true, true)) {
+             //Copy AdminLTE Assets
             $sourcePath = base_path('node_modules/admin-lte/dist/assets');
             $destinationPath = storage_path('app/public/assets');
 

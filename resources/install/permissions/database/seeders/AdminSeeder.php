@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
-class AdminDatabaseSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     public function run()
     {
@@ -18,7 +18,6 @@ class AdminDatabaseSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         $permissions = [
-            'viewPost', 'createPost', 'editPost', 'deletePost',
             'viewRole', 'createRole', 'editRole', 'deleteRole',
             'viewPermission', 'createPermission', 'editPermission', 'deletePermission',
             'viewUser', 'createUser', 'editUser', 'deleteUser',
@@ -33,10 +32,6 @@ class AdminDatabaseSeeder extends Seeder
 
          // create roles and assign created permissions
          $roles = [
-            [
-                'name' => 'guest',
-                'permissions' => ['viewPost'],
-            ],
             [
                 'name' => 'user',
                 'permissions' => ['viewFlights', 'viewRegistrations', 'viewAirline'],
