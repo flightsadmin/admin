@@ -24,7 +24,6 @@
                         </div>
                         <p class="lead">{{ $product->description }}</p>
                         <div class="d-flex gap-3">
-                            @livewire('component', ['user' => $user], key($user->id))
                             @livewire('action-button', ['product' => $product], key($product->id))
                         </div>
                     </div>
