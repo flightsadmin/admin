@@ -86,25 +86,6 @@ trait FileHandler
                 $this->warn($routeFile . ' Updated');
             }
 
-            //Updating NavBar
-            $layoutsFile = base_path('resources/views/components/layouts/app.blade.php');
-            $layoutsData = $this->filesystem->get($layoutsFile);
-            $spatieNavs =
-                <<<NAV
-                                    @role('super-admin|admin')
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
-                                    </li>
-                                    @endrole
-            NAV;
-            $spatieFileHook = "<!--Nav Bar Hooks - Do not delete!!-->";
-
-            if (!Str::contains($layoutsData, $spatieNavs)) {
-                $UserModelContents = str_replace($spatieFileHook, $spatieFileHook . PHP_EOL . $spatieNavs, $layoutsData);
-                $this->filesystem->put($layoutsFile, $UserModelContents);
-                $this->warn($layoutsFile . ' Updated');
-            }
-
             //Updating Kernel
             $kernelFile = app_path('Http/Kernel.php');
             $kernelData = $this->filesystem->get($kernelFile);
