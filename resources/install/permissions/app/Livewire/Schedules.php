@@ -3,176 +3,88 @@
 namespace App\Livewire;
 
 use Carbon\Carbon;
-use App\Models\Route;
-use App\Models\Flight;
-use App\Models\Airline;
+use App\Models\User;
 use Livewire\Component;
-use App\Models\Registration;
+use App\Models\Schedule;
 use Livewire\WithPagination;
-use Livewire\WithFileUploads;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Schedules extends Component
 {
-    use WithFileUploads, WithPagination;
+    use WithPagination;
     protected $paginationTheme = 'bootstrap';
-    public $days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    public $flightNumbers = [], $selectedDays = [], $flightFields = [], $startDate, $endDate, $file, $selectedFlights = [];
-
-    public function render()
-    {
-        $airlines = Airline::all();
-        $flights = Flight::latest()->paginate();
-        return view('livewire.admin.schedules.view', compact('airlines', 'flights'))->extends('components.layouts.admin');
-    }
+    public $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    public $staffSchedules = [], $selectedDays = [], $scheduleFields = [], $startDate, $endDate;
 
     public function mount()
     {
-        $this->startDate = Carbon::now()->format('Y-m-d');
-        $this->endDate = Carbon::now()->addDays(30)->format('Y-m-d');
+        $this->startDate = date('Y-m-d', strtotime('-1 days'));
+        $this->endDate = date('Y-m-d', strtotime('+30 days'));
     }
 
-    public function addFlights()
+    public function render()
     {
-        $this->flightNumbers[] = rand(100, 999);
+        $users = User::all();
+        $roster = Schedule::fetchRoster();
+        return view('livewire.admin.schedules.view', compact('users', 'roster'))->extends('components.layouts.admin');
     }
 
-    public function removeFlights($index)
+    public function addSchedules()
     {
-        unset($this->flightNumbers[$index]);
-        $this->flightNumbers = array_values($this->flightNumbers);
+        $this->staffSchedules[] = rand(100, 999);
     }
 
-    public function deleteSelected()
+    public function removeSchedules($index)
     {
-        $deletedFlights = Flight::whereIn('id', $this->selectedFlights)->delete();
-        $this->reset(['selectedFlights']);
-        session()->flash('message', 'Selected flights deleted successfully.');
+        unset($this->staffSchedules[$index]);
+        $this->staffSchedules = array_values($this->staffSchedules);
     }
 
-    public function createFlights()
+    public function createSchedules()
     {
-        foreach ($this->selectedDays as $selectedDay) {
-            list($flightNumber, $day) = explode('-', $selectedDay);
+        foreach ($this->staffSchedules as $index => $schedule) {
+            foreach ($this->days as $day) {
+                if (!in_array("$schedule-$day", $this->selectedDays)) {
+                    $date = Carbon::parse($this->startDate)->next(strtolower($day));
 
-            // Calculate the first occurrence of the selected day within the date range
-            $date = Carbon::parse($this->startDate)->next($day);
-            if ($date->lt($this->startDate)) {
-                $date = $date->next($day);
-            }
+                    while ($date->lte($this->endDate)) {
+                        $scheduleData = [
+                            'date' => $date,
+                            'user_id' => $this->scheduleFields[$schedule]['user_id'],
+                            'shift_start' => $date->format('Y-m-d ') . $this->scheduleFields[$schedule]['shift_start'],
+                            'shift_hours' => $this->scheduleFields[$schedule]['shift_hours'],
+                        ];
+                        $scheduleData['shift_end'] = Carbon::parse($scheduleData['shift_start'])->copy()->addHours($scheduleData['shift_hours'])->toDateTimeString();
 
-            // Create flights for each occurrence of the selected day within the date range
-            while ($date->lte($this->endDate)) {
-                $flight = new Flight;
-                $flight->airline_id = strtoupper($this->flightFields[$flightNumber]['airline_id']);
-                $flight->flight_no = strtoupper($this->flightFields[$flightNumber]['flight_no']);
-                $flight->registration = '';
-                $flight->origin = strtoupper($this->flightFields[$flightNumber]['origin'] ?? 'DOH');
-                $flight->destination = strtoupper($this->flightFields[$flightNumber]['destination'] ?? 'MCT');
-                $flight->scheduled_time_arrival = $date->format('Y-m-d '). $this->flightFields[$flightNumber]['arrival'] ?? '00:00';
-                $flight->scheduled_time_departure = $date->format('Y-m-d '). $this->flightFields[$flightNumber]['departure'] ?? '00:00';
-                $flight->flight_type = strtoupper($this->flightFields[$flightNumber]['flight_type'] ?? 'departure');
-                $flight->save();
-                $date = $date->next($day);
-            }
-        }
-        session()->flash('message', 'Schedule Created Successfully.');
-        return $this->redirect(route('admin.flights'), true);
-        $this->reset(['selectedDays', 'flightNumbers', 'flightFields']);
-    }
+                        Schedule::updateOrCreate(
+                            ['date' => $date, 'user_id' => $scheduleData['user_id']],
+                            $scheduleData
+                        );
+                        $date = $date->next(strtolower($day));
+                    }
+                } else {
+                    $date = Carbon::parse($this->startDate)->next(strtolower($day));
 
-    public function import()
-    {
-        // Validate the file upload
-        $this->validate([
-            'file' => 'nullable|mimes:csv,txt'
-        ]);
+                    while ($date->lte($this->endDate)) {
+                        $scheduleData = [
+                            'date' => $date,
+                            'user_id' => $this->scheduleFields[$schedule]['user_id'],
+                            'shift_start' => null,
+                            'shift_hours' => 0,
+                        ];
+                        $scheduleData['shift_end'] = null;
 
-        // Read the CSV file using the `fgetcsv()` function
-        $csvFile = fopen($this->file->getRealPath(), 'r');
-        $headerRow = true;
-        while (($row = fgetcsv($csvFile)) !== false) {
-            // Skip the header row
-            if ($headerRow) {
-                $headerRow = false;
-                continue;
-            }
-
-            $flight = new Flight;
-            $flight->airline_id = $row[0];
-            $flight->flight_no = $row[1];
-            $flight->registration = $row[2];
-            $flight->origin = $row[3];
-            $flight->destination = $row[4];
-            $flight->scheduled_time_arrival = date('Y-m-d H:i', strtotime($row[5]));
-            $flight->scheduled_time_departure = date('Y-m-d H:i', strtotime($row[6]));
-            $flight->flight_type = $row[7];
-            $flight->save();
-        }
-
-        session()->flash('message', 'Schedule Imported Successfully.');
-        return $this->redirect(route('admin.flights'), true);
-    }
-
-    public function downloadSample()
-    {
-        $filename = 'flights.csv';
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => "attachment; filename={$filename}",
-        ];
-    
-        $callback = function () {
-            $file = fopen('php://output', 'w');
-    
-            $headers = [
-                'airline_id',
-                'flight_no',
-                'registration',
-                'origin',
-                'destination',
-                'scheduled_time_arrival',
-                'scheduled_time_departure',
-                'flight_type',
-            ];
-    
-            fputcsv($file, $headers);
-            
-            $start_date = Carbon::now('Asia/Qatar');
-            $end_date = $start_date->copy()->addDays(30);
-            $airlines = Airline::all();
-            
-            while ($start_date <= $end_date) {
-                foreach ($airlines as $key => $value) {
-                    foreach (Route::latest()->where('airline_id', $value->id)->get() as $sector) {
-                        $airlineId = $value->id;
-                        $flightNo = $value->iata_code . str_pad(rand(1, 999), 4, '0', STR_PAD_LEFT);
-                        $registration =  Registration::where('airline_id', $airlineId)->pluck('registration')->first();
-                        $origin = $sector->origin;
-                        $destination = $sector->destination;
-                        $arrivalTime = $start_date->copy()->addMinutes(rand(0, 1440))->format('Y-m-d H:i:s');
-                        $departureTime = date('Y-m-d H:i:s', strtotime($arrivalTime . ' + ' . rand(60, 180) . ' minutes'));
-                        $flightType = ($key % 2 == 0) ? 'departure' : 'arrival';
-    
-                        fputcsv($file, [
-                            $airlineId,
-                            $flightNo,
-                            $registration,
-                            $origin,
-                            $destination,
-                            $arrivalTime,
-                            $departureTime,
-                            $flightType,
-                        ]);
+                        Schedule::updateOrCreate(
+                            ['date' => $date, 'user_id' => $scheduleData['user_id']],
+                            $scheduleData
+                        );
+                        $date = $date->next(strtolower($day));
                     }
                 }
-                $start_date->addDay();
             }
-    
-            fclose($file);
-        };
-    
-        return new StreamedResponse($callback, 200, $headers);
-        session()->flash('message', 'Sample File Downloaded Successfully.');
+        }
+
+        session()->flash('message', 'Schedules Created Successfully.');
+        $this->reset(['selectedDays', 'scheduleFields']);
+        return redirect(route('admin'), true);
     }
 }

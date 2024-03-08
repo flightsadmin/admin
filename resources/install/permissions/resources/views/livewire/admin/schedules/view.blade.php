@@ -5,135 +5,135 @@
             <div class="card-header">
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <h5>Flight Schedules </h5>
-                    </div>
-                    <div class="d-flex gap-4">
-                        <form wire:submit="import" enctype="multipart/form-data">
-                            <div class="d-flex gap-4">
-                                <input type="file" accept=".csv, .xlsx" class="form-control form-control-sm mr-2" id="file" wire:model.live="file">
-                                @error('file') <span class="text-danger small">{{ $message }}</span> @enderror
-                                <button type="submit" class="btn btn-success btn-sm bi-cloud-upload-fill"></button>
-                            </div>
-                        </form>
-                        <button wire:click="downloadSample" class="btn btn-warning btn-sm bi-cloud-download-fill"> Download Sample</button>
+                        <h5>Shift Roster </h5>
                     </div>
                     <div class="row float-end">
                         <div class="col-md">
                             <label for="start_date">Start Date:</label>
-                            <input type="date" wire:model="startDate" id="start_date" min="{{ date('Y-m-d', strtotime('-1 days')) }}" class="form-control form-control-sm">
+                            <input type="date" wire:model="startDate" id="start_date" min="{{ date('Y-m-d', strtotime('-1 days')) }}"
+                                class="form-control form-control-sm">
                         </div>
                         <div class="col-md">
                             <label for="end_date">End Date:</label>
-                            <input type="date" wire:model="endDate" id="end_date" min="{{ date('Y-m-d', strtotime('+2 days')) }}" class="form-control form-control-sm">
+                            <input type="date" wire:model="endDate" id="end_date" min="{{ date('Y-m-d', strtotime('+2 days')) }}"
+                                class="form-control form-control-sm">
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card-body border">
-            @if($flightNumbers)
-                <div class="table-responsive">
-                    <table class="table table-sm table-bordered">
-                        <thead>
-                            <tr>
-                                <th width="150">Airline</th>
-                                <th width="130">Flight Number</th>
-                                <th width="230">Timings (Arrival & Departure)</th>
-                                <th width="130">Origin</th>
-                                <th width="130">Destination</th>
-                                <th width="150">Type</th>
-                                @foreach ($days as $day)
-                                <th>{{ $day }}</th>
+            <div class="card-body">
+                @if ($staffSchedules)
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered">
+                            <thead>
+                                <tr>
+                                    <th width="180">Staff Name</th>
+                                    <th width="130">Shift Start</th>
+                                    <th width="130">Required Hours</th>
+                                    @foreach ($days as $day)
+                                        <th>{{ $day }}</th>
+                                    @endforeach
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($staffSchedules as $index => $schedule)
+                                    <tr wire:key="{{ $index }}">
+                                        <td>
+                                            <select wire:model="scheduleFields.{{ $schedule }}.user_id"
+                                                class="form-select  form-select-sm">
+                                                <option value="">--Select User--</option>
+                                                @foreach ($users as $value)
+                                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                                @endforeach()
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select wire:model="scheduleFields.{{ $schedule }}.shift_start"
+                                                class="form-select form-select-sm">
+                                                <option value="">--Select Type--</option>
+                                                @for ($hour = 0; $hour < 24; $hour++)
+                                                    @php
+                                                        $time = sprintf('%02d', $hour) . ':00:00';
+                                                        $displayTime = date('h:i A', strtotime($time));
+                                                    @endphp
+                                                    <option value="{{ $time }}">{{ $displayTime }}</option>
+                                                @endfor
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select wire:model="scheduleFields.{{ $schedule }}.shift_hours"
+                                                class="form-select  form-select-sm">
+                                                <option value="">--Select Type--</option>
+                                                <option value="8">8 Hours</option>
+                                                <option value="9">9 Hours</option>
+                                                <option value="10">10 Hours</option>
+                                                <option value="11">11 Hours</option>
+                                                <option value="12">12 Hours</option>
+                                            </select>
+                                        </td>
+                                        @foreach ($days as $day)
+                                            <td>
+                                                <div class="form-check">
+                                                    <input type="checkbox" wire:model="selectedDays"
+                                                        value="{{ $schedule }}-{{ $day }}" class="form-check-input">
+                                                </div>
+                                            </td>
+                                        @endforeach
+                                        <td>
+                                            <a href="" wire:click.prevent="removeSchedules({{ $index }})"
+                                                class="text-danger bi-trash3"></a>
+                                        </td>
+                                    </tr>
                                 @endforeach
-                                <th></th>
+                            </tbody>
+                        </table>
+                    </div>
+                @endif
+                <button wire:click="addSchedules" class="btn btn-sm btn-secondary">+ Add a Schedule</button>
+                <button wire:click="createSchedules" class="btn btn-sm btn-primary float-end">Create Schedule</button>
+            </div>
+
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            @php
+                                $uniqueDates = [];
+                                foreach ($roster as $schedules) {
+                                    foreach ($schedules as $schedule) {
+                                        $uniqueDates[] = $schedule['date'];
+                                    }
+                                }
+                                $uniqueDates = array_unique($uniqueDates);
+                            @endphp
+                            <tr>
+
+                                <th class="text-center" colspan="100%">{{ date('M', strtotime($uniqueDates[0] ?? 'Month')) }}</th>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+
+                                @foreach ($uniqueDates as $date)
+                                    <th class="text-center">{{ date('d', strtotime($date)) }}</th>
+                                @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($flightNumbers as $index => $flightNumber)
-                            <tr wire:key="{{ $index }}">
-                                <td>
-                                    <select wire:model="flightFields.{{ $flightNumber }}.airline_id" class="form-select  form-select-sm">
-                                        <option value="">--Select Airline--</option>
-                                        @foreach($airlines as $value)
-                                            <option value="{{ $value->id }}">{{ $value->name }}</option>
-                                        @endforeach()
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="text" size="8" wire:model="flightFields.{{ $flightNumber }}.flight_no">
-                                </td>
-                                <td>
-                                    <input type="time" wire:model="flightFields.{{ $flightNumber }}.arrival">
-                                    <input type="time" wire:model="flightFields.{{ $flightNumber }}.departure">
-                                </td>
-                                <td>
-                                    <input type="text" size="8" wire:model="flightFields.{{ $flightNumber }}.origin">
-                                </td>
-                                <td>
-                                    <input type="text" size="8" wire:model="flightFields.{{ $flightNumber }}.destination">
-                                </td>
-                                <td>
-                                    <select wire:model="flightFields.{{ $flightNumber }}.flight_type" class="form-select  form-select-sm">
-                                        <option value="">--Select Type--</option>
-                                        <option value="arrival">Arrival</option>
-                                        <option value="departure">Departure</option>                                            
-                                    </select>
-                                </td>
-                                @foreach ($days as $day)
-                                <td>
-                                    <div class="form-check">
-                                        <input type="checkbox" wire:model="selectedDays" value="{{ $flightNumber }}-{{ $day }}" class="form-check-input">
-                                    </div>
-                                </td>
-                                @endforeach
-                                <td>
-                                    <a href="" wire:click.prevent="removeFlights({{$index}})" class="text-danger bi-trash3"></a>
-                                </td>
-                            </tr>
+                            @foreach ($roster as $userId => $schedules)
+                                <tr>
+                                    <td>{{ $schedules[0]['user']['name'] }}</td>
+                                    @foreach ($schedules as $schedule)
+                                        <td class="text-center" >
+                                            {{ $schedule['shift_start'] ? date('Hi', strtotime($schedule['shift_start'])) . "-" : 'DOF' }}
+                                            {{ $schedule['shift_end'] ? date('Hi', strtotime($schedule['shift_end'])) : '' }}
+                                        </td>
+                                    @endforeach
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
-                </div>
-            @endif
-                <button wire:click="addFlights" class="btn btn-sm btn-secondary">+ Add a Schedule</button>
-                <button wire:click="createFlights" class="btn btn-sm btn-primary float-end">Create Flights</button>
-            </div>
-            <hr>
-            <div class="card-body border">
-                <div class="table-responsive">
-                    <table class="table table-sm">
-                        <thead class="thead">
-                            <tr> 
-                                <td>#</td>
-                                <td><a href="" wire:click.prevent="deleteSelected" class="text-danger bi-trash3-fill"></a></td>
-                                <th>Flight No</th>
-                                <th>Registration</th>
-                                <th>STA</th>
-                                <th>STD</th>
-                                <th>Origin</th>
-                                <th>Destination</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($flights as $row)
-                            <tr wire:key="{{ $row->id }}">
-                                <td>{{ $loop->iteration }}</td>
-                                <td><input type="checkbox" wire:model="selectedFlights" value="{{ $row->id }}"></td>
-                                <td>{{ $row->flight_no }}</td>
-                                <td>{{ $row->registration }}</td>
-                                <td>{{ $row->scheduled_time_arrival }}</td>
-                                <td>{{ $row->scheduled_time_departure }}</td>
-                                <td>{{ $row->origin }}</td>
-                                <td>{{ $row->destination }}</td>
-                            </tr>
-                            @empty
-                            <tr>
-                                <td class="text-center" colspan="100%">No Flights Found </td>
-                            </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                    <div class="float-end">{{ $flights->links() }}</div>
                 </div>
             </div>
         </div>

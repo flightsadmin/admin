@@ -19,7 +19,7 @@ class Install extends Command
     private $replaces = [];
 	
     protected $signature = 'admin:install';
-    protected $description = 'Install Flight Admin App';
+    protected $description = 'Install Schedule Admin App';
 
     public function handle()
     {
@@ -103,7 +103,7 @@ class Install extends Command
         $this->correctLayoutExtention($viewsDirectory, $searchExtends, $replaceExtends);
         $this->line('');
         
-        $this->warn('All set, Your Flights are ready to take off');		
+        $this->warn('All set, Your Schedulling app is ready for take off');		
 	  }
 		else $this->warn('Installation Aborted, No file was changed');
     }

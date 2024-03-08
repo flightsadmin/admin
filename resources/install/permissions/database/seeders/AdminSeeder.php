@@ -21,9 +21,6 @@ class AdminSeeder extends Seeder
             'viewRole', 'createRole', 'editRole', 'deleteRole',
             'viewPermission', 'createPermission', 'editPermission', 'deletePermission',
             'viewUser', 'createUser', 'editUser', 'deleteUser',
-            'viewFlights', 'createFlights', 'editFlights', 'deleteFlights',
-            'viewRegistrations', 'createRegistrations', 'editRegistrations', 'deleteRegistrations',
-            'viewAirline', 'createAirline', 'editAirline', 'deleteAirline',
             'viewSchedule', 'createSchedule', 'editSchedule', 'deleteSchedule',
          ];
          foreach ($permissions as $permission) {

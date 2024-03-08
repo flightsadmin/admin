@@ -12,27 +12,6 @@
                 <li class="nav-header"> DASHBOARD</li>
                 @role('super-admin|admin|user')
                     @if (config('admin.modules.flights'))
-                        <li class="nav-item">
-                            <a href="{{ route('admin.flights') }}" wire:navigate
-                                class="nav-link {{ request()->is('admin/flights') ? 'active' : '' }}">
-                                <i class="nav-icon bi-airplane-engines-fill"></i>
-                                <p>Flights</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.airlines') }}" wire:navigate
-                                class="nav-link {{ request()->is('admin/airlines') ? 'active' : '' }}">
-                                <i class="nav-icon bi-database-add"></i>
-                                <p>Airlines</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('admin.registrations') }}" wire:navigate
-                                class="nav-link {{ request()->is('admin/registrations') ? 'active' : '' }}">
-                                <i class="nav-icon bi-clock-history"></i>
-                                <p>Registrations</p>
-                            </a>
-                        </li>
                         @role('super-admin|admin')
                             <li class="nav-item">
                                 <a href="{{ route('admin.schedules') }}" wire:navigate
@@ -41,21 +20,7 @@
                                     <p>Schedules</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.delays') }}" wire:navigate
-                                    class="nav-link {{ request()->is('admin/delays') ? 'active' : '' }}">
-                                    <i class="nav-icon bi-journal-code"></i>
-                                    <p>Delays</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.services') }}" wire:navigate
-                                    class="nav-link {{ request()->is('admin/services') ? 'active' : '' }}">
-                                    <i class="nav-icon bi-database-fill"></i>
-                                    <p>Services</p>
-                                </a>
-                            </li>
-                    @endif
+                        @endif
                         <li class="nav-header"> ADMIN</li>
                         <li class="nav-item">
                             <a href="{{ route('admin.settings') }}" wire:navigate

@@ -8,7 +8,7 @@ return [
     "appName" => "Flight Admin",
 
     // Purpose
-    "purpose" => "Flight Management",
+    "purpose" => "Schedule Management",
 
     // Allow Social Login
     "sociallogin" => false,

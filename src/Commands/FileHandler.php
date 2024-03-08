@@ -24,12 +24,7 @@ trait FileHandler
             <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/', App\Livewire\Flights::class)->name(config("admin.adminRoute", "admin"));
-                Route::get('/flights', App\Livewire\Flights::class)->name('admin.flights');
-                Route::get('/airlines', App\Livewire\Airlines::class)->name('admin.airlines');
-                Route::get('/delays', App\Livewire\Delays::class)->name('admin.delays');
-                Route::get('/services', App\Livewire\Services::class)->name('admin.services');
-                Route::get('/registrations', App\Livewire\Registrations::class)->name('admin.registrations');
+                Route::get('/', App\Livewire\Schedules::class)->name(config("admin.adminRoute", "admin"));
                 Route::get('/schedules', App\Livewire\Schedules::class)->name('admin.schedules');
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
@@ -102,7 +97,7 @@ trait FileHandler
             Artisan::call('storage:link', [], $this->getOutput());
             Artisan::call('db:seed', ['--class' => 'AdminSeeder'], $this->getOutput());
             if ($this->confirm('Do you want to Seed Flight Data?', true, true)) {
-                Artisan::call('db:seed', ['--class' => 'FlightSeeder'], $this->getOutput());
+                Artisan::call('db:seed', ['--class' => 'ScheduleSeeder'], $this->getOutput());
             }
         }
     }
