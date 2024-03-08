@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->date('date');
-            $table->timestamp('shift_start')->nullable();
-            $table->timestamp('shift_end')->nullable();
-            $table->smallInteger('shift_hours')->nullable();
+            $table->timestamp('shift_start');
+            $table->timestamp('shift_end');
+            $table->smallInteger('shift_hours');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

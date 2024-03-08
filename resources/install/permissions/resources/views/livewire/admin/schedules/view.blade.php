@@ -116,7 +116,7 @@
                                 <th>Name</th>
 
                                 @foreach ($uniqueDates as $date)
-                                    <th class="text-center">{{ date('d', strtotime($date)) }}</th>
+                                    <th class="text-center">{{ date('d D', strtotime($date)) }}</th>
                                 @endforeach
                             </tr>
                         </thead>
