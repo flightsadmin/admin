@@ -31,11 +31,11 @@ class AdminSeeder extends Seeder
          $roles = [
             [
                 'name' => 'user',
-                'permissions' => ['viewFlights', 'viewRegistrations', 'viewAirline'],
+                'permissions' => ['viewSchedule'],
             ],
             [
                 'name' => 'admin',
-                'permissions' => ['viewSchedule', 'createSchedule', 'viewAirline', 'createAirline', 'viewRegistrations', 'createRegistrations'],
+                'permissions' => ['viewSchedule', 'createSchedule'],
             ],
             [
                 'name' => 'super-admin',
