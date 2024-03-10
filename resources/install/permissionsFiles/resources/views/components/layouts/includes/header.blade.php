@@ -10,11 +10,18 @@
                 <a href="{{ url()->current() }}" wire:navigate class="nav-link">@yield('title')</a>
             </li>
         </ul>
-        
+
         <ul class="navbar-nav ms-auto">
+            @includeWhen(config('admin.modules.shop'), 'components.layouts.includes.messages')
+            @includeWhen(config('admin.modules.shop'), 'components.layouts.includes.notifications')
             @if (!request()->is('admin*'))
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute'))}}</a>
+                    <a class="nav-link" wire:navigate href="{{ route(config('admin.adminRoute')) }}">{{ ucwords(config('admin.adminRoute')) }}</a>
+                </li>
+            @endif
+            @if (config('admin.modules.shop'))
+                <li class="nav-item">
+                    <a class="nav-link" wire:navigate href="{{ route(config('admin.shopRoute')) }}">{{ ucwords(config('admin.shopRoute')) }}</a>
                 </li>
             @endif
 
@@ -34,14 +41,14 @@
             @else
                 <li class="nav-item dropdown user-menu">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                        <img src="{{ asset('storage/'. Auth::user()->photo)}}"
+                        <img src="{{ asset('storage/' . Auth::user()->photo) }}"
                             class="user-image rounded-circle shadow" alt="User Image">
                         <span class="d-none d-md-inline"> {{ Auth::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
                         <!--begin::User Image-->
                         <li class="user-header text-bg-primary">
-                            <img src="{{ asset('storage/'. Auth::user()->photo)}}"class="rounded-circle shadow"
+                            <img src="{{ asset('storage/' . Auth::user()->photo) }}"class="rounded-circle shadow"
                                 alt="User Image">
 
                             <p>

@@ -2,13 +2,12 @@
 
 namespace Flightsadmin\Admin\Commands;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
 class Install extends Command
 {
-    use HandleSpatie, HandleRoster, HandleDefaultSettings, HandleFlights;
+    use HandleSpatie, HandleRoster, HandleDefaultSettings, HandleFlights, HandleShops;
 	protected $filesystem;
     private $replaces = [];
 	
@@ -37,6 +36,8 @@ class Install extends Command
             $this->rosterInstall();
             $this->flightInstall();
             $this->updateComposer();
+            $this->shopInstall();
+            $this->socialLoginInstall();
             // Update Auth Routes
             $authRoutes = "\nAuth::routes(['register' => false]);\nRoute::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');";
             $content = file_get_contents($routeFile);
