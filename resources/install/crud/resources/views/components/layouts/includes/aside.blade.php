@@ -1,9 +1,9 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a href="{{ route(config('admin.adminRoute')) }}" wire:navigate class="brand-link">
-            <img src="{{ asset('storage/' . setting('site_logo')) }}" alt="{{ config('admin.appName', 'app.name') }}"
+            <img src="{{ asset('storage/' . setting('site_logo')) }}" alt="{{ setting('site_name') ?? config('app.name') }}"
                 class="brand-image opacity-75 shadow">
-            <span class="brand-text fw-light">{{ config('admin.appName', 'app.name') }}</span>
+            <span class="brand-text fw-light">{{ setting('site_name') ?? config('app.name') }}</span>
         </a>
     </div>
     <div class="sidebar-wrapper">

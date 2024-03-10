@@ -4,12 +4,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     {{-- blade-formatter-disable-next-line --}}
-    <title> @hasSection('title') @yield('title') | @endif {{ config('admin.appName', 'app.name') }} </title>
+    <title> @hasSection('title') @yield('title') | @endif {{ setting('site_name') ?? config('app.name') }} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {{-- blade-formatter-disable-next-line --}}
     <meta name="title"
-        content="@hasSection('title') @yield('title') | @endif {{ config('admin.appName', 'app.name') }}">
-    <meta name="author" content="{{ config('admin.appName', 'app.name') }}">
+        content="@hasSection('title') @yield('title') | @endif {{ setting('site_name') ?? config('app.name') }}">
+    <meta name="author" content="{{ setting('site_name') ?? config('app.name') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.1.0/styles/overlayscrollbars.min.css"
         integrity="sha256-LWLZPJ7X1jJLI5OG5695qDemW1qQ7lNdbTfQ64ylbUY=" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

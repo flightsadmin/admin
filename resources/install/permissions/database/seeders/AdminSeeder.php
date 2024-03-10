@@ -17,45 +17,52 @@ class AdminSeeder extends Seeder
         // Reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $permissions = [
-            'viewRole', 'createRole', 'editRole', 'deleteRole',
-            'viewPermission', 'createPermission', 'editPermission', 'deletePermission',
-            'viewUser', 'createUser', 'editUser', 'deleteUser',
-            'viewSchedule', 'createSchedule', 'editSchedule', 'deleteSchedule',
-         ];
-         foreach ($permissions as $permission) {
-              Permission::create(['name' => $permission]);
-         }
+        $actions = ["create", "edit", "view", "delete"];
+        $models = ["User", "Role", "Permission", "Schedule"];
 
-         // create roles and assign created permissions
-         $roles = [
+        foreach ($models as $model) {
+            foreach ($actions as $action) {
+                $methodName = $action . ucfirst($model);
+                Permission::create(['name' => $methodName]);
+            }
+        }
+
+        $roles = [
             [
                 'name' => 'user',
-                'permissions' => ['viewSchedule'],
+                'permissions' => ['viewUser'],
             ],
             [
                 'name' => 'admin',
-                'permissions' => ['viewSchedule', 'createSchedule'],
+                'permissions' => ['viewUser', 'createUser'],
             ],
             [
                 'name' => 'super-admin',
                 'permissions' => Permission::pluck('name')->toArray(),
             ],
         ];
-        
+
         foreach ($roles as $key => $roleData) {
             $role = Role::create(['name' => $roleData['name']]);
             $role->givePermissionTo($roleData['permissions']);
             User::create([
-                'name'              => ucwords(explode('-', $roleData['name'])[0]).' User',
-                'email'             => $roleData['name'].'@flightadmin.info',
-                'password'          => Hash::make('password'),
+                'name' => ucwords(explode('-', $roleData['name'])[0]) . ' User',
+                'email' => $roleData['name'] . '@flightadmin.info',
+                'password' => Hash::make('password'),
                 'email_verified_at' => now(),
-                'remember_token'    => Str::random(30),
-                'phone'             => '+2547000000'. $key,
-                'title'             => 'Developer',
-                'photo'             => 'users/noimage.jpg',
+                'remember_token' => Str::random(30),
+                'phone' => '+2547000000' . $key,
+                'title' => 'Developer',
+                'photo' => 'users/noimage.jpg',
             ])->assignRole($role);
+        }
+
+        // Default App Setting
+        foreach (config("admin.default") as $key => $value) {
+            \App\Models\Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value],
+            );
         }
     }
 }

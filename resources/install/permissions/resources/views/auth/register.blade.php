@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card card-outline card-primary register-box">
             <div class="register-logo card-header text-center">
-                {{ config('admin.appName', 'app.name') }}
+                {{ setting('site_name') ?? config('app.name') }}
             </div>
             <div class="card-body register-card-body">
                 <p class="register-box-msg">Register a new membership</p>

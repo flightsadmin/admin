@@ -9,10 +9,10 @@
             <div class="card-body">
               <h5>  
             @guest
-				Welcome to {{ config('admin.appName', 'app.name') }} !!! <br>
+				Welcome to {{ setting('site_name') ?? config('app.name') }} !!! <br>
 				Please contact admin to get your Login Credentials or click "Login" to go to your Dashboard.
 			@else
-				Hi {{ Auth::user()->name }}, Welcome back to {{ config('admin.appName', 'app.name') }}.
+				Hi {{ Auth::user()->name }}, Welcome back to {{ setting('site_name') ?? config('app.name') }}.
             @endif	
 				</h5>
             </div>

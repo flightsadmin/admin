@@ -4,7 +4,7 @@
     <div class="container">
         <div class="card card-outline card-primary login-box">
             <div class="login-logo card-header text-center">
-                {{ config('admin.appName', 'app.name') }}
+                {{ setting('site_name') ?? config('app.name') }}
             </div>
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
