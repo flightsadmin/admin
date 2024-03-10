@@ -38,10 +38,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($staffRosters as $index => $schedule)
+                                @foreach ($staffRosters as $index => $roster)
                                     <tr wire:key="{{ $index }}">
                                         <td>
-                                            <select wire:model="scheduleFields.{{ $schedule }}.user_id"
+                                            <select wire:model="rosterFields.{{ $roster }}.user_id"
                                                 class="form-select  form-select-sm">
                                                 <option value="">--Select User--</option>
                                                 @foreach ($users as $value)
@@ -50,7 +50,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select wire:model="scheduleFields.{{ $schedule }}.shift_start"
+                                            <select wire:model="rosterFields.{{ $roster }}.shift_start"
                                                 class="form-select form-select-sm">
                                                 <option value="">--Select Type--</option>
                                                 @for ($hour = 0; $hour < 24; $hour++)
@@ -63,7 +63,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <select wire:model="scheduleFields.{{ $schedule }}.shift_hours"
+                                            <select wire:model="rosterFields.{{ $roster }}.shift_hours"
                                                 class="form-select  form-select-sm">
                                                 <option value="">--Select Type--</option>
                                                 <option value="8">8 Hours</option>
@@ -77,7 +77,7 @@
                                             <td>
                                                 <div class="form-check">
                                                     <input type="checkbox" wire:model="selectedDays"
-                                                        value="{{ $schedule }}-{{ $day }}" class="form-check-input">
+                                                        value="{{ $roster }}-{{ $day }}" class="form-check-input">
                                                 </div>
                                             </td>
                                         @endforeach
@@ -101,9 +101,9 @@
                         <thead>
                             @php
                                 $uniqueDates = [];
-                                foreach ($roster as $schedules) {
-                                    foreach ($schedules as $schedule) {
-                                        $uniqueDates[] = $schedule['date'];
+                                foreach ($roster as $rosters) {
+                                    foreach ($rosters as $roster) {
+                                        $uniqueDates[] = $roster['date'];
                                     }
                                 }
                                 $uniqueDates = array_unique($uniqueDates);
@@ -121,13 +121,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($roster as $userId => $schedules)
+                            @foreach ($roster as $userId => $rosters)
                                 <tr>
-                                    <td>{{ $schedules[0]['user']['name'] }}</td>
-                                    @foreach ($schedules as $schedule)
+                                    <td>{{ $rosters[0]['user']['name'] }}</td>
+                                    @foreach ($rosters as $roster)
                                         <td class="text-center" >
-                                            {{ $schedule['shift_start'] ? date('Hi', strtotime($schedule['shift_start'])) . "-" : 'DOF' }}
-                                            {{ $schedule['shift_end'] ? date('Hi', strtotime($schedule['shift_end'])) : '' }}
+                                            {{ $roster['shift_start'] ? date('Hi', strtotime($roster['shift_start'])) . "-" : 'DOF' }}
+                                            {{ $roster['shift_end'] ? date('Hi', strtotime($roster['shift_end'])) : '' }}
                                         </td>
                                     @endforeach
                                 </tr>

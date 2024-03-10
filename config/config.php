@@ -27,7 +27,7 @@ return [
 
     // Modules
     "modules"   => [
-        'schedule'  => true,
+        'rosters'   => true,
         'flights'   => true,
     ],
 ];

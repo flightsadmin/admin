@@ -8,10 +8,8 @@ use Illuminate\Filesystem\Filesystem;
 
 class Install extends Command
 {
-    use HandleSpatie, HandleRoster, HandleDefaultSettings;
+    use HandleSpatie, HandleRoster, HandleDefaultSettings, HandleFlights;
 	protected $filesystem;
-    protected $crudStubDir;
-    protected $permStubDir;
     private $replaces = [];
 	
     protected $signature = 'admin:install';
@@ -37,6 +35,7 @@ class Install extends Command
             $this->defaultSetting();
             $this->spatiePermissionsInstall();
             $this->rosterInstall();
+            $this->flightInstall();
             $this->updateComposer();
             // Update Auth Routes
             $authRoutes = "\nAuth::routes(['register' => false]);\nRoute::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');";
