@@ -44,6 +44,10 @@ trait HandleDefaultSettings
         Artisan::call('optimize:clear', [], $this->getOutput());
         Artisan::call('storage:link', [], $this->getOutput());
         Artisan::call('db:seed', ['--class' => 'AdminSeeder'], $this->getOutput());
+
+        Artisan::call('db:seed', ['--class' => 'FlightSeeder'], $this->getOutput());
+        Artisan::call('db:seed', ['--class' => 'RosterSeeder'], $this->getOutput());
+        Artisan::call('db:seed', ['--class' => 'ShopSeeder'], $this->getOutput());
     }
 
     public function socialLoginInstall()

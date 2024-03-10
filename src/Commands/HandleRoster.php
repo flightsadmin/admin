@@ -34,8 +34,6 @@ trait HandleRoster
                 $this->filesystem->put($routeFile, $UserModelContents);
                 $this->warn($routeFile . ' Updated');
             }
-
-            Artisan::call('db:seed', ['--class' => 'RosterSeeder'], $this->getOutput());
         }
     }
     public function generateRosterFiles()

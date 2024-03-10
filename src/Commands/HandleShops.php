@@ -91,8 +91,6 @@ trait HandleShops
                 $this->filesystem->put($userModelFile, $UserModelContents);
                 $this->warn($userModelFile . ' Updated');
             }
-
-            Artisan::call('db:seed', ['--class' => 'ShopSeeder'], $this->getOutput());
         }
     }
     public function generateShopFiles()
