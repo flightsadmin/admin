@@ -38,9 +38,13 @@ class Roles extends Component
             'guard_name' => config('auth.defaults.guard')
         ]);
         $role->permissions()->sync($this->permissions_selection);
+
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $this->role_id ? 'Role Updated Successfully.' : 'Role Created Successfully.',
+        );
         $this->reset();
-        $this->dispatch('closeModal');
-        session()->flash('message', $this->role_id ? 'Role Updated Successfully.' : 'Role Created Successfully.');
     }
 
     public function edit($id)
@@ -55,6 +59,10 @@ class Roles extends Component
     public function destroy(Role $role)
     {
         $role->delete();
-        session()->flash('message', 'Role Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Role Deleted Successfully.',
+        );
     }
 }

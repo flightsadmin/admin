@@ -65,8 +65,11 @@ class Users extends Component
                 ->subject('New Account for '. $emailData['name']);
             });
         }
-        $this->dispatch('closeModal');
-        session()->flash('message', $this->userId ? 'User Updated Successfully.' : 'User Created Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $this->userId ? 'User Updated Successfully.' : 'User Created Successfully.',
+        );
         $this->reset();
     }
 
@@ -90,5 +93,10 @@ class Users extends Component
             Storage::disk('public')->delete($user->photo);
         }
         $user->delete();
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'User Deleted Successfully.',
+        );
     }
 }

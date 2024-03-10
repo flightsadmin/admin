@@ -83,7 +83,11 @@ class Schedules extends Component
             }
         }
 
-        session()->flash('message', 'Schedules Created Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Schedule Created Successfully.',
+        );
         $this->reset(['selectedDays', 'scheduleFields']);
         return redirect(route('admin'), true);
     }
