@@ -123,13 +123,14 @@
                         <tbody>
                             @foreach ($roster as $userId => $rosters)
                                 <tr>
-                                    <td>{{ $rosters[0]['user']['name'] }}</td>
+                                    {{-- TODO --}}
+                                    {{-- <td>{{ $rosters[0]['user']['name'] }}</td>
                                     @foreach ($rosters as $roster)
                                         <td class="text-center" >
                                             {{ $roster['shift_start'] ? date('Hi', strtotime($roster['shift_start'])) . "-" : 'DOF' }}
                                             {{ $roster['shift_end'] ? date('Hi', strtotime($roster['shift_end'])) : '' }}
                                         </td>
-                                    @endforeach
+                                    @endforeach --}}
                                 </tr>
                             @endforeach
                         </tbody>

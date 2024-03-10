@@ -23,11 +23,18 @@ return [
     "sociallogin" => false,
 
     // Routes
-    "adminRoute"   => "admin",
+    "adminRoute"  => "admin",
+    "flightRoute" => "flight",
+    "rosterRoute" => "roster",
+    "schoolRoute" => "school",
+    "blogRoute"   => "blog",
 
     // Modules
     "modules"   => [
-        'rosters'   => true,
-        'flights'   => true,
+        'flights'  => true,
+        'rosters'  => true,
+        'school'   => true,
+        'shop'     => true,
+        'blog'     => true,
     ],
 ];
