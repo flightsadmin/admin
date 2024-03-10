@@ -29,6 +29,7 @@ trait HandleFlights
                 Route::get('/registrations', App\Livewire\Registrations::class)->name('admin.registrations');
                 Route::get('/schedules', App\Livewire\Schedules::class)->name('admin.schedules');
             });
+            
             ROUTES;
 
             $fileHook = "//Route Hooks - Do not delete//";

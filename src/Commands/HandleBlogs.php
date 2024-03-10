@@ -5,35 +5,33 @@ namespace Flightsadmin\Admin\Commands;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Artisan;
 
-trait HandleShops
+trait HandleBlogs
 {
     public function shopInstall()
     {
         //Spatie Laravel Permission Installation
-        if ($this->confirm('Do you want to Install Shop App?', true, true)) {
+        if ($this->confirm('Do you want to Install Blog App?', true, true)) {
             $this->shopStubDir = __DIR__ . '/../../resources/install/shopsFiles';
-            $this->generateShopFiles();
+            $this->generateBlogFiles();
 
             //Updating Routes
             $routeFile = base_path('routes/web.php');
             $updatedData = $this->filesystem->get($routeFile);
             $spatieRoutes =
             <<<ROUTES
-            // Shop Routes
-            Route::middleware(['web'])->prefix(config("admin.shopRoute", "shop"))->group(function () {
-                Route::get('/', [App\Livewire\Products::class, 'renderUser'])->name(config("admin.shopRoute", "shop"));
-                Route::get('/checkout', [App\Livewire\Products::class, 'checkout'])->name("shop.checkout");
-                Route::get('/product/{product:id}', [App\Livewire\Products::class, 'show'])->name('shop.show');
-                Route::get('/category/{slug}', [App\Livewire\Products::class, 'category'])->name('shop.category');
-            });
+            // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/shop', App\Livewire\Products::class)->name(config("admin.adminRoute", "admin"));
+                Route::get('/posts', App\Livewire\Posts::class)->name('admin.posts');
             });
             
-            // Social Login Routes
-            Route::get('/auth/{provider}/redirect', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirect']);
-            Route::get('/auth/{provider}/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'callback']);
-            
+            // User Routes
+            Route::middleware(['web'])->prefix(config("admin.blogRoute", "blog"))->group(function () {
+                Route::get('/', App\Livewire\BlogPosts::class)->name(config("admin.blogRoute", "blog"));
+                Route::get('/post/{post:id}', [App\Livewire\BlogPosts::class, 'show'])->name('blog.show');
+                Route::get('/category/{slug}', [App\Livewire\BlogPosts::class, 'category'])->name('blog.category');
+                Route::get('/archive/{year}/{month}', [App\Livewire\BlogPosts::class, 'archive'])->name('blog.archive');
+            });
+
             ROUTES;
 
             $fileHook = "//Route Hooks - Do not delete//";
@@ -49,28 +47,15 @@ trait HandleShops
             $fileData = $this->filesystem->get($userModelFile);
 
             $userUpdate =
-                <<<NAV
-                public function likes() {
-                    return \$this->belongsToMany(Product::class, 'product_like')->withTimestamps();
-                }
-                
-                public function hasLiked(Product \$product) {
-                    return \$this->likes()->where('product_id', \$product->id)->exists();
-                }
-                
-                public function cartItems() {
-                    return \$this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')->withTimestamps();
-                }
-                
-                public function hasAdded(Product \$product) {
-                    return \$this->cartItems()->where('product_id', \$product->id)->exists();
-                }
-                
-                public function coupons()
-                {
-                    return \$this->belongsToMany(Coupon::class, 'coupon_user')->withPivot('used_at')->withTimestamps();
-                }
+            <<<NAV
+            public function likes() {
+                return \$this->belongsToMany(Post::class, 'post_like')->withTimestamps();
+            }
             
+            public function hasLiked(Post \$post) {
+                return \$this->likes()->where('post_id', \$post->id)->exists();
+            }
+        
             NAV;
 
             $userHook = "}";
@@ -92,10 +77,11 @@ trait HandleShops
                 $this->warn($userModelFile . ' Updated');
             }
 
-            Artisan::call('db:seed', ['--class' => 'ShopSeeder'], $this->getOutput());
+            Artisan::call('db:seed', ['--class' => 'BlogSeeder'], $this->getOutput());
         }
     }
-    public function generateShopFiles()
+
+    public function generateBlogFiles()
     {
         $files = $this->filesystem->allFiles($this->shopStubDir, true);
         foreach ($files as $file) {

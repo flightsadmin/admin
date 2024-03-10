@@ -25,6 +25,7 @@ trait HandleSpatie
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
                 Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
             });
+            
             ROUTES;
             
             $fileHook = "//Route Hooks - Do not delete//";

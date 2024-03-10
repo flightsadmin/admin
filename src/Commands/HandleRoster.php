@@ -19,11 +19,12 @@ trait HandleRoster
             $routeData = file_get_contents($routeFile);
             $updatedData = $this->filesystem->get($routeFile);
             $spatieRoutes =
-                <<<ROUTES
+            <<<ROUTES
             // Roster Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                 Route::get('/rosters', App\Livewire\Rosters::class)->name('admin.rosters');
             });
+
             ROUTES;
 
             $fileHook = "//Route Hooks - Do not delete//";
@@ -37,7 +38,6 @@ trait HandleRoster
             Artisan::call('db:seed', ['--class' => 'RosterSeeder'], $this->getOutput());
         }
     }
-
     public function generateRosterFiles()
     {
         $files = $this->filesystem->allFiles($this->permStubDir, true);

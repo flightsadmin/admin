@@ -46,6 +46,46 @@ trait HandleDefaultSettings
         Artisan::call('db:seed', ['--class' => 'AdminSeeder'], $this->getOutput());
     }
 
+    public function socialLoginInstall()
+    {
+        if ($this->confirm('Do you want to Enable Social Login?', true, true)) {
+            // Update ENV File
+            $envFile = base_path('.env');
+            $socialID = "GOOGLE_CLIENT_ID=969178219302-a013oqprusp6hki4gjsu978uae0fine6.apps.googleusercontent.com\nGOOGLE_CLIENT_SECRET=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";
+            $envData = file_get_contents($envFile);
+            if (!str_contains($envData, $socialID)) {
+                file_put_contents($envFile, "\n$socialID", FILE_APPEND);
+                $this->warn($envFile . " Updated");
+            }
+            //Update Services File
+            $servicesFile = base_path('config/services.php');
+            $servicesData = $this->filesystem->get($servicesFile);
+            $servicesUpdate =
+            <<<SERVICE
+                'google' => [
+                    'client_id' => env('GOOGLE_CLIENT_ID'),
+                    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+                    'redirect' => '/auth/google/callback',
+                ],
+            
+            SERVICE;
+
+            $serviceFileHook = "];";
+
+            // Find the position of the last occurrence of "];"
+            $lastPosition = strrpos($servicesData, $serviceFileHook);
+            if (!Str::contains($servicesData, $servicesUpdate)) {
+                if ($lastPosition !== false) {
+                    $UserModelContents = substr_replace($servicesData, PHP_EOL . $servicesUpdate, $lastPosition, 0);
+                } else {
+                    $UserModelContents = $servicesData . PHP_EOL . $servicesUpdate;
+                }
+
+                $this->filesystem->put($servicesFile, $UserModelContents);
+                $this->warn($servicesFile . ' Updated');
+            }
+        }
+    }
     public function installAdminLTE()
     {
         //Copy AdminLTE Assets
