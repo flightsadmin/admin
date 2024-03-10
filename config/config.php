@@ -12,6 +12,7 @@ return [
         'site_logo'         => 'sites/default.png',
         'site_theme'        => 'light',
         'site_currency'     => 'kes',
+        'date_time_format'  => 'F j, Y, g:i A',
         'date_format'       => 'd/m/Y',
         'time_format'       => 'H:i:s',
         'footer_text'       => 'Made with 💖',
@@ -26,6 +27,7 @@ return [
 
     // Modules
     "modules"   => [
+        'schedule'  => true,
         'flights'   => true,
     ],
 ];
