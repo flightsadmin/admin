@@ -5,15 +5,15 @@ namespace App\Livewire;
 use Carbon\Carbon;
 use App\Models\User;
 use Livewire\Component;
-use App\Models\Schedule;
+use App\Models\Roster;
 use Livewire\WithPagination;
 
-class Schedules extends Component
+class Rosters extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    public $staffSchedules = [], $selectedDays = [], $scheduleFields = [], $startDate, $endDate;
+    public $staffRosters = [], $selectedDays = [], $scheduleFields = [], $startDate, $endDate;
 
     public function mount()
     {
@@ -24,24 +24,24 @@ class Schedules extends Component
     public function render()
     {
         $users = User::all();
-        $roster = Schedule::fetchRoster();
+        $roster = Roster::fetchRoster();
         return view('livewire.admin.schedules.view', compact('users', 'roster'))->extends('components.layouts.admin');
     }
 
-    public function addSchedules()
+    public function addRosters()
     {
-        $this->staffSchedules[] = rand(100, 999);
+        $this->staffRosters[] = rand(100, 999);
     }
 
-    public function removeSchedules($index)
+    public function removeRosters($index)
     {
-        unset($this->staffSchedules[$index]);
-        $this->staffSchedules = array_values($this->staffSchedules);
+        unset($this->staffRosters[$index]);
+        $this->staffRosters = array_values($this->staffRosters);
     }
 
-    public function createSchedules()
+    public function createRosters()
     {
-        foreach ($this->staffSchedules as $index => $schedule) {
+        foreach ($this->staffRosters as $index => $schedule) {
             foreach ($this->days as $day) {
                 if (!in_array("$schedule-$day", $this->selectedDays)) {
                     $date = Carbon::parse($this->startDate)->next(strtolower($day));
@@ -55,7 +55,7 @@ class Schedules extends Component
                         ];
                         $scheduleData['shift_end'] = Carbon::parse($scheduleData['shift_start'])->copy()->addHours($scheduleData['shift_hours'])->toDateTimeString();
 
-                        Schedule::updateOrCreate(
+                        Roster::updateOrCreate(
                             ['date' => $date, 'user_id' => $scheduleData['user_id']],
                             $scheduleData
                         );
@@ -73,7 +73,7 @@ class Schedules extends Component
                         ];
                         $scheduleData['shift_end'] = null;
 
-                        Schedule::updateOrCreate(
+                        Roster::updateOrCreate(
                             ['date' => $date, 'user_id' => $scheduleData['user_id']],
                             $scheduleData
                         );
@@ -86,7 +86,7 @@ class Schedules extends Component
         $this->dispatch(
             'closeModal',
             icon: 'success',
-            message: 'Schedule Created Successfully.',
+            message: 'Roster Created Successfully.',
         );
         $this->reset(['selectedDays', 'scheduleFields']);
         return $this->redirect(route('admin'), true);

@@ -1,4 +1,4 @@
-@section('title', __('Schedules'))
+@section('title', __('Rosters'))
 <div class="row justify-content-center">
     <div class="col-md-12">
         <div class="card">
@@ -23,7 +23,7 @@
             </div>
 
             <div class="card-body">
-                @if ($staffSchedules)
+                @if ($staffRosters)
                     <div class="table-responsive">
                         <table class="table table-sm table-bordered">
                             <thead>
@@ -38,7 +38,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($staffSchedules as $index => $schedule)
+                                @foreach ($staffRosters as $index => $schedule)
                                     <tr wire:key="{{ $index }}">
                                         <td>
                                             <select wire:model="scheduleFields.{{ $schedule }}.user_id"
@@ -82,7 +82,7 @@
                                             </td>
                                         @endforeach
                                         <td>
-                                            <a href="" wire:click.prevent="removeSchedules({{ $index }})"
+                                            <a href="" wire:click.prevent="removeRosters({{ $index }})"
                                                 class="text-danger bi-trash3"></a>
                                         </td>
                                     </tr>
@@ -91,8 +91,8 @@
                         </table>
                     </div>
                 @endif
-                <button wire:click="addSchedules" class="btn btn-sm btn-secondary">+ Add a Schedule</button>
-                <button wire:click="createSchedules" class="btn btn-sm btn-primary float-end">Create Schedule</button>
+                <button wire:click="addRosters" class="btn btn-sm btn-secondary">+ Add a Roster</button>
+                <button wire:click="createRosters" class="btn btn-sm btn-primary float-end">Create Roster</button>
             </div>
 
             <div class="card-body">

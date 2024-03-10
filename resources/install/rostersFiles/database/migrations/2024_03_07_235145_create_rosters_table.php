@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up()
     {
-        Schema::create('schedules', function (Blueprint $table) {
+        Schema::create('rosters', function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->timestamp('shift_start')->nullable();
