@@ -4,7 +4,7 @@ namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Support\Str;
 
-trait HandleSchedule
+trait HandleFlights
 {
     public function flightInstall()
     {
