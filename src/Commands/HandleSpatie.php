@@ -19,6 +19,7 @@ trait HandleSpatie
             <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
+                Route::get('/', App\Livewire\Users::class)->name(config("admin.adminRoute", "admin"));
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
