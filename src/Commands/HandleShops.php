@@ -132,7 +132,7 @@ trait HandleShops
             }
         }
     }
-    
+
     public function generateShopFiles()
     {
         $files = $this->filesystem->allFiles($this->flightStubDir, true);
