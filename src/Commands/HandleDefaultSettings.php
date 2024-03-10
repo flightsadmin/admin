@@ -34,7 +34,7 @@ trait HandleDefaultSettings
             }
         }
 
-        $this->crudStubDir = __DIR__ . '/../../resources/install/permissionFiles';
+        $this->crudStubDir = __DIR__ . '/../../resources/install/permissionsFiles';
         $this->generateCrudFiles();
     }
 

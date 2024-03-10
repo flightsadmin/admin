@@ -4,14 +4,14 @@ namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Support\Str;
 
-trait HandleSchedule
+trait HandleRoster
 {
-    public function scheduleInstall()
+    public function rosterInstall()
     {
         //Spatie Laravel Permission Installation
-        if ($this->confirm('Do you want to Install SChedule App?', true, true)) {
-            $this->permStubDir = __DIR__ . '/../../resources/install/permissionFiles';
-            $this->generateScheduleFiles();
+        if ($this->confirm('Do you want to Install Roster App?', true, true)) {
+            $this->permStubDir = __DIR__ . '/../../resources/install/rosterFiles';
+            $this->generateRosterFiles();
 
             //Updating Routes
             $routeFile = base_path('routes/web.php');
@@ -19,10 +19,10 @@ trait HandleSchedule
             $updatedData = $this->filesystem->get($routeFile);
             $spatieRoutes =
                 <<<ROUTES
-            // Schedule Routes
+            // Roster Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/', App\Livewire\Schedules::class)->name(config("admin.adminRoute", "admin"));
-                Route::get('/schedules', App\Livewire\Schedules::class)->name('admin.schedules');
+                Route::get('/', App\Livewire\Rosters::class)->name(config("admin.adminRoute", "admin"));
+                Route::get('/rosters', App\Livewire\Rosters::class)->name('admin.rosters');
             });
             ROUTES;
 
@@ -36,7 +36,7 @@ trait HandleSchedule
         }
     }
 
-    public function generateScheduleFiles()
+    public function generateRosterFiles()
     {
         $files = $this->filesystem->allFiles($this->permStubDir, true);
         foreach ($files as $file) {

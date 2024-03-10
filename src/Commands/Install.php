@@ -8,7 +8,7 @@ use Illuminate\Filesystem\Filesystem;
 
 class Install extends Command
 {
-    use HandleSpatie, HandleSchedule, HandleDefaultSettings;
+    use HandleSpatie, HandleRoster, HandleDefaultSettings;
 	protected $filesystem;
     protected $crudStubDir;
     protected $permStubDir;
@@ -36,7 +36,7 @@ class Install extends Command
 
             $this->defaultSetting();
             $this->spatiePermissionsInstall();
-            $this->scheduleInstall();
+            $this->rosterInstall();
             $this->updateComposer();
             // Update Auth Routes
             $authRoutes = "\nAuth::routes(['register' => false]);\nRoute::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');";
