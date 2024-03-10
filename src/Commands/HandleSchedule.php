@@ -10,7 +10,8 @@ trait HandleSchedule
     {
         //Spatie Laravel Permission Installation
         if ($this->confirm('Do you want to Install SChedule App?', true, true)) {
-            $this->permStubDir = __DIR__ . '/../../resources/install/permissions';
+            $this->permStubDir = __DIR__ . '/../../resources/install/permissionFiles';
+            $this->generateScheduleFiles();
 
             //Updating Routes
             $routeFile = base_path('routes/web.php');
@@ -32,6 +33,21 @@ trait HandleSchedule
                 $this->filesystem->put($routeFile, $UserModelContents);
                 $this->warn($routeFile . ' Updated');
             }
+        }
+    }
+
+    public function generateScheduleFiles()
+    {
+        $files = $this->filesystem->allFiles($this->permStubDir, true);
+        foreach ($files as $file) {
+            $filePath = $this->replace(Str::replaceLast('.stub', '', $file->getRelativePathname()));
+            $fileDir = $this->replace($file->getRelativePath());
+
+            if ($fileDir) {
+                $this->filesystem->ensureDirectoryExists($fileDir);
+            }
+            $this->filesystem->put($filePath, $this->replace($file->getContents()));
+            $this->warn('Generated file: <info>' . $filePath . '</info>');
         }
     }
 }
