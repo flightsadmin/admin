@@ -3,6 +3,7 @@
 namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
 
 trait HandleRoster
 {
@@ -32,6 +33,8 @@ trait HandleRoster
                 $this->filesystem->put($routeFile, $UserModelContents);
                 $this->warn($routeFile . ' Updated');
             }
+
+            Artisan::call('db:seed', ['--class' => 'RosterSeeder'], $this->getOutput());
         }
     }
 

@@ -3,6 +3,7 @@
 namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
 
 trait HandleFlights
 {
@@ -37,6 +38,8 @@ trait HandleFlights
                 $this->filesystem->put($routeFile, $UserModelContents);
                 $this->warn($routeFile . ' Updated');
             }
+
+            Artisan::call('db:seed', ['--class' => 'FlightSeeder'], $this->getOutput());
         }
     }
 

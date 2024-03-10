@@ -36,21 +36,28 @@ trait HandleDefaultSettings
 
         $this->crudStubDir = __DIR__ . '/../../resources/install/permissionsFiles';
         $this->generateCrudFiles();
+
+        $this->warn('Publishing Files');
+        Artisan::call('vendor:publish', ['--provider' => 'Spatie\Permission\PermissionServiceProvider'], $this->getOutput());
+        $this->warn('Seeding the Database. Please wait...');
+        Artisan::call('migrate:fresh', [], $this->getOutput());
+        Artisan::call('optimize:clear', [], $this->getOutput());
+        Artisan::call('storage:link', [], $this->getOutput());
+        Artisan::call('db:seed', ['--class' => 'AdminSeeder'], $this->getOutput());
     }
 
-    public function installAdminLTE() {
-        if ($this->confirm('Do you want to Install AdminLTE?', true, true)) {
-             //Copy AdminLTE Assets
-            $sourcePath = base_path('node_modules/admin-lte/dist/assets');
-            $destinationPath = storage_path('app/public/assets');
+    public function installAdminLTE()
+    {
+        //Copy AdminLTE Assets
+        $sourcePath = base_path('node_modules/admin-lte/dist/assets');
+        $destinationPath = storage_path('app/public/assets');
 
-            // Copy the AdminLTE assets to the public folder
-            try {
-                $this->copyAdminLTE($sourcePath, $destinationPath);
-                $this->warn("AdminLTE assets moved successfully.");
-            } catch (Exception $e) {
-                $this->warn("An error occurred: " . $e->getMessage() . "\n");
-            }
+        // Copy the AdminLTE assets to the public folder
+        try {
+            $this->copyAdminLTE($sourcePath, $destinationPath);
+            $this->warn("AdminLTE assets moved successfully.");
+        } catch (Exception $e) {
+            $this->warn("An error occurred: " . $e->getMessage() . "\n");
         }
     }
 
@@ -71,8 +78,9 @@ trait HandleDefaultSettings
             copy($source, $destination);
         }
     }
-    
-    public function updateComposer() {
+
+    public function updateComposer()
+    {
         $composerFilePath = base_path('composer.json');
         $helperFilePath = 'app/Helpers/Settings.php';
         $composerJson = json_decode(file_get_contents($composerFilePath), true);
@@ -87,17 +95,18 @@ trait HandleDefaultSettings
         $this->warn("Helper file added to autoload in composer.json.");
     }
 
-    public function correctLayoutExtention($directory, $searchExtends, $replaceExtends) {
+    public function correctLayoutExtention($directory, $searchExtends, $replaceExtends)
+    {
         $dir = new RecursiveDirectoryIterator($directory);
         $iterator = new RecursiveIteratorIterator($dir);
-        
+
         foreach ($iterator as $file) {
             if ($file->isFile()) {
                 $filePath = $file->getPathname();
                 $content = file_get_contents($filePath);
-                
+
                 $newContent = str_replace($searchExtends, $replaceExtends, $content);
-                
+
                 if ($newContent !== $content) {
                     file_put_contents($filePath, $newContent);
                     $this->line("Replaced $searchExtends in: $filePath with $replaceExtends");
@@ -106,7 +115,7 @@ trait HandleDefaultSettings
         }
     }
 
-	public function generateCrudFiles()
+    public function generateCrudFiles()
     {
         $files = $this->filesystem->allFiles($this->crudStubDir, true);
         foreach ($files as $file) {

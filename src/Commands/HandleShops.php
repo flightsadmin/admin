@@ -3,6 +3,7 @@
 namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Artisan;
 
 trait HandleShops
 {
@@ -17,7 +18,7 @@ trait HandleShops
             $routeFile = base_path('routes/web.php');
             $updatedData = $this->filesystem->get($routeFile);
             $spatieRoutes =
-            <<<ROUTES
+                <<<ROUTES
             // Shop Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                 Route::get('/', App\Livewire\Products::class)->name(config("admin.adminRoute", "admin"));
@@ -47,8 +48,8 @@ trait HandleShops
             $userModelFile = app_path('Models/User.php');
             $fileData = $this->filesystem->get($userModelFile);
 
-            $userUpdate = 
-            <<<NAV
+            $userUpdate =
+                <<<NAV
                 public function likes() {
                     return \$this->belongsToMany(Product::class, 'product_like')->withTimestamps();
                 }
@@ -70,8 +71,8 @@ trait HandleShops
                     return \$this->belongsToMany(Coupon::class, 'coupon_user')->withPivot('used_at')->withTimestamps();
                 }
             
-            NAV; 
-            
+            NAV;
+
             $userHook = "}";
 
             // Find the position of the last occurrence of "}"
@@ -90,10 +91,13 @@ trait HandleShops
                 $this->filesystem->put($userModelFile, $UserModelContents);
                 $this->warn($userModelFile . ' Updated');
             }
+
+            Artisan::call('db:seed', ['--class' => 'ShopSeeder'], $this->getOutput());
         }
     }
 
-    public function socialLoginInstall() {
+    public function socialLoginInstall()
+    {
         if ($this->confirm('Do you want to Enable Social Login?', true, true)) {
             // Update ENV File
             $envFile = base_path('.env');
@@ -101,21 +105,21 @@ trait HandleShops
             $envData = file_get_contents($envFile);
             if (!str_contains($envData, $socialID)) {
                 file_put_contents($envFile, "\n$socialID", FILE_APPEND);
-                $this->warn($envFile. " Updated");
+                $this->warn($envFile . " Updated");
             }
             //Update Services File
             $servicesFile = base_path('config/services.php');
             $servicesData = $this->filesystem->get($servicesFile);
-            $servicesUpdate = 
-            <<<SERVICE
+            $servicesUpdate =
+                <<<SERVICE
                 'google' => [
                     'client_id' => env('GOOGLE_CLIENT_ID'),
                     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
                     'redirect' => '/auth/google/callback',
                 ],
             
-            SERVICE; 
-            
+            SERVICE;
+
             $serviceFileHook = "];";
 
             // Find the position of the last occurrence of "];"
