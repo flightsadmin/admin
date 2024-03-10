@@ -106,9 +106,9 @@ trait HandleDefaultSettings
         }
     }
 
-    public function generatePermissionFiles()
+	public function generateCrudFiles()
     {
-        $files = $this->filesystem->allFiles($this->permStubDir, true);
+        $files = $this->filesystem->allFiles($this->crudStubDir, true);
         foreach ($files as $file) {
             $filePath = $this->replace(Str::replaceLast('.stub', '', $file->getRelativePathname()));
             $fileDir = $this->replace($file->getRelativePath());

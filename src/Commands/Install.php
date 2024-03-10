@@ -80,21 +80,6 @@ class Install extends Command
 	  }
 		else $this->warn('Installation Aborted, No file was changed');
     }
-	
-	public function generateCrudFiles()
-    {
-        $files = $this->filesystem->allFiles($this->crudStubDir, true);
-        foreach ($files as $file) {
-            $filePath = $this->replace(Str::replaceLast('.stub', '', $file->getRelativePathname()));
-            $fileDir = $this->replace($file->getRelativePath());
-
-            if ($fileDir) {
-                $this->filesystem->ensureDirectoryExists($fileDir);
-            }
-            $this->filesystem->put($filePath, $this->replace($file->getContents()));
-            $this->warn('Generated file: <info>' . $filePath . '</info>');
-        }
-    }
 
     private function replace($content)
     {
