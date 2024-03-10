@@ -89,6 +89,6 @@ class Schedules extends Component
             message: 'Schedule Created Successfully.',
         );
         $this->reset(['selectedDays', 'scheduleFields']);
-        return redirect(route('admin'), true);
+        return $this->redirect(route('admin'), true);
     }
 }
