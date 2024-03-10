@@ -33,8 +33,8 @@ return [
     "modules"   => [
         'flights'  => true,
         'rosters'  => true,
-        'school'   => true,
-        'shop'     => true,
-        'blog'     => true,
+        'school'   => false,
+        'shop'     => false,
+        'blog'     => false,
     ],
 ];
