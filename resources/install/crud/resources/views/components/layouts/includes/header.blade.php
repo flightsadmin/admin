@@ -7,7 +7,7 @@
                 </a>
             </li>
             <li class="nav-item d-none d-md-block">
-                <a href="{{ route(config('admin.adminRoute')) }}" wire:navigate class="nav-link">@yield('title')</a>
+                <a href="{{ url()->current() }}" wire:navigate class="nav-link">@yield('title')</a>
             </li>
         </ul>
         
