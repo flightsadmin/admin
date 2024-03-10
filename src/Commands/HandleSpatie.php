@@ -2,12 +2,9 @@
 
 namespace Flightsadmin\Admin\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 
-trait FileHandler
+trait HandleSpatie
 {
     public function spatiePermissionsInstall()
     {
@@ -24,8 +21,6 @@ trait FileHandler
             <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/', App\Livewire\Schedules::class)->name(config("admin.adminRoute", "admin"));
-                Route::get('/schedules', App\Livewire\Schedules::class)->name('admin.schedules');
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
@@ -88,51 +83,6 @@ trait FileHandler
                     $this->warn($userModelFile . ' Updated with <info>' . trim($value). '</info>');
                 }
             }
-
-            $this->warn('Publishing Laravel Permissions Files');
-            Artisan::call('vendor:publish', ['--provider' => 'Spatie\Permission\PermissionServiceProvider'], $this->getOutput());
-            $this->warn('Seeding the Database. Please wait...');
-            Artisan::call('migrate:fresh', [], $this->getOutput());
-            Artisan::call('optimize:clear', [], $this->getOutput());
-            Artisan::call('storage:link', [], $this->getOutput());
-            Artisan::call('db:seed', ['--class' => 'AdminSeeder'], $this->getOutput());
-            if ($this->confirm('Do you want to Seed Flight Data?', true, true)) {
-                Artisan::call('db:seed', ['--class' => 'ScheduleSeeder'], $this->getOutput());
-            }
-        }
-    }
-
-    public function installAdminLTE() {
-        if ($this->confirm('Do you want to Install AdminLTE?', true, true)) {
-             //Copy AdminLTE Assets
-            $sourcePath = base_path('node_modules/admin-lte/dist/assets');
-            $destinationPath = storage_path('app/public/assets');
-
-            // Copy the AdminLTE assets to the public folder
-            try {
-                $this->copyAdminLTE($sourcePath, $destinationPath);
-                $this->warn("AdminLTE assets moved successfully.");
-            } catch (Exception $e) {
-                $this->warn("An error occurred: " . $e->getMessage() . "\n");
-            }
-        }
-    }
-
-    // Function to recursively copy directories and their contents
-    public function copyAdminLTE($source, $destination)
-    {
-        if (is_dir($source)) {
-            @mkdir($destination);
-            $directory = dir($source);
-            while (false !== ($entry = $directory->read())) {
-                if ($entry == '.' || $entry == '..') {
-                    continue;
-                }
-                $this->copyAdminLTE("$source/$entry", "$destination/$entry");
-            }
-            $directory->close();
-        } else {
-            copy($source, $destination);
         }
     }
     

@@ -3,19 +3,15 @@
 namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Support\Str;
-use RecursiveIteratorIterator;
 use Illuminate\Console\Command;
-use RecursiveDirectoryIterator;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Facades\Artisan;
 
 class Install extends Command
 {
-    use FileHandler;
+    use HandleSpatie, HandleSchedule, HandleDefaultSettings;
 	protected $filesystem;
     protected $crudStubDir;
     protected $permStubDir;
-    protected $argument;
     private $replaces = [];
 	
     protected $signature = 'admin:install';
@@ -37,33 +33,10 @@ class Install extends Command
                 file_put_contents($routeFile, "\n//Route Hooks - Do not delete//", FILE_APPEND);
             }
             
-			if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App', true, true)) {
-                Artisan::call('ui:auth', ['--force' => true], $this->getOutput());
-			}
 
-            $this->line('');
-            $deleteFiles = [
-                'resources/sass',
-                'resources/css',
-                'resources/js',
-                'public/css',
-                'public/js',
-                'public/build',
-                'public/fonts',
-            ];
-    
-            foreach ($deleteFiles as $deleteFile) {
-                if ($this->filesystem->exists($deleteFile)) {
-                    $this->filesystem->delete($deleteFile);
-                    $this->filesystem->deleteDirectory($deleteFile);
-                    $this->warn('Deleted file: <info>' . $deleteFile . '</info>');
-                }
-            }
-            
-            $this->crudStubDir = __DIR__ . '/../../resources/install/crud';
-            $this->generateCrudFiles();
+            $this->defaultSetting();
             $this->spatiePermissionsInstall();
-            // Add Helper File in Composer.json
+            $this->scheduleInstall();
             $this->updateComposer();
             // Update Auth Routes
             $authRoutes = "\nAuth::routes(['register' => false]);\nRoute::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');";
@@ -120,40 +93,6 @@ class Install extends Command
             }
             $this->filesystem->put($filePath, $this->replace($file->getContents()));
             $this->warn('Generated file: <info>' . $filePath . '</info>');
-        }
-    }
-    
-    public function updateComposer() {
-        $composerFilePath = base_path('composer.json');
-        $helperFilePath = 'app/Helpers/Settings.php';
-        $composerJson = json_decode(file_get_contents($composerFilePath), true);
-        if (!isset($composerJson['autoload']['files'])) {
-            $composerJson['autoload']['files'] = [];
-        }
-        if (!in_array($helperFilePath, $composerJson['autoload']['files'])) {
-            $composerJson['autoload']['files'][] = $helperFilePath;
-        }
-        file_put_contents($composerFilePath, json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
-        exec('composer dump-autoload');
-        $this->warn("Helper file added to autoload in composer.json.");
-    }
-
-    public function correctLayoutExtention($directory, $searchExtends, $replaceExtends) {
-        $dir = new RecursiveDirectoryIterator($directory);
-        $iterator = new RecursiveIteratorIterator($dir);
-        
-        foreach ($iterator as $file) {
-            if ($file->isFile()) {
-                $filePath = $file->getPathname();
-                $content = file_get_contents($filePath);
-                
-                $newContent = str_replace($searchExtends, $replaceExtends, $content);
-                
-                if ($newContent !== $content) {
-                    file_put_contents($filePath, $newContent);
-                    $this->line("Replaced $searchExtends in: $filePath with $replaceExtends");
-                }
-            }
         }
     }
 
