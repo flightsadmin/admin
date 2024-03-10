@@ -135,7 +135,7 @@ trait HandleShops
 
     public function generateShopFiles()
     {
-        $files = $this->filesystem->allFiles($this->flightStubDir, true);
+        $files = $this->filesystem->allFiles($this->shopStubDir, true);
         foreach ($files as $file) {
             $filePath = $this->replace(Str::replaceLast('.stub', '', $file->getRelativePathname()));
             $fileDir = $this->replace($file->getRelativePath());
