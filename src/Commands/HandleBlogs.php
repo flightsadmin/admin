@@ -76,8 +76,6 @@ trait HandleBlogs
                 $this->filesystem->put($userModelFile, $UserModelContents);
                 $this->warn($userModelFile . ' Updated');
             }
-
-            Artisan::call('db:seed', ['--class' => 'BlogSeeder'], $this->getOutput());
         }
     }
 

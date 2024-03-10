@@ -48,6 +48,7 @@ trait HandleDefaultSettings
         Artisan::call('db:seed', ['--class' => 'FlightSeeder'], $this->getOutput());
         Artisan::call('db:seed', ['--class' => 'RosterSeeder'], $this->getOutput());
         Artisan::call('db:seed', ['--class' => 'ShopSeeder'], $this->getOutput());
+        Artisan::call('db:seed', ['--class' => 'BlogSeeder'], $this->getOutput());
     }
 
     public function socialLoginInstall()
