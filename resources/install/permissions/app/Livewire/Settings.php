@@ -24,12 +24,13 @@ class Settings extends Component
             'settings.site_short_code' => ['required', 'string'],
             'settings.site_email' => ['required', 'email'],
             'settings.site_phone' => ['nullable', 'string'],
+            'settings.footer_text' => ['nullable', 'string'],
             'settings.site_logo' => ['nullable'],
             'settings.site_theme' => ['nullable', 'string'],
             'settings.site_currency' => ['nullable', 'string'],
+            'settings.date_time_format' => ['nullable', 'string'],
             'settings.date_format' => ['nullable', 'string'],
             'settings.time_format' => ['nullable', 'string'],
-            'settings.footer_text' => ['nullable', 'string'],
             'settings.site_description' => ['nullable', 'string'],
         ]);
 
