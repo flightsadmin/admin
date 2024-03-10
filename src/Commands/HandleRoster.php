@@ -10,7 +10,7 @@ trait HandleRoster
     {
         //Spatie Laravel Permission Installation
         if ($this->confirm('Do you want to Install Roster App?', true, true)) {
-            $this->permStubDir = __DIR__ . '/../../resources/install/rosterFiles';
+            $this->permStubDir = __DIR__ . '/../../resources/install/rostersFiles';
             $this->generateRosterFiles();
 
             //Updating Routes
