@@ -7,11 +7,11 @@ use Illuminate\Support\Facades\Artisan;
 
 trait HandleBlogs
 {
-    public function shopInstall()
+    public function blogInstall()
     {
         //Spatie Laravel Permission Installation
         if ($this->confirm('Do you want to Install Blog App?', true, true)) {
-            $this->shopStubDir = __DIR__ . '/../../resources/install/shopsFiles';
+            $this->blogStubDir = __DIR__ . '/../../resources/install/blogsFiles';
             $this->generateBlogFiles();
 
             //Updating Routes
@@ -83,7 +83,7 @@ trait HandleBlogs
 
     public function generateBlogFiles()
     {
-        $files = $this->filesystem->allFiles($this->shopStubDir, true);
+        $files = $this->filesystem->allFiles($this->blogStubDir, true);
         foreach ($files as $file) {
             $filePath = $this->replace(Str::replaceLast('.stub', '', $file->getRelativePathname()));
             $fileDir = $this->replace($file->getRelativePath());

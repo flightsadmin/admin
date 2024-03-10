@@ -7,7 +7,7 @@ use Illuminate\Filesystem\Filesystem;
 
 class Install extends Command
 {
-    use HandleSpatie, HandleRoster, HandleDefaultSettings, HandleFlights, HandleShops;
+    use HandleSpatie, HandleRoster, HandleDefaultSettings, HandleFlights, HandleShops, HandleBlogs;
 	protected $filesystem;
     private $replaces = [];
 	
@@ -37,6 +37,7 @@ class Install extends Command
             $this->flightInstall();
             $this->updateComposer();
             $this->shopInstall();
+            $this->blogInstall();
             $this->socialLoginInstall();
             // Update Auth Routes
             $authRoutes = "\nAuth::routes(['register' => false]);\nRoute::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');";
