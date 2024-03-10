@@ -53,7 +53,7 @@
                                     @endcan
                                 @endif
                                 <td>
-                                    {{ $user->created_at->format('d-M-Y H:i:s') }}
+                                    {{ $user->created_at->format(setting('date_time_format')) }}
                                 </td>
                             </tr>
                             @endforeach
