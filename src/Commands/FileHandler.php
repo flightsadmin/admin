@@ -66,7 +66,7 @@ trait FileHandler
             }
 
             //Updating Kernel
-            if ((version_compare(app()->version(), '10.0.0', '>='))) {
+            if ((version_compare(app()->version(), '10.0.0', '<='))) {
                 $kernelFile = app_path('Http/Kernel.php');
                 $kernelData = $this->filesystem->get($kernelFile);
                 $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\t'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class, \n\t\t'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class, \n\t\t'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,\n\t\t//End Spatie Permission Trait";
