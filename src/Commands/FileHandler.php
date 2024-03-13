@@ -78,7 +78,7 @@ trait FileHandler
                     $this->warn('<info>' . $kernelFile . '</info> Updated');
                 }
             } else {
-                $appFile = app_path('bootstrap/app.php');
+                $appFile = base_path('bootstrap/app.php');
                 $appFileData = $this->filesystem->get($appFile);
                 $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\$middleware->alias([\n\t\t'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class, \n\t\t'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class, \n\t\t'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,\n]);\n\t\t//End Spatie Permission Trait";
                 $kernelItemHook = '->withMiddleware(function (Middleware $middleware) {';

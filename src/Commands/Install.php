@@ -38,7 +38,7 @@ class Install extends Command
             }
             
 			if ($this->confirm('Do you want to scaffold Authentication files? Only skip if you have authentication system on your App', true, true)) {
-                Artisan::call('ui:auth', ['--force' => true], $this->getOutput());
+                Artisan::call('ui:auth', ['bootstrap', '--force' => true], $this->getOutput());
 			}
 
             $this->line('');
