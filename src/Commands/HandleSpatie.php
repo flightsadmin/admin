@@ -59,7 +59,7 @@ trait HandleSpatie
             if ((version_compare(app()->version(), '10.0.0', '<='))) {
                 $kernelFile = app_path('Http/Kernel.php');
                 $kernelData = $this->filesystem->get($kernelFile);
-                $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\t'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class, \n\t\t'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class, \n\t\t'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,\n\t\t//End Spatie Permission Trait";
+                $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\t'role' => \Spatie\Permission\Middleware\RoleMiddleware::class, \n\t\t'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class, \n\t\t'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,\n\t\t//End Spatie Permission Trait";
                 $kernelItemHook = (version_compare(app()->version(), '10.0.0', '>=')) ? 'protected $middlewareAliases = [' : 'protected $routeMiddleware = [';
 
                 if (!Str::contains($kernelData, $kerneltemStub)) {
@@ -70,7 +70,7 @@ trait HandleSpatie
             } else {
                 $appFile = base_path('bootstrap/app.php');
                 $appFileData = $this->filesystem->get($appFile);
-                $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\$middleware->alias([\n\t\t'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class, \n\t\t'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class, \n\t\t'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,\n]);\n\t\t//End Spatie Permission Trait";
+                $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\t\$middleware->alias([\n\t\t'role' => \Spatie\Permission\Middleware\RoleMiddleware::class, \n\t\t'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class, \n\t\t'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,\n\t]);\n\t\t//End Spatie Permission Trait";
                 $kernelItemHook = '->withMiddleware(function (Middleware $middleware) {';
 
                 if (!Str::contains($appFileData, $kerneltemStub)) {
