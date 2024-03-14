@@ -85,6 +85,11 @@ class Users extends Component
         $this->selectedRoles = $user->roles->pluck('id')->toArray();
     }
 
+    public function details() {
+        $user = auth()->user();
+        return view('livewire.admin.users.details', compact('user'));
+    }
+
     public function destroy($userId)
     {
         $user = User::findOrFail($userId);
