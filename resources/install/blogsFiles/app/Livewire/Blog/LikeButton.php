@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Bolg;
 
 use App\Models\Post;
 use Livewire\Component;
@@ -16,11 +16,11 @@ class LikeButton extends Component
         }
         $user = auth()->user();
 
-        if($user->hasliked($this->post)) {
-            $user->likes()->detach($this->post);
+        if ($this->post->likes()->where('user_id', $user->id)->exists()) {
+            $this->post->likes()->where(['user_id' => $user->id])->delete();
             return;
         } 
-        $user->likes()->attach($this->post);
+        $this->post->likes()->create(['user_id' => $user->id]);
         
     }
     public function render()

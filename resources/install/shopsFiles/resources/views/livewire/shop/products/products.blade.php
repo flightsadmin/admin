@@ -48,7 +48,7 @@
                                     </div>
                                     <!-- Product actions-->
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                        @livewire('action-button', ['product' => $product], key($product->id))
+                                        @livewire('shop.action-button', ['product' => $product], key($product->id))
                                     </div>
                                 </div>
                             </div>
@@ -81,7 +81,7 @@
                                                     <small class="text-body-secondary bi-clock">
                                                         {{ $product->published_at->format('d F, Y') }}</small>
                                                     <p class="small text-body-primary bi-person-circle"> {{ $product->author->name }}</p>
-                                                    <div>@livewire('action-button', ['product' => $product], key($product->id))</div>
+                                                    <div>@livewire('shop.action-button', ['product' => $product], key($product->id))</div>
                                                 </div>
                                             </div>
                                         </li>

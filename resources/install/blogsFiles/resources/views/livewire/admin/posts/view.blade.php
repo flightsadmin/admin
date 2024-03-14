@@ -41,7 +41,7 @@
                             <div class="card-body">
                                 <div style="display: flex; justify-content: space-between; align-items: center;">
                                     <div class="small text-muted">{{ $post->published_at->format('F d, Y') }}</div>
-                                    <span class="float-end"> @livewire('like-button', ['post' => $post], key($post->id))
+                                    <span class="float-end"> @livewire('shop.like-button', ['post' => $post], key($post->id))
                                     </span>
                                     <div class="dropdown float-end">
                                         <a class="btn custom-btn-sm btn-secondary dropdown-toggle" href="#" role="button"

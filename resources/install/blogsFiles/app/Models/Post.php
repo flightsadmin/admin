@@ -52,7 +52,7 @@ class Post extends Model
         return $this->morphToMany(Category::class, 'taggable');
     }
     public function likes() {
-        return $this->morphMany(Like::class, 'likeable', 'likes');
+        return $this->morphMany(Like::class, 'likeable');
     }
     
     public function comments()

@@ -21,7 +21,7 @@ trait HandleBlogs
             <<<ROUTES
             // Blog Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/blog', App\Livewire\Posts::class)->name('admin.blog');
+                Route::get('/blog', App\Livewire\Blog\Posts::class)->name('admin.blog');
             });
             
             Route::middleware(['web'])->prefix(config("admin.blogRoute", "blog"))->group(function () {

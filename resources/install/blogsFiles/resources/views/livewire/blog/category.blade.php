@@ -43,7 +43,7 @@
                                     </div>
                                     <div class="text-muted fst-italic mb-2" style="display: flex; justify-content: space-between; align-items: right;">
                                         <div class="small text-muted">{{ $post->published_at->format('F d, Y') }}</div>
-                                        <p class="float-end">@livewire('like-button', ['post' => $post], key($post->id))</p>
+                                        <p class="float-end">@livewire('shop.like-button', ['post' => $post], key($post->id))</p>
                                     </div>
                                     <div class="h4 mb-3">{{ $post->title }}</div>
                                     <p>{{ $post->getExcerpt() }}</p>

@@ -26,7 +26,7 @@
                                     <div class="card-body">
                                         <div style="display: flex; justify-content: space-between; align-items: center;">
                                             <div class="small text-muted">{{ $post->published_at->format('F d, Y') }}</div>
-                                            <span class="float-end"> @livewire('like-button', ['post' => $post], key($post->id)) </span>
+                                            <span class="float-end"> @livewire('shop.like-button', ['post' => $post], key($post->id)) </span>
                                         </div>
                                         <div class="h4 mb-3">{{ $post->title }}</div>
                                         <p>{{ $post->getExcerpt() }}</p>

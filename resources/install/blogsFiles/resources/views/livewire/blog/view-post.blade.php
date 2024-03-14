@@ -13,7 +13,7 @@
                                     Posted on {{ $post->published_at->format('F d, Y') }} by {{ $post->author->name }}
                                     <p class="bi-chat-dots-fill me-4"> {{ $post->comments->count() }} Comments</p>
                                     <p class="bi-clock-fill"> {{ $post->getReadingTime() }} min read</p>
-                                    <p>@livewire('like-button', ['post' => $post], key($post->id))</p>
+                                    <p>@livewire('shop.like-button', ['post' => $post], key($post->id))</p>
                                 </div>
                             </header>
                             <!-- Preview image figure-->
