@@ -73,7 +73,7 @@
                         </li>
                         <!--begin::Menu Footer-->
                         <li class="user-footer">
-                            <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            <a wire:navigate href="{{ route('admin.users.show', ['id' => auth()->id()])}}" class="btn btn-default btn-flat">Profile</a>
                             <a class="btn btn-default btn-flat float-end" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

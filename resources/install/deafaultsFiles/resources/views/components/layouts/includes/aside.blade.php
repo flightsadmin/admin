@@ -55,7 +55,13 @@
                             </a>
                         </li>
                     @endif
-
+                    @if (config('admin.modules.school'))
+                        <li class="nav-header"> DASHBOARD</li>
+                        @includeWhen(auth()->user()->hasRole('admin|super-admin'), 'components.layouts.includes.menu.admin')
+                        @includeWhen(auth()->user()->hasRole('teacher'), 'components.layouts.includes.menu.teacher')
+                        @includeWhen(auth()->user()->hasRole('parent'), 'components.layouts.includes.menu.parent')
+                        @includeWhen(auth()->user()->hasRole('student'), 'components.layouts.includes.menu.student')
+                    @endif
                     @if (config('admin.modules.rosters'))
                         <li class="nav-header"> ROSTERS</li>
                         <li class="nav-item">
@@ -70,7 +76,8 @@
                     @if (config('admin.modules.blog'))
                         <li class="nav-header"> BLOG</li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.blog') }}" wire:navigate class="nav-link {{ request()->is('admin/blog') ? 'active' : '' }}">
+                            <a href="{{ route('admin.blog') }}" wire:navigate
+                                class="nav-link {{ request()->is('admin/blog') ? 'active' : '' }}">
                                 <i class="nav-icon bi-file-spreadsheet-fill"></i>
                                 <p>{{ ucwords(config('admin.blogRoute')) }} Admin</p>
                             </a>
@@ -86,7 +93,8 @@
                     @if (config('admin.modules.shop'))
                         <li class="nav-header"> SHOP</li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.shop') }}" wire:navigate class="nav-link {{ request()->is('admin/shop') ? 'active' : '' }}">
+                            <a href="{{ route('admin.shop') }}" wire:navigate
+                                class="nav-link {{ request()->is('admin/shop') ? 'active' : '' }}">
                                 <i class="nav-icon bi-file-spreadsheet-fill"></i>
                                 <p>{{ ucwords(config('admin.shopRoute')) }} Admin</p>
                             </a>

@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 trait HandleSpatie
 {
-    public function spatiePermissionsInstall()
+    public function defaultInstall()
     {
         //Spatie Laravel Permission Installation
         if ($this->confirm('Do you want to Install Spatie Laravel Permission?', true, true)) {

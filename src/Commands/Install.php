@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 
 class Install extends Command
 {
-    use HandleSpatie, HandleRoster, HandleDefaultSettings, HandleFlights, HandleShops, HandleBlogs;
+    use HandleSpatie, HandleRoster, HandleDefaultSettings, HandleFlights, HandleShops, HandleBlogs, HandleSchools;
     protected $filesystem;
     private $replaces = [];
 
@@ -32,12 +32,13 @@ class Install extends Command
             }
 
             $this->defaultSetting();
-            $this->spatiePermissionsInstall();
+            $this->defaultInstall();
             $this->rosterInstall();
             $this->flightInstall();
             $this->updateComposer();
             $this->shopInstall();
             $this->blogInstall();
+            $this->schoolInstall();
             $this->socialLoginInstall();
 
             // Update Auth Routes
