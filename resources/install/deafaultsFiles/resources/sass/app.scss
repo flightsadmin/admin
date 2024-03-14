@@ -1,0 +1,43 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+// Bootstrap Icons
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+// AdminLTE
+@import 'admin-lte/dist/css/adminlte';
+
+// Trix
+@import 'trix/dist/trix.css';
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.custom-btn-sm {
+  padding: 0.3rem 0.3rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.custom-spin-overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* transparent black overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
