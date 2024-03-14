@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 trait HandleSpatie
 {
-    public function spatiePermissionsInstall()
+    public function defaultInstall()
     {
         //Spatie Laravel Permission Installation
         if ($this->confirm('Do you want to Install Spatie Laravel Permission?', true, true)) {
@@ -21,6 +21,7 @@ trait HandleSpatie
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
                 Route::get('/', App\Livewire\Users::class)->name(config("admin.adminRoute", "admin"));
                 Route::get('/users', App\Livewire\Users::class)->name('admin.users');
+                Route::get('/users/{id}', [App\Livewire\Users::class, 'details'])->name('admin.users.show');
                 Route::get('/roles', App\Livewire\Roles::class)->name('admin.roles');
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
                 Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
