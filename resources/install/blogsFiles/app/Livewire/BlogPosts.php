@@ -20,7 +20,7 @@ class BlogPosts extends Component
         public function show(Post $post)
         {
             $comments = $post->comments()->with('author')->get();
-            return view('livewire.blog.view-post', compact('post', 'comments'))->extends('components.layouts.app');
+            return view('livewire.blog.view-post', compact('post', 'comments'))->extends('components.layouts.admin');
         }
     
         public function category($slug)
