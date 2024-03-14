@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -35,16 +34,22 @@ class Product extends Model
     {
         return $this->morphToMany(Category::class, 'taggable');
     }
-
-    public function likes()
-    {
-        return $this->morphMany(Like::class, 'likeable');
-    }
+    
     public function comments()
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
 
+    public function replies()
+    {
+        return $this->morphMany(Reply::class, 'replieable');
+    }
+
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
+    
     public function cartItems()
     {
         return $this->belongsToMany(User::class, 'carts')->withTimestamps();

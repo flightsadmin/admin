@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Shop;
 
-use App\Models\Reply;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,11 +38,11 @@ class Comments extends Component
         $this->validate([
             'replyContent' => 'required|max:255'
         ]);
-        Reply::create([
+        $this->product->replies()->create([
             'user_id' => Auth::id(),
-            'comment_id' => $commentId,
             'content' => $this->replyContent,
         ]);
+
         $this->reset(['replyContent']);
     }
 }
