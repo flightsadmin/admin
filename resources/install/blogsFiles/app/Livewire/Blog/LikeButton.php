@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Bolg;
+namespace App\Livewire\Blog;
 
 use App\Models\Post;
 use Livewire\Component;
