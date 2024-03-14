@@ -1,6 +1,6 @@
 @role('student')
     <li class="nav-item">
-        <a href="{{ route('student') }}" wire:navigate
+        <a href="{{ route('student') }}"
             class="nav-link {{ Route::is('student*') ? 'active' : '' }}">
             <i class="nav-icon bi-mortarboard"></i>
             <p>Classes</p>
