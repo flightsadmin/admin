@@ -56,14 +56,14 @@
                         </li>
                     @endif
                     @if (config('admin.modules.school'))
-                        <li class="nav-header"> DASHBOARD</li>
+                        <li class="nav-header"> SCHOOL</li>
                         @includeWhen(auth()->user()->hasRole('admin|super-admin'), 'components.layouts.includes.menu.admin')
                         @includeWhen(auth()->user()->hasRole('teacher'), 'components.layouts.includes.menu.teacher')
                         @includeWhen(auth()->user()->hasRole('parent'), 'components.layouts.includes.menu.parent')
                         @includeWhen(auth()->user()->hasRole('student'), 'components.layouts.includes.menu.student')
                     @endif
                     @if (config('admin.modules.rosters'))
-                        <li class="nav-header"> ROSTERS</li>
+                        <li class="nav-header"> ROSTER</li>
                         <li class="nav-item">
                             <a href="{{ route('admin.rosters') }}" wire:navigate
                                 class="nav-link {{ request()->is('admin/rosters') ? 'active' : '' }}">
