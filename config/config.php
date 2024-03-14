@@ -1,8 +1,5 @@
 <?php
 
-/*
- * You can place your custom package configuration in here.
- */
 return [
     'default' => [
         'site_name'         => config('app.name'),
@@ -28,13 +25,14 @@ return [
     "rosterRoute" => "roster",
     "schoolRoute" => "school",
     "blogRoute"   => "blog",
+    "shopRoute"   => "shop",
 
     // Modules
     "modules"   => [
         'flights'  => true,
         'rosters'  => true,
         'school'   => false,
-        'shop'     => false,
-        'blog'     => false,
+        'shop'     => true,
+        'blog'     => true,
     ],
 ];

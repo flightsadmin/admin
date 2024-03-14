@@ -3,7 +3,6 @@
 namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Artisan;
 
 trait HandleShops
 {
@@ -18,22 +17,22 @@ trait HandleShops
             $routeFile = base_path('routes/web.php');
             $updatedData = $this->filesystem->get($routeFile);
             $spatieRoutes =
-                <<<ROUTES
+            <<<ROUTES
             // Shop Routes
-            Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/', App\Livewire\Products::class)->name(config("admin.adminRoute", "admin"));
-            });
             Route::middleware(['web'])->prefix(config("admin.shopRoute", "shop"))->group(function () {
-                Route::get('/', App\Livewire\Products::class)->name(config("admin.adminRoute", "admin"));
-                Route::get('/', [App\Livewire\Products::class, 'renderUser'])->name(config("admin.shopRoute", "shop"));
-                Route::get('/checkout', [App\Livewire\Products::class, 'checkout'])->name("shop.checkout");
-                Route::get('/product/{product:id}', [App\Livewire\Products::class, 'show'])->name('shop.show');
-                Route::get('/category/{slug}', [App\Livewire\Products::class, 'category'])->name('shop.category');
+                Route::get('/', [App\Livewire\Shop\Products::class, 'renderProducts'])->name(config("admin.shopRoute", "shop"));
+                Route::get('/checkout', [App\Livewire\Shop\Products::class, 'checkout'])->name("shop.checkout");
+                Route::get('/product/{product:id}', [App\Livewire\Shop\Products::class, 'show'])->name('shop.show');
+                Route::get('/category/{slug}', [App\Livewire\Shop\Products::class, 'category'])->name('shop.category');
+            });
+            Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
+                Route::get('/shop', App\Livewire\Shop\Products::class)->name(config("admin.adminRoute", "admin").".".config("admin.shopRoute", "shop"));
             });
             
             // Social Login Routes
             Route::get('/auth/{provider}/redirect', [App\Http\Controllers\Auth\SocialLoginController::class, 'redirect']);
             Route::get('/auth/{provider}/callback', [App\Http\Controllers\Auth\SocialLoginController::class, 'callback']);
+            
             ROUTES;
 
             $fileHook = "//Route Hooks - Do not delete//";
@@ -50,14 +49,6 @@ trait HandleShops
 
             $userUpdate =
                 <<<NAV
-                public function likes() {
-                    return \$this->belongsToMany(Product::class, 'product_like')->withTimestamps();
-                }
-                
-                public function hasLiked(Product \$product) {
-                    return \$this->likes()->where('product_id', \$product->id)->exists();
-                }
-                
                 public function cartItems() {
                     return \$this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')->withTimestamps();
                 }
@@ -91,52 +82,8 @@ trait HandleShops
                 $this->filesystem->put($userModelFile, $UserModelContents);
                 $this->warn($userModelFile . ' Updated');
             }
-
-            Artisan::call('db:seed', ['--class' => 'ShopSeeder'], $this->getOutput());
         }
     }
-
-    public function socialLoginInstall()
-    {
-        if ($this->confirm('Do you want to Enable Social Login?', true, true)) {
-            // Update ENV File
-            $envFile = base_path('.env');
-            $socialID = "GOOGLE_CLIENT_ID=969178219302-a013oqprusp6hki4gjsu978uae0fine6.apps.googleusercontent.com\nGOOGLE_CLIENT_SECRET=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";
-            $envData = file_get_contents($envFile);
-            if (!str_contains($envData, $socialID)) {
-                file_put_contents($envFile, "\n$socialID", FILE_APPEND);
-                $this->warn($envFile . " Updated");
-            }
-            //Update Services File
-            $servicesFile = base_path('config/services.php');
-            $servicesData = $this->filesystem->get($servicesFile);
-            $servicesUpdate =
-                <<<SERVICE
-                'google' => [
-                    'client_id' => env('GOOGLE_CLIENT_ID'),
-                    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-                    'redirect' => '/auth/google/callback',
-                ],
-            
-            SERVICE;
-
-            $serviceFileHook = "];";
-
-            // Find the position of the last occurrence of "];"
-            $lastPosition = strrpos($servicesData, $serviceFileHook);
-            if (!Str::contains($servicesData, $servicesUpdate)) {
-                if ($lastPosition !== false) {
-                    $UserModelContents = substr_replace($servicesData, PHP_EOL . $servicesUpdate, $lastPosition, 0);
-                } else {
-                    $UserModelContents = $servicesData . PHP_EOL . $servicesUpdate;
-                }
-
-                $this->filesystem->put($servicesFile, $UserModelContents);
-                $this->warn($servicesFile . ' Updated');
-            }
-        }
-    }
-
     public function generateShopFiles()
     {
         $files = $this->filesystem->allFiles($this->shopStubDir, true);

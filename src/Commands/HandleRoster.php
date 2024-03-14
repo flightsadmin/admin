@@ -3,7 +3,6 @@
 namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Artisan;
 
 trait HandleRoster
 {
@@ -22,8 +21,9 @@ trait HandleRoster
                 <<<ROUTES
             // Roster Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/rosters', App\Livewire\Rosters::class)->name('admin.rosters');
+                Route::get('/rosters', App\Livewire\Roster\Rosters::class)->name('admin.rosters');
             });
+
             ROUTES;
 
             $fileHook = "//Route Hooks - Do not delete//";
@@ -34,10 +34,39 @@ trait HandleRoster
                 $this->warn($routeFile . ' Updated');
             }
 
-            Artisan::call('db:seed', ['--class' => 'RosterSeeder'], $this->getOutput());
+            // Updating User Model
+            $userModelFile = app_path('Models/User.php');
+            $fileData = $this->filesystem->get($userModelFile);
+
+            $userUpdate =
+                <<<NAV
+                public function schedules()
+                {
+                    return \$this->hasMany(Schedule::class);
+                }
+
+            NAV;
+
+            $userHook = "}";
+
+            // Find the position of the last occurrence of "}"
+            $lastPosition = strrpos($fileData, $userHook);
+
+            if (!Str::contains($fileData, $userUpdate)) {
+                // Add the content after the last occurrence of "}"
+                if ($lastPosition !== false) {
+                    $UserModelContents = substr_replace($fileData, PHP_EOL . $userUpdate, $lastPosition, 0);
+                } else {
+                    // If "}" is not found, add the content at the end of the file
+                    $UserModelContents = $fileData . PHP_EOL . $userUpdate;
+                }
+
+                // Write the updated content back to the file
+                $this->filesystem->put($userModelFile, $UserModelContents);
+                $this->warn($userModelFile . ' Updated');
+            }
         }
     }
-
     public function generateRosterFiles()
     {
         $files = $this->filesystem->allFiles($this->permStubDir, true);

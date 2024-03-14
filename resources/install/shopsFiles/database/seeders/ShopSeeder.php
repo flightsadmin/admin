@@ -6,7 +6,6 @@ use App\Models\Coupon;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Product;
-use App\Models\Category;
 use Faker\Factory as Faker;
 use Illuminate\Database\Seeder;
 
@@ -16,18 +15,11 @@ class ShopSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (["Clothes", "Electronics", "Appliances", "Bags"] as $value) {
-            Category::create([
-                'title' => $value,
-                'slug'  => strtolower($value),
-            ]);
-        }
-
         foreach (["OCT23", "NOV23", "DEC23"] as $key => $value) {
             Coupon::create([
                 'code' => $value,
-                'discount'  => $key+1/100,
-                'expiration_date'  => $faker->dateTimeBetween('-1 Day', '+1 Week'),
+                'discount' => $key + 1 / 100,
+                'expiration_date' => $faker->dateTimeBetween('-1 Day', '+1 Week'),
             ]);
         }
 
@@ -42,7 +34,11 @@ class ShopSeeder extends Seeder
                 'published_at' => $faker->dateTimeBetween('-1 Month', '+1 Day'),
                 'featured' => $faker->boolean(10)
             ]);
-            $product->categories()->attach(Category::inRandomOrder()->first()->id,);
+            $title = $faker->realText(20);
+            $product->categories()->create([
+                'title' => preg_replace('/[^A-Za-z0-9 ]/', '', $title),
+                'slug' => strtolower(str_replace(' ', '-', preg_replace('/[^A-Za-z0-9 ]/', '', $title))),
+            ]);
         }
     }
 }

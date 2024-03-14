@@ -5,7 +5,7 @@
         <header class="py-2 border-bottom mb-4">
             <div class="container-fluid">
                 <div class="text-center my-3">
-                    <h1 class="fw-bolder">Welcome to {{ config('admin.appName', 'app.name') }}</h1>
+                    <h1 class="fw-bolder">Welcome to {{ setting('site_name') ?? config('app.name') }}</h1>
                     <p class="lead mb-0">Refreshing, Every Product counts. Leave your comments</p>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                                             </div>
                                         </div>
                                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                            @livewire('action-button', ['product' => $product], key($product->id))
+                                            @livewire('shop.action-button', ['product' => $product], key($product->id))
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +55,7 @@
                         <div class="position-sticky" style="top: 2rem;">
                             <div class="card-body">
                                 <div class="mb-3 bg-body-tertiary rounded">
-                                    @livewire('carts')
+                                    @livewire('shop.carts')
                                 </div>
                                 <div>
                                     <h4 class="fst-italic">Featured Products</h4>
@@ -74,7 +74,7 @@
                                                         <small class="text-body-secondary bi-clock">
                                                             {{ $product->published_at->format('d F, Y') }}</small>
                                                         <p class="small text-body-primary bi-person-circle"> {{ $product->author->name }}</p>
-                                                        <div>@livewire('action-button', ['product' => $product], key($product->id))</div>
+                                                        <div>@livewire('shop.action-button', ['product' => $product], key($product->id))</div>
                                                     </div>
                                                 </div>
                                             </li>

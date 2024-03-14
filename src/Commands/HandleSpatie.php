@@ -15,7 +15,7 @@ trait HandleSpatie
             $routeFile = base_path('routes/web.php');
             $routeData = file_get_contents($routeFile);
             $updatedData = $this->filesystem->get($routeFile);
-            $spatieRoutes = 
+            $spatieRoutes =
             <<<ROUTES
             // Admin Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
@@ -25,8 +25,9 @@ trait HandleSpatie
                 Route::get('/permissions', App\Livewire\Permissions::class)->name('admin.permissions');
                 Route::get('/settings', App\Livewire\Settings::class)->name('admin.settings');
             });
-            ROUTES;
             
+            ROUTES;
+
             $fileHook = "//Route Hooks - Do not delete//";
 
             if (!Str::contains($updatedData, trim($spatieRoutes))) {
@@ -38,7 +39,7 @@ trait HandleSpatie
             //Updating NavBar
             $layoutsFile = base_path('resources/views/components/layouts/includes/header.blade.php');
             $layoutsData = $this->filesystem->get($layoutsFile);
-            $spatieNavs  =
+            $spatieNavs =
             <<<NAV
                                     @role('super-admin|admin')
                                     <li class="nav-item">
@@ -55,15 +56,28 @@ trait HandleSpatie
             }
 
             //Updating Kernel
-            $kernelFile = app_path('Http/Kernel.php');
-            $kernelData = $this->filesystem->get($kernelFile);
-            $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\t'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class, \n\t\t'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class, \n\t\t'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,\n\t\t//End Spatie Permission Trait";
-            $kernelItemHook = (version_compare(app()->version(), '10.0.0', '>=')) ? 'protected $middlewareAliases = [' : 'protected $routeMiddleware = [';
+            if ((version_compare(app()->version(), '10.0.0', '<='))) {
+                $kernelFile = app_path('Http/Kernel.php');
+                $kernelData = $this->filesystem->get($kernelFile);
+                $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\t'role' => \Spatie\Permission\Middleware\RoleMiddleware::class, \n\t\t'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class, \n\t\t'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,\n\t\t//End Spatie Permission Trait";
+                $kernelItemHook = (version_compare(app()->version(), '10.0.0', '>=')) ? 'protected $middlewareAliases = [' : 'protected $routeMiddleware = [';
 
-            if (!Str::contains($kernelData, $kerneltemStub)) {
-                $KernelContents = str_replace($kernelItemHook, $kernelItemHook . PHP_EOL . $kerneltemStub, $kernelData);
-                $this->filesystem->put($kernelFile, $KernelContents);
-                $this->warn('<info>' . $kernelFile . '</info> Updated');
+                if (!Str::contains($kernelData, $kerneltemStub)) {
+                    $KernelContents = str_replace($kernelItemHook, $kernelItemHook . PHP_EOL . $kerneltemStub, $kernelData);
+                    $this->filesystem->put($kernelFile, $KernelContents);
+                    $this->warn('<info>' . $kernelFile . '</info> Updated');
+                }
+            } else {
+                $appFile = base_path('bootstrap/app.php');
+                $appFileData = $this->filesystem->get($appFile);
+                $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\t\$middleware->alias([\n\t\t\t'role' => \Spatie\Permission\Middleware\RoleMiddleware::class, \n\t\t\t'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class, \n\t\t\t'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,\n\t\t]);\n\t\t//End Spatie Permission Trait";
+                $kernelItemHook = '->withMiddleware(function (Middleware $middleware) {';
+
+                if (!Str::contains($appFileData, $kerneltemStub)) {
+                    $KernelContents = str_replace($kernelItemHook, $kernelItemHook . PHP_EOL . $kerneltemStub, $appFileData);
+                    $this->filesystem->put($appFile, $KernelContents);
+                    $this->warn('<info>' . $appFile . '</info> Updated');
+                }
             }
 
             // Updating User Model
@@ -71,15 +85,15 @@ trait HandleSpatie
             $fileData = $this->filesystem->get($userModelFile);
             $modelReplacements = [
                 "class User extends Authenticatable\n{" => "\tuse HasRoles, SoftDeletes;",
-                "namespace App\Models;\n"               => "use Spatie\Permission\Traits\HasRoles;\nuse Illuminate\Database\Eloquent\SoftDeletes;",
-                "protected \$fillable = ["              => "\t\t'phone',\n\t\t'photo',\n\t\t'title',",
+                "namespace App\Models;\n" => "use Spatie\Permission\Traits\HasRoles;\nuse Illuminate\Database\Eloquent\SoftDeletes;",
+                "protected \$fillable = [" => "\t\t'phone',\n\t\t'photo',\n\t\t'title',",
             ];
-            
+
             foreach ($modelReplacements as $key => $value) {
                 if (!Str::contains($fileData, $value)) {
                     $fileData = str_replace($key, $key . PHP_EOL . $value, $fileData);
                     $this->filesystem->put($userModelFile, $fileData);
-                    $this->warn($userModelFile . ' Updated with <info>' . trim($value). '</info>');
+                    $this->warn($userModelFile . ' Updated with <info>' . trim($value) . '</info>');
                 }
             }
         }
