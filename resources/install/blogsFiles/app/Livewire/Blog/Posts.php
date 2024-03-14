@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Blog;
 
 use Faker\Factory;
 use App\Models\Post;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Category;
-use Illuminate\Support\Str;
 use Livewire\WithPagination;
 use Livewire\Attributes\Rule;
 use Livewire\WithFileUploads;

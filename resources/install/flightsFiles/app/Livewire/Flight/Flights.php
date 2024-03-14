@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Flight;
 
 use Carbon\Carbon;
 use Dompdf\Dompdf;

@@ -21,7 +21,7 @@ trait HandleRoster
                 <<<ROUTES
             // Roster Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/rosters', App\Livewire\Rosters::class)->name('admin.rosters');
+                Route::get('/rosters', App\Livewire\Roster\Rosters::class)->name('admin.rosters');
             });
 
             ROUTES;

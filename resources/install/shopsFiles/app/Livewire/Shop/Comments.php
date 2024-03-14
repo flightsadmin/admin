@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Shop;
 
 use App\Models\Reply;
-use App\Models\Comment;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,7 +16,7 @@ class Comments extends Component
     public function render()
     {
         return view('livewire.shop.products.comment', [
-            'comments' => Comment::where('product_id', $this->product->id)->get(),
+            'comments' => $this->product->comments,
         ]);
     }
 
@@ -26,9 +25,9 @@ class Comments extends Component
         $this->validate([
             'commentContent' => 'required|max:255'
         ]);
-        $comment = Comment::create([
+        $this->product->comments()->create([
             'user_id' => Auth::id(),
-            'product_id' => $this->product->id,
+            'active' => true,
             'content' => $this->commentContent,
         ]);
 

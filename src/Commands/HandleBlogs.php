@@ -25,10 +25,10 @@ trait HandleBlogs
             });
             
             Route::middleware(['web'])->prefix(config("admin.blogRoute", "blog"))->group(function () {
-                Route::get('/', App\Livewire\BlogPosts::class)->name(config("admin.blogRoute", "blog"));
-                Route::get('/post/{post:id}', [App\Livewire\BlogPosts::class, 'show'])->name('blog.show');
-                Route::get('/category/{slug}', [App\Livewire\BlogPosts::class, 'category'])->name('blog.category');
-                Route::get('/archive/{year}/{month}', [App\Livewire\BlogPosts::class, 'archive'])->name('blog.archive');
+                Route::get('/', App\Livewire\Blog\BlogPosts::class)->name(config("admin.blogRoute", "blog"));
+                Route::get('/post/{post:id}', [App\Livewire\Blog\BlogPosts::class, 'show'])->name('blog.show');
+                Route::get('/category/{slug}', [App\Livewire\Blog\BlogPosts::class, 'category'])->name('blog.category');
+                Route::get('/archive/{year}/{month}', [App\Livewire\Blog\BlogPosts::class, 'archive'])->name('blog.archive');
             });
 
             ROUTES;

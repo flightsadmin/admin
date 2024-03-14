@@ -20,13 +20,13 @@ trait HandleShops
             <<<ROUTES
             // Shop Routes
             Route::middleware(['web'])->prefix(config("admin.shopRoute", "shop"))->group(function () {
-                Route::get('/', [App\Livewire\Products::class, 'renderProducts'])->name(config("admin.shopRoute", "shop"));
-                Route::get('/checkout', [App\Livewire\Products::class, 'checkout'])->name("shop.checkout");
-                Route::get('/product/{product:id}', [App\Livewire\Products::class, 'show'])->name('shop.show');
-                Route::get('/category/{slug}', [App\Livewire\Products::class, 'category'])->name('shop.category');
+                Route::get('/', [App\Livewire\Shop\Products::class, 'renderProducts'])->name(config("admin.shopRoute", "shop"));
+                Route::get('/checkout', [App\Livewire\Shop\Products::class, 'checkout'])->name("shop.checkout");
+                Route::get('/product/{product:id}', [App\Livewire\Shop\Products::class, 'show'])->name('shop.show');
+                Route::get('/category/{slug}', [App\Livewire\Shop\Products::class, 'category'])->name('shop.category');
             });
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/shop', App\Livewire\Products::class)->name(config("admin.adminRoute", "admin").".".config("admin.shopRoute", "shop"));
+                Route::get('/shop', App\Livewire\Shop\Products::class)->name(config("admin.adminRoute", "admin").".".config("admin.shopRoute", "shop"));
             });
             
             // Social Login Routes

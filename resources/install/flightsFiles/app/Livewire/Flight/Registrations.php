@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Flight;
 
 use App\Models\Airline;
 use Livewire\Component;
