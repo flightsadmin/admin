@@ -46,6 +46,6 @@ class BlogPosts extends Component
     
             $featuredPosts = Post::where('featured', true)->latest()->paginate(5);
     
-            return view('livewire.blog.blog-posts', compact('posts', 'featuredPosts', 'archives'));
+            return view('livewire.blog.blog-posts', compact('posts', 'featuredPosts', 'archives'))->extends('components.layouts.admin');
         }
     }
