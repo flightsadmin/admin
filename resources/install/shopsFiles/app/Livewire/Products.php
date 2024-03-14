@@ -76,7 +76,7 @@ class Products extends Component
     }
 
     #[On('UpdateCart')]
-    public function renderUser()
+    public function renderProducts()
     {
         $products = Product::where('quantity', '>', 0)->with('cartItems')->latest()->paginate();
         $featuredProducts = $products->where('featured', true);

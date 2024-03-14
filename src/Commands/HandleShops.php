@@ -3,7 +3,6 @@
 namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Artisan;
 
 trait HandleShops
 {
@@ -21,13 +20,13 @@ trait HandleShops
             <<<ROUTES
             // Shop Routes
             Route::middleware(['web'])->prefix(config("admin.shopRoute", "shop"))->group(function () {
-                Route::get('/', [App\Livewire\Products::class, 'renderUser'])->name(config("admin.shopRoute", "shop"));
+                Route::get('/', [App\Livewire\Products::class, 'renderProducts'])->name(config("admin.shopRoute", "shop"));
                 Route::get('/checkout', [App\Livewire\Products::class, 'checkout'])->name("shop.checkout");
                 Route::get('/product/{product:id}', [App\Livewire\Products::class, 'show'])->name('shop.show');
                 Route::get('/category/{slug}', [App\Livewire\Products::class, 'category'])->name('shop.category');
             });
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/shop', App\Livewire\Products::class)->name(config("admin.adminRoute", "admin"));
+                Route::get('/shop', App\Livewire\Products::class)->name(config("admin.adminRoute", "admin").".".config("admin.shopRoute", "shop"));
             });
             
             // Social Login Routes
@@ -50,14 +49,6 @@ trait HandleShops
 
             $userUpdate =
                 <<<NAV
-                public function likes() {
-                    return \$this->belongsToMany(Product::class, 'product_like')->withTimestamps();
-                }
-                
-                public function hasLiked(Product \$product) {
-                    return \$this->likes()->where('product_id', \$product->id)->exists();
-                }
-                
                 public function cartItems() {
                     return \$this->belongsToMany(Product::class, 'carts', 'user_id', 'product_id')->withTimestamps();
                 }

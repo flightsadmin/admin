@@ -52,13 +52,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('category_product', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->timestamps();
-        });
-
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
@@ -74,29 +67,6 @@ return new class extends Migration
             $table->timestamp('used_at')->nullable();
             $table->timestamps();
         });
-
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->text('content');
-            $table->timestamps();
-        });
-
-        Schema::create('replies', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('comment_id')->constrained('comments')->onDelete('cascade');
-            $table->text('content');
-            $table->timestamps();
-        });
-
-        Schema::create('product_like', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->timestamps();
-        });
     }
 
     public function down()
@@ -106,11 +76,7 @@ return new class extends Migration
         Schema::dropIfExists('carts');
         Schema::dropIfExists('orders');
         Schema::dropIfExists('order_product');
-        Schema::dropIfExists('category_product');
         Schema::dropIfExists('coupons');
         Schema::dropIfExists('coupon_user');
-        Schema::dropIfExists('comments');
-        Schema::dropIfExists('replies');
-        Schema::dropIfExists('product_like');
     }
 };

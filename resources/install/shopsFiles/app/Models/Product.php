@@ -31,19 +31,18 @@ class Product extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function likes()
-    {
-        return $this->belongsToMany(User::class, 'product_like')->withTimestamps();
-    }
-
     public function categories()
     {
-        return $this->belongsToMany(Category::class);
+        return $this->morphToMany(Category::class, 'taggable');
     }
 
+    public function likes()
+    {
+        return $this->morphMany(Like::class, 'likeable');
+    }
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
     public function cartItems()

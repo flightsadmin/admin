@@ -70,7 +70,7 @@
                     @if (config('admin.modules.blog'))
                         <li class="nav-header"> BLOG</li>
                         <li class="nav-item">
-                            <a href="{{ route('admin') }}" wire:navigate class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+                            <a href="{{ route('admin.blog') }}" wire:navigate class="nav-link {{ request()->is('admin/blog') ? 'active' : '' }}">
                                 <i class="nav-icon bi-file-spreadsheet-fill"></i>
                                 <p>{{ ucwords(config('admin.blogRoute')) }} Admin</p>
                             </a>
@@ -86,7 +86,7 @@
                     @if (config('admin.modules.shop'))
                         <li class="nav-header"> SHOP</li>
                         <li class="nav-item">
-                            <a href="{{ route('admin') }}" wire:navigate class="nav-link {{ request()->is('admin') ? 'active' : '' }}">
+                            <a href="{{ route('admin.shop') }}" wire:navigate class="nav-link {{ request()->is('admin/shop') ? 'active' : '' }}">
                                 <i class="nav-icon bi-file-spreadsheet-fill"></i>
                                 <p>{{ ucwords(config('admin.shopRoute')) }} Admin</p>
                             </a>

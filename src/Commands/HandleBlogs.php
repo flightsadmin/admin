@@ -19,12 +19,11 @@ trait HandleBlogs
             $updatedData = $this->filesystem->get($routeFile);
             $spatieRoutes =
             <<<ROUTES
-            // Admin Routes
+            // Blog Routes
             Route::middleware(['auth', 'role:super-admin|admin|user'])->prefix(config("admin.adminRoute", "admin"))->group(function () {
-                Route::get('/posts', App\Livewire\Posts::class)->name('admin.posts');
+                Route::get('/blog', App\Livewire\Posts::class)->name('admin.blog');
             });
             
-            // User Routes
             Route::middleware(['web'])->prefix(config("admin.blogRoute", "blog"))->group(function () {
                 Route::get('/', App\Livewire\BlogPosts::class)->name(config("admin.blogRoute", "blog"));
                 Route::get('/post/{post:id}', [App\Livewire\BlogPosts::class, 'show'])->name('blog.show');

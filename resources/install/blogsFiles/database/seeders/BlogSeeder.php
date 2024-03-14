@@ -13,19 +13,10 @@ class BlogSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        // Seed Categories
-        for ($i=0; $i < 10; $i++) { 
-            $title = $faker->realText(20);
-            Category::create([
-                'title' => preg_replace('/[^A-Za-z0-9 ]/', '', $title),
-                'slug' => strtolower(str_replace(' ', '-', preg_replace('/[^A-Za-z0-9 ]/', '', $title))),
-            ]);
-        }
-
         // Seed Posts
         $users = User::all();
         foreach ($users as $user) {
-            for ($i=0; $i < 2; $i++) { 
+            for ($i = 0; $i < 2; $i++) {
                 $title = $faker->realText(20);
                 $post = Post::create([
                     'user_id' => $user->id,
@@ -36,7 +27,11 @@ class BlogSeeder extends Seeder
                     'published_at' => $faker->dateTimeBetween('-1 Month', '+1 Month'),
                     'featured' => $faker->boolean(10)
                 ]);
-                $post->categories()->attach($faker->randomElements(['1', '2', '3', '4', '5', '6', '7', '8', '9'], $faker->randomDigitNotNull())); 
+                $title = $faker->realText(20);
+                $post->categories()->create([
+                    'title' => preg_replace('/[^A-Za-z0-9 ]/', '', $title),
+                    'slug' => strtolower(str_replace(' ', '-', preg_replace('/[^A-Za-z0-9 ]/', '', $title))),
+                ]);
             }
         }
     }

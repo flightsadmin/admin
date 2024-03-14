@@ -9,7 +9,7 @@
                         @error('commentContent') <span class="text-danger small">{{ $message }}</span> @enderror
                     </form>
                     <span class="col-md-2">
-                        <button wire:click.prevent="addComment" class="btn btn-sm btn-primary"> Save Comment</button>
+                        <button wire:click.prevent="addComment({{$post}})" class="btn btn-sm btn-primary"> Save Comment</button>
                     </span>
                 </div>
             </div>

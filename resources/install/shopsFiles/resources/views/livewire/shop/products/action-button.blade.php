@@ -3,7 +3,7 @@
         <div wire:loading wire:target="toggleLike" class="spinner-border"
             style="width: 0.8rem; height: 0.8rem; border-width: 0.1rem;" role="status">
         </div>
-        <span wire:loading.delay.remove class="{{ Auth::user()?->hasLiked($product) ? 'text-danger' : '' }} bi-heart-fill">
+        <span wire:loading.delay.remove class="{{ $product->likes()->where('user_id', auth()->user()?->id)->exists() ? 'text-danger' : '' }} bi-heart-fill">
             {{ $product->likes()->count() }} Likes</span>
     </button>
 

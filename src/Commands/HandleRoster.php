@@ -3,7 +3,6 @@
 namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Artisan;
 
 trait HandleRoster
 {
