@@ -31,7 +31,7 @@ return [
     "modules"   => [
         'flights'  => true,
         'rosters'  => true,
-        'school'   => false,
+        'school'   => true,
         'shop'     => true,
         'blog'     => true,
     ],
