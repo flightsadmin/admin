@@ -47,14 +47,14 @@ trait HandleBlogs
             $fileData = $this->filesystem->get($userModelFile);
 
             $userUpdate =
-            <<<NAV
-            public function likes() {
-                return \$this->belongsToMany(Post::class, 'post_like')->withTimestamps();
-            }
-            
-            public function hasLiked(Post \$post) {
-                return \$this->likes()->where('post_id', \$post->id)->exists();
-            }
+                <<<NAV
+                // public function likes() {
+                //     return \$this->belongsToMany(Post::class, 'post_like')->withTimestamps();
+                // }
+                
+                // public function hasLiked(Post \$post) {
+                //     return \$this->likes()->where('post_id', \$post->id)->exists();
+                // }
         
             NAV;
 

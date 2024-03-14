@@ -36,19 +36,6 @@ trait HandleDefaultSettings
 
         $this->crudStubDir = __DIR__ . '/../../resources/install/deafaultsFiles';
         $this->generateCrudFiles();
-
-        $this->warn('Publishing Files');
-        Artisan::call('vendor:publish', ['--provider' => 'Spatie\Permission\PermissionServiceProvider'], $this->getOutput());
-        $this->warn('Seeding the Database. Please wait...');
-        Artisan::call('migrate:fresh', [], $this->getOutput());
-        Artisan::call('optimize:clear', [], $this->getOutput());
-        Artisan::call('storage:link', [], $this->getOutput());
-        Artisan::call('db:seed', ['--class' => 'AdminSeeder'], $this->getOutput());
-
-        Artisan::call('db:seed', ['--class' => 'FlightSeeder'], $this->getOutput());
-        Artisan::call('db:seed', ['--class' => 'RosterSeeder'], $this->getOutput());
-        Artisan::call('db:seed', ['--class' => 'ShopSeeder'], $this->getOutput());
-        Artisan::call('db:seed', ['--class' => 'BlogSeeder'], $this->getOutput());
     }
 
     public function socialLoginInstall()

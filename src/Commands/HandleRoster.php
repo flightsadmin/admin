@@ -40,11 +40,11 @@ trait HandleRoster
             $fileData = $this->filesystem->get($userModelFile);
 
             $userUpdate =
-            <<<NAV
-            public function schedules()
-            {
-                return \$this->hasMany(Schedule::class);
-            }
+                <<<NAV
+                public function schedules()
+                {
+                    return \$this->hasMany(Schedule::class);
+                }
 
             NAV;
 

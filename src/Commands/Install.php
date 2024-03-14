@@ -4,6 +4,7 @@ namespace Flightsadmin\Admin\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Artisan;
 
 class Install extends Command
 {
@@ -48,7 +49,18 @@ class Install extends Command
             }
             file_put_contents($routeFile, trim($content));
 
-            $this->line('');
+            $this->warn('Publishing Files');
+            Artisan::call('vendor:publish', ['--provider' => 'Spatie\Permission\PermissionServiceProvider'], $this->getOutput());
+            $this->warn('Seeding the Database. Please wait...');
+            Artisan::call('migrate:fresh', [], $this->getOutput());
+            Artisan::call('optimize:clear', [], $this->getOutput());
+            Artisan::call('storage:link', [], $this->getOutput());
+            Artisan::call('db:seed', ['--class' => 'AdminSeeder'], $this->getOutput());
+            Artisan::call('db:seed', ['--class' => 'FlightSeeder'], $this->getOutput());
+            Artisan::call('db:seed', ['--class' => 'RosterSeeder'], $this->getOutput());
+            Artisan::call('db:seed', ['--class' => 'ShopSeeder'], $this->getOutput());
+            Artisan::call('db:seed', ['--class' => 'BlogSeeder'], $this->getOutput());
+
             $this->warn('Running: <info>npm install</info> Please wait...');
             exec('npm install');
 
@@ -71,7 +83,7 @@ class Install extends Command
             });
             $this->line('');
 
-            $viewsDirectory = resource_path('views'); // Adjust this path if needed
+            $viewsDirectory = resource_path('views');
             $searchExtends = "@extends('layouts.app')";
             $replaceExtends = "@extends('components.layouts.app')";
             $this->correctLayoutExtention($viewsDirectory, $searchExtends, $replaceExtends);
