@@ -61,6 +61,7 @@ class Install extends Command
             Artisan::call('db:seed', ['--class' => 'RosterSeeder'], $this->getOutput());
             Artisan::call('db:seed', ['--class' => 'ShopSeeder'], $this->getOutput());
             Artisan::call('db:seed', ['--class' => 'BlogSeeder'], $this->getOutput());
+            Artisan::call('db:seed', ['--class' => 'SchoolSeeder'], $this->getOutput());
 
             $this->warn('Running: <info>npm install</info> Please wait...');
             exec('npm install');
