@@ -57,7 +57,7 @@
             <h3 style="margin: 1px;"> {{ $selectedFlight->flight_no }} - {{ $selectedFlight->registration }}</h3>
             {{ $selectedFlight->destination }} {{ date('H:i', strtotime($selectedFlight->scheduled_time_arrival)) }}
             {{ $selectedFlight->origin }} {{ date('H:i', strtotime($selectedFlight->scheduled_time_departure)) }} <br>
-            Work-Oder No: {{ preg_replace('/\b(\w)\w*\s*/', '$1', ucwords(config('admin.appName', 'app.name'))) }}{{ str_pad($selectedFlight->id, 6, '0', STR_PAD_LEFT) }} <br>
+            Work-Oder No: {{ preg_replace('/\b(\w)\w*\s*/', '$1', ucwords(setting('site_name') ?? config('app.name'))) }}{{ str_pad($selectedFlight->id, 6, '0', STR_PAD_LEFT) }} <br>
             Date: {{ $selectedFlight->created_at->format('d M, Y') }}
         </div>
         <div class="table-responsive">

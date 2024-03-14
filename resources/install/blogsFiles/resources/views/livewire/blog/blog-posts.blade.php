@@ -6,7 +6,7 @@
         <header class="py-2 border-bottom mb-4">
             <div class="container-fluid">
                 <div class="text-center my-3">
-                    <h1 class="fw-bolder">Welcome to {{ config('admin.appName', 'app.name') }} Blog</h1>
+                    <h1 class="fw-bolder">Welcome to {{ setting('site_name') ?? config('app.name') }} Blog</h1>
                     <p class="lead mb-0">Refreshing, Every Post counts. Leave your comments</p>
                 </div>
             </div>
@@ -48,7 +48,7 @@
                         <div class="card-body">
                             <div class="p-4 mb-3 bg-body-tertiary rounded">
                                 <h4 class="fst-italic">About</h4>
-                                <p class="mb-0">{{ config('admin.appName', 'app.name') }} is about simplicity. <br>
+                                <p class="mb-0">{{ setting('site_name') ?? config('app.name') }} is about simplicity. <br>
                                     {{ config('admin.purpose') }}, and get to know what's up around your world with our blog section.</p>
                             </div>
                             <div>

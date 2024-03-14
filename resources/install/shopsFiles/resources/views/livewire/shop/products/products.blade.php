@@ -6,7 +6,7 @@
         <header class="py-2 border-bottom mb-4">
             <div class="container-fluid">
                 <div class="text-center my-3">
-                    <h1 class="fw-bolder">Welcome to {{ config('admin.appName', 'app.name') }} Blog</h1>
+                    <h1 class="fw-bolder">Welcome to {{ setting('site_name') ?? config('app.name') }} Blog</h1>
                     <p class="lead mb-0">Refreshing, Every Product counts. Leave your comments</p>
                 </div>
             </div>

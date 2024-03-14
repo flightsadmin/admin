@@ -94,11 +94,11 @@
                                 <span class="text-success bi-arrow-down-right-circle-fill"></span> {{ $selectedFlight->origin }} {{ date('H:i', strtotime($selectedFlight->scheduled_time_departure)) }}
                             </div>
                             <div class="text-center">
-                                <p> {{ config('admin.appName', 'app.name') }} </p>
+                                <p> {{ setting('site_name') ?? config('app.name') }} </p>
                                 <img src="https://picsum.photos/id/0/100" alt="Logo" style="border-radius: 5px;">
                             </div>
                             <div class="text-end">
-                                <h5> Work-Oder No: {{ preg_replace('/\b(\w)\w*\s*/', '$1', ucwords(config('admin.appName', 'app.name'))) }}{{ str_pad($selectedFlight->id, 6, '0', STR_PAD_LEFT) }}</h5>
+                                <h5> Work-Oder No: {{ preg_replace('/\b(\w)\w*\s*/', '$1', ucwords(setting('site_name') ?? config('app.name'))) }}{{ str_pad($selectedFlight->id, 6, '0', STR_PAD_LEFT) }}</h5>
                                 <p class="bi-calendar-month"> <span> Date: {{ $selectedFlight->created_at->format('d M, Y') }}</span> </p>
                             </div>
                         </div>
