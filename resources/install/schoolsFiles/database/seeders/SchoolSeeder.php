@@ -11,6 +11,42 @@ class SchoolSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
+
+        $roles = [
+            [
+                'name' => 'principal',
+                'permissions' => Permission::pluck('name')->toArray(),
+            ],
+            [
+                'name' => 'teacher',
+                'permissions' => [],
+            ],
+            [
+                'name' => 'parent',
+                'permissions' => [],
+            ],
+            [
+                'name' => 'student',
+                'permissions' => [],
+            ],
+        ];
+
+        foreach ($roles as $key => $roleData) {
+            $role = Role::create(['name' => $roleData['name']]);
+            $role->givePermissionTo($roleData['permissions']);
+            User::create([
+                'name' => ucwords(explode('-', $roleData['name'])[0]) . ' User',
+                'email' => $roleData['name'] . '@flightadmin.info',
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'remember_token' => Str::random(30),
+                'phone' => '+2547000000' . $key,
+                'title' => ucwords($roleData['name']),
+                'photo' => 'users/noimage.jpg',
+            ])->assignRole($role);
+        }
+
+        // Seed Subjects
         $subjects = ["Math", "English", "Kiswahili", "Chemistry", "Biology"];
         foreach ($subjects as $value) {
             Subject::create([
