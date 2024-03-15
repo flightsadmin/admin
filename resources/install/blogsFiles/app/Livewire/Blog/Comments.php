@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Blog;
 
-use App\Models\Reply;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,7 +40,6 @@ class Comments extends Component
         ]);
         $this->post->replies()->create([
             'user_id' => Auth::id(),
-            'comment_id' => $commentId,
             'content' => $this->replyContent,
         ]);
 
