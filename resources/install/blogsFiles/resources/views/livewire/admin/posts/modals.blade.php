@@ -7,18 +7,18 @@
             </div>
             <div class="modal-body">
                 @if ($post_id)
-                <div class="card h-100">
-                    <img class="rounded mb-2" src="{{ asset('storage/' . $image) }}"
-                        style="height:200px; width:100%" alt="{{ $title }}">
-                    <div class="card-body">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <div class="h4 mb-3">{{ $title }}</div>
-                            <span class="text-success float-end"> {{ $featured ? 'Featured' : '' }}</span>
-                            <div class="small text-muted float-end">{{ $published_at }}</div>
+                    <div class="card h-100">
+                        <img class="rounded mb-2" src="{{ asset('storage/' . $image) }}"
+                            style="height:200px; width:100%" alt="{{ $title }}">
+                        <div class="card-body">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div class="h4 mb-3">{{ $title }}</div>
+                                <span class="text-success float-end"> {{ $featured ? 'Featured' : '' }}</span>
+                                <div class="small text-muted float-end">{{ $published_at }}</div>
+                            </div>
+                            <div>{!! $body !!}</div>
                         </div>
-                        <div>{!! $body !!}</div>
                     </div>
-                </div>
                 @else
                     <p>Loading Post...</p>
                 @endif
@@ -43,39 +43,17 @@
             <div class="modal-body">
                 <form>
                     <div class="row">
-                        <div class="col-md-12 mb-3">
-                            <label for="body" class="form-label">Content</label>
-                            <div wire:ignore>
-                                <div x-data
-                                    x-ref="editor"
-                                    x-init="const quill = new Quill($refs.editor, {
-                                        theme: 'snow',
-                                        placeholder: 'Write something...',
-                                        modules: {
-                                            toolbar: [
-                                                [{ 'font': [] }, { 'size': [] }],
-                                                ['bold', 'italic', 'underline', 'strike', 'code'],
-                                                ['link', 'image', 'video'],
-                                                [{ list: 'ordered' }, { list: 'bullet' }],
-                                                ['blockquote', 'code-block'],
-                                                [{ 'align': [] }],
-                                                [{ 'color': [] }, { 'background': [] }],
-                                            ]
-                                        },
-                                    });
-                                    
-                                    quill.clipboard.dangerouslyPasteHTML(0, `{!! addslashes($body) !!}`)
-                                    
-                                    quill.on('text-change', () => {
-                                        $wire.set('body', quill.root.innerHTML)
-                                    });">{!! $body !!}
-                                </div>
-                                @error('body')
-                                    <div class="text-danger">{{ $message }}</div>
-                                @enderror
-                            </div>
+                        <div class="form-group col-md-12 mb-2">
+                            <label for="body">Content</label>
+                            <input id="body" type="hidden" wire:model.lazy="body">
+                            <trix-editor input="body" x-data="{}" x-on:trix-change="$wire.body = $event.target.value"
+                                x-ref="trix-editor"
+                                x-on:trix-initialize="$wire.post_id ? $refs['trix-editor'].editor.loadHTML($wire.body) : ''">
+                            </trix-editor>
+                            @error('body')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
                         </div>
-
                         <div class="col-md-6 mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input wire:model="title" type="text" id="title" name="title" class="form-control">
@@ -134,33 +112,3 @@
         </div>
     </div>
 </div>
-
-<!-- Success Message Toast  -->
-<div id="statusToast" class="toast position-fixed top-0 end-0 p-3 text-bg-success" style="margin-top:5px; margin-bottom:0px;" role="alert"
-    aria-live="assertive" aria-atomic="true">
-    <div class="toast-header text-bg-success">
-        <i class="me-2 bi-send-fill"></i>
-        <strong class="me-auto text-black">Success</strong>
-        <small class="text-white">{{ now() }}</small>
-        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-    <div class="toast-body text-black text-center">
-        {{ session('message') }}
-    </div>
-</div>
-
-@push('scripts')
-    <script type="module">
-        const genModal = new bootstrap.Modal('#dataModal');
-        const viewModal = new bootstrap.Modal('#viewModal');
-        window.addEventListener('closeModal', () => {
-            genModal.hide();
-            viewModal.hide();
-        });
-
-        const toast = new bootstrap.Toast('#statusToast');
-        window.addEventListener('closeModal', () => {
-            toast.show();
-        });
-    </script>
-@endpush

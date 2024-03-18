@@ -15,26 +15,36 @@
                             <label for="airline_id" class="form-label">Airline</label>
                             <select wire:model="airline_id" class="form-select  form-select-sm" id="airline_id">
                                 <option value="">Choose an option...</option>
-                                @foreach($airlines as $value)
-                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                @foreach ($airlines as $value)
+                                    <option value="{{ $value->id }}">{{ $value->name }}</option>
                                 @endforeach()
                             </select>
-                            @error('airline_id') <span class="text-danger small">{{ $message }}</span> @enderror
+                            @error('airline_id')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="numeric_code" class="form-label">Numeric Code</label>
-                            <input type="text" maxlength="2" class="form-control form-control-sm" id="numeric_code" wire:model.blur="numeric_code">
-                            @error('numeric_code') <span class="text-danger small">{{ $message }}</span> @enderror
+                            <input type="text" maxlength="2" class="form-control form-control-sm" id="numeric_code"
+                                wire:model.blur="numeric_code">
+                            @error('numeric_code')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="alpha_numeric_code" class="form-label">Alpha Numeric</label>
-                            <input type="text" class="form-control form-control-sm" id="alpha_numeric_code" wire:model.blur="alpha_numeric_code">
-                            @error('alpha_numeric_code') <span class="text-danger small">{{ $message }}</span> @enderror
+                            <input type="text" class="form-control form-control-sm" id="alpha_numeric_code"
+                                wire:model.blur="alpha_numeric_code">
+                            @error('alpha_numeric_code')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="description" class="form-label">Description</label>
                             <input type="text" class="form-control form-control-sm" id="description" wire:model.blur="description">
-                            @error('description') <span class="text-danger small">{{ $message }}</span> @enderror
+                            @error('description')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="form-group col-md-6 mb-2">
                             <label for="accountable" class="form-label">Accountable</label>
@@ -47,7 +57,9 @@
                                 <option value="Customs">Customs</option>
                                 <option value="Police">Police</option>
                             </select>
-                            @error('accountable') <span class="text-danger small">{{ $message }}</span> @enderror
+                            @error('accountable')
+                                <span class="text-danger small">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </form>
@@ -59,30 +71,3 @@
         </div>
     </div>
 </div>
-
-<!-- Success Message Toast  -->
-<div  id="statusToast" class="toast position-fixed top-0 end-0 p-3 text-bg-success" style="margin-top:5px; margin-bottom:0px;" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="toast-header text-bg-success">
-    <i class="me-2 bi-send-fill"></i>
-    <strong class="me-auto text-black">Success</strong>
-    <small class="text-white">{{ now() }}</small>
-    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-  </div>
-  <div class="toast-body text-black text-center">
-    {{ session('message') }}
-  </div>
-</div>
-
-@push('scripts')
-    <script type="module">
-        const genModal = new bootstrap.Modal('#dataModal');
-        window.addEventListener('closeModal', () => {
-            genModal.hide();
-        });
-
-        const toast = new bootstrap.Toast('#statusToast');
-        window.addEventListener('closeModal', () => {
-            toast.show();
-        });
-    </script>
-@endpush
