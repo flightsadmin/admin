@@ -86,8 +86,8 @@ class Users extends Component
     }
 
     public function details() {
-        $user = auth()->user();
-        return view('livewire.admin.users.details', compact('user'));
+        $this->edit(auth()->user()->id);
+        return view('livewire.admin.users.details');
     }
 
     public function destroy($userId)
