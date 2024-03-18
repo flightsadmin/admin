@@ -33,9 +33,9 @@ class Install extends Command
 
             $this->defaultSetting();
             $this->defaultInstall();
+            $this->updateComposer();
             $this->rosterInstall();
             $this->flightInstall();
-            $this->updateComposer();
             $this->shopInstall();
             $this->blogInstall();
             $this->schoolInstall();
@@ -66,7 +66,6 @@ class Install extends Command
             $this->warn('Running: <info>npm install</info> Please wait...');
             exec('npm install');
 
-            //Install Social Login
             $this->installAdminLTE();
 
             $this->warn('Running: <info>npm run build</info> Please wait...');
