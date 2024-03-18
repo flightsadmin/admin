@@ -23,7 +23,7 @@ class Comment extends Model
 
     public function replies()
     {
-        return $this->morphMany(Reply::class, 'replieable');
+        return $this->morphMany(Reply::class, 'repliable');
     }
 
     public function commentable()

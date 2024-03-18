@@ -55,11 +55,6 @@ class Post extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
-
-    public function replies()
-    {
-        return $this->morphMany(Reply::class, 'replieable');
-    }
     
     public function likes() {
         return $this->morphMany(Like::class, 'likeable');

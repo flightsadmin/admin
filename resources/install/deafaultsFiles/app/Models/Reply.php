@@ -21,7 +21,7 @@ class Reply extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function replieable()
+    public function repliable()
     {
         return $this->morphTo();
     }

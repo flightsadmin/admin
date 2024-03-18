@@ -5,11 +5,13 @@
             <div class="card-body">
                 <div class="d-flex gap-4">
                     <form class="col-md-10 mb-4">
-                        <textarea wire:model="commentContent" class="form-control" rows="2" placeholder="Join the discussion and leave a comment!"></textarea>
-                        @error('commentContent') <span class="text-danger small">{{ $message }}</span> @enderror
+                        <textarea wire:model="content" class="form-control" rows="2" placeholder="Join the discussion and leave a comment!"></textarea>
+                        @error('content')
+                            <span class="text-danger small">{{ $message }}</span>
+                        @enderror
                     </form>
                     <span class="col-md-2">
-                        <button wire:click.prevent="addComment({{$post}})" class="btn btn-sm btn-primary"> Save Comment</button>
+                        <button wire:click.prevent="saveComment" class="btn btn-sm btn-primary"> Save Comment</button>
                     </span>
                 </div>
             </div>
@@ -25,7 +27,7 @@
         <div wire:key="{{ $comment->id }}" class="d-flex row">
             <div class="d-flex mb-4 col-md-8">
                 <div class="flex-shrink-0">
-                    <img class="rounded-circle profile-img" src="{{ asset('storage/' . $post->author->photo) }}"
+                    <img class="rounded-circle profile-img" src="{{ asset('storage/' . $model->author->photo) }}"
                         alt="..." />
                 </div>
                 <div class="ms-4">
@@ -39,13 +41,7 @@
                         Reply <span class="bi-chat-text"></span>
                     </button>
                     @if ($toggleReply)
-                        <form wire:submit.prevent="addReply({{ $comment->id }})">
-                            <div class="d-flex gap-2">
-                                <input class="form-control form-control-sm" type="text" wire:model="replyContent" placeholder="Add a reply">
-                                <button class="btn btn-sm btn-info float-end" type="submit"> Reply</button>
-                            </div>
-                            @error('replyContent') <span class="text-danger small">{{ $message }}</span> @enderror
-                        </form>
+                        @livewire('action.reply', ['comment' => $comment], key($comment->id))
                     @endif
                 @endauth
             </div>

@@ -70,7 +70,7 @@
                     <div class="col-lg-6 col-md-6 border">
                         <p class="d-inline-block me-2">Discussions</p>
                         <div class="review-box">
-                            @livewire('shop.comments', ['product' => $product])
+                            @livewire('action.comments', ['model' => $product])
                         </div>
                     </div>
                 </div>
