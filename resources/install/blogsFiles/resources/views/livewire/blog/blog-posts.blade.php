@@ -48,8 +48,8 @@
                         <div class="card-body">
                             <div class="p-4 mb-3 bg-body-tertiary rounded">
                                 <h4 class="fst-italic">About</h4>
-                                <p class="mb-0">{{ setting('site_name') ?? config('app.name') }} is about simplicity. <br>
-                                    {{ config('admin.purpose') }}, and get to know what's up around your world with our blog section.</p>
+                                <p class="mb-0">{{ setting('site_name') ?? config('app.name') }} is about simplicity.Get to know what's up
+                                    around your world with our blog section.</p>
                             </div>
                             <div>
                                 <h4 class="fst-italic">Featured posts</h4>
