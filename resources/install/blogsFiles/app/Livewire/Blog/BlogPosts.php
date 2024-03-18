@@ -39,11 +39,11 @@ class BlogPosts extends Component
 
     public function render()
     {
-        // $archives = Post::selectRaw('YEAR(published_at) as year, MONTH(published_at) as month')
-        //     ->groupBy('year', 'month')->latest('year')->latest('month')->get();
+        $archives = Post::selectRaw('YEAR(published_at) as year, MONTH(published_at) as month')
+            ->groupBy('year', 'month')->latest('year')->latest('month')->get();
         
-        $archives = Post::selectRaw("strftime('%Y', published_at) as year, strftime('%m', published_at) as month")
-            ->groupBy('year', 'month')->orderBy('year', 'desc')->orderBy('month', 'desc')->get(); //For Sqllite
+        // $archives = Post::selectRaw("strftime('%Y', published_at) as year, strftime('%m', published_at) as month")
+        //     ->groupBy('year', 'month')->orderBy('year', 'desc')->orderBy('month', 'desc')->get(); //For Sqllite
 
         $posts = Post::where('published_at', '<=', Carbon::now())->latest()->paginate(10);
 
