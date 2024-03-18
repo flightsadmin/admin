@@ -21,7 +21,7 @@ class Grades extends Component
         $grades = Grade::with('students')
             ->orWhere('name', 'LIKE', $keyWord)
             ->paginate();
-        return view('livewire.admin.school.grades.view', [
+        return view('livewire.school.grades.view', [
             'grades' => $grades
         ])->extends('components.layouts.admin');
     }
@@ -68,7 +68,7 @@ class Grades extends Component
             $days->push($dayInfo);
         }
 
-        return view('livewire.admin.school.grades.details', [
+        return view('livewire.school.grades.details', [
             'grade' => $grade,
             'days' => $days,
         ]);

@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    @include('livewire.admin.school.schedules.modals')
+    @include('livewire.school.schedules.modals')
 
     <script>
         document.addEventListener('livewire:initialized', function() {

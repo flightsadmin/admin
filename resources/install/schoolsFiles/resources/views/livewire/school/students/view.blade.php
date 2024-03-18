@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="card-body">
-                @include('livewire.admin.school.students.modals')
+                @include('livewire.school.students.modals')
                 <div class="row">
                     @forelse($students as $row)
                         <div class="col-md-6 border d-flex justify-content-between">
@@ -54,11 +54,3 @@
         </div>
     </div>
 </div>
-@push('scripts')
-    <script type="module">
-        const genModal = new bootstrap.Modal('#dataModal');
-        window.addEventListener('closeModal', () => {
-            genModal.hide();
-        });
-    </script>
-@endpush

@@ -18,7 +18,7 @@ class Guardians extends Component
     public function render()
     {
         $parents = Guardian::with('students', 'user')->paginate();
-        return view('livewire.admin.school.parents.view', [
+        return view('livewire.school.parents.view', [
             'parents' => $parents
         ])->extends('components.layouts.admin');
     }
@@ -70,7 +70,7 @@ class Guardians extends Component
     public function details($id)
     {
         $parent = Guardian::findOrFail($id);
-        return view('livewire.admin.school.parents.details', [
+        return view('livewire.school.parents.details', [
             'parent' => $parent
         ]);
     }

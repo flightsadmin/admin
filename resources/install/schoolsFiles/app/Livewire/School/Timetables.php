@@ -67,7 +67,7 @@ class Timetables extends Component
             ];
         }
 
-        return view('livewire.admin.school.schedules.timetables', [
+        return view('livewire.school.schedules.timetables', [
             'timetables' => $timetables
         ])->extends('components.layouts.admin');
     }

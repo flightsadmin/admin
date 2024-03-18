@@ -22,7 +22,7 @@ class Schedules extends Component
         $classes = Grade::all();
         $subjects = Subject::all();
         return view(
-            'livewire.admin.school.schedules.view',
+            'livewire.school.schedules.view',
             compact('classes', 'subjects', 'timetables')
         )->extends('components.layouts.admin');
     }

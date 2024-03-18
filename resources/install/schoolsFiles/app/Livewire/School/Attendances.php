@@ -24,7 +24,7 @@ class Attendances extends Component
         $totalAttendance = Attendance::whereDate('date', $this->attendanceDate)
             ->where('status', true)->get();
 
-        return view('livewire.admin.school.attendances.view', [
+        return view('livewire.school.attendances.view', [
             'students' => $this->students,
             'totalAttendance' => $totalAttendance,
         ])->extends('components.layouts.admin');

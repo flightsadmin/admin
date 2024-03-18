@@ -18,7 +18,7 @@ class Boards extends Component
         $boards = Board::latest()
                     ->orWhere('title', 'LIKE', $keyWord)
                     ->paginate();
-        return view('livewire.admin.school.boards.view', [
+        return view('livewire.school.boards.view', [
             'boards' => $boards
         ])->extends('components.layouts.admin');
     }
@@ -47,7 +47,7 @@ class Boards extends Component
 
     public function details($id) {
         $board = Board::findOrFail($id);
-        return view('livewire.admin.school.boards.details', [
+        return view('livewire.school.boards.details', [
             'board' => $board
         ]);
     }

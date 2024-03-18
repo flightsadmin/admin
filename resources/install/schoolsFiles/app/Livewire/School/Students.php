@@ -20,7 +20,7 @@ class Students extends Component
     public function render()
     {
         $students = Student::with('parent', 'grade')->paginate();
-        return view('livewire.admin.school.students.view', [
+        return view('livewire.school.students.view', [
             'students' => $students,
             'classes' => Grade::all(),
             'parents' => Guardian::all()
@@ -85,7 +85,7 @@ class Students extends Component
     public function details($id)
     {
         $student = Student::findOrFail($id);
-        return view('livewire.admin.school.students.details', [
+        return view('livewire.school.students.details', [
             'student' => $student
         ]);
     }

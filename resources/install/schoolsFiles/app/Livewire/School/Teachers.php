@@ -20,7 +20,7 @@ class Teachers extends Component
     public function render()
     {
         $teachers = Teacher::with('classes', 'subjects')->paginate();
-        return view('livewire.admin.school.teachers.view', [
+        return view('livewire.school.teachers.view', [
             'teachers' => $teachers,
             'classes' => Grade::all(),
             'lessons' => Subject::all()
@@ -85,7 +85,7 @@ class Teachers extends Component
     public function details($id)
     {
         $teacher = Teacher::findOrFail($id);
-        return view('livewire.admin.school.teachers.details', [
+        return view('livewire.school.teachers.details', [
             'teacher' => $teacher
         ]);
     }
