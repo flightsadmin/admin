@@ -22,7 +22,7 @@ class Registrations extends Component
         $registrations = Registration::with('airline')
         ->orWhere('registration', 'LIKE', $keyWord)
         ->paginate();
-        return view('livewire.admin.registrations.view', compact('registrations'))->extends('components.layouts.admin');
+        return view('livewire.flight.registrations.view', compact('registrations'))->extends('components.layouts.admin');
     }
 
     public function store()

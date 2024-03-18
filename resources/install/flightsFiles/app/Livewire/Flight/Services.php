@@ -19,7 +19,7 @@ class Services extends Component
         $services = ServiceList::latest()
                     ->orWhere('service', 'LIKE', $keyWord)
                     ->paginate();
-        return view('livewire.admin.services.view', [
+        return view('livewire.flight.services.view', [
             'services' => $services
         ])->extends('components.layouts.admin');
     }

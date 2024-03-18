@@ -24,7 +24,7 @@ class Delays extends Component
                     ->orWhere('airline_id', 'LIKE', $keyWord)
                     ->orderBy('numeric_code', 'asc')
                     ->paginate();
-        return view('livewire.admin.delays.view', [
+        return view('livewire.flight.delays.view', [
             "delays" => $delays,
             "airlines" => Airline::all(),
         ])->extends('components.layouts.admin');

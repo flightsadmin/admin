@@ -10,7 +10,6 @@ use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use Spatie\Permission\Models\Permission;
 
 class Users extends Component
 {
@@ -47,9 +46,11 @@ class Users extends Component
         } else {
             unset($validatedData['password']);
         }
-
+        
         $user = User::updateOrCreate(['id' => $this->userId], $validatedData);
-        $user->syncRoles($this->selectedRoles);
+        $user->syncRoles(collect($this->selectedRoles)->map(function ($role) {
+            return (int)$role;
+        }));
         
         if($user->wasRecentlyCreated){
             $emailData = [

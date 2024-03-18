@@ -25,7 +25,7 @@ class Airlines extends Component
                     ->orWhere('name', 'LIKE', $keyWord)
                     ->orWhere('iata_code', 'LIKE', $keyWord)
                     ->paginate();
-        return view('livewire.admin.airlines.view', [
+        return view('livewire.flight.airlines.view', [
             'airlines' => $airlines
         ])->extends('components.layouts.admin');
     }
