@@ -25,10 +25,8 @@ class Reply extends Component
             'content' => $this->content,
             'user_id' => auth()->id(),
         ]);
-
+        $this->dispatch('ReplyAdded');
         $this->reset(['content']);
-
-        session()->flash('success', 'Reply added successfully.');
     }
 
     public function render()

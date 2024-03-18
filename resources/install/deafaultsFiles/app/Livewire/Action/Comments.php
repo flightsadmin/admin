@@ -5,13 +5,15 @@ namespace App\Livewire\Action;
 use App\Models\Post;
 use App\Models\Product;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 
 class Comments extends Component
 {
     public $model;
     public $toggleReply;
     public $content;
+
+    #[On("ReplyAdded")]
     public function render()
     {
         return view('livewire.admin.action.comment', [
@@ -35,7 +37,7 @@ class Comments extends Component
             'active' => true,
             'content' => $this->content,
         ]);
-
+        
         $this->reset(['content']);
     }
 }
