@@ -33,8 +33,11 @@ class Services extends Component
 
         ServiceList::updateOrCreate(['id' => $this->service_id], $validatedData);
 
-        $this->dispatch('closeModal');
-        session()->flash('message', 'Service created successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $this->service_id ? 'Service Updated Successfully.' : 'Service Created Successfully.',
+        );
         $this->reset();
     }
 
@@ -49,6 +52,10 @@ class Services extends Component
     public function destroy($id)
     {
         ServiceList::find($id)->delete();
-        session()->flash('message', 'Service Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Service Deleted Successfully.',
+        );
     }
 }

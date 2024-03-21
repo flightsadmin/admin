@@ -56,7 +56,11 @@ class Students extends Component
                     'date_of_birth' => $validatedData['date_of_birth'],
                     'address' => $validatedData['address'],
                 ]);
-                $this->alert();
+                $this->dispatch(
+                    'closeModal',
+                    icon: 'success',
+                    message: $this->student_id ? 'Student Updated Successfully.' : 'Student Created Successfully.',
+                );
                 $this->reset();
             });
         } catch (\Throwable $th) {
@@ -88,15 +92,6 @@ class Students extends Component
         return view('livewire.school.students.details', [
             'student' => $student
         ]);
-    }
-
-    public function alert()
-    {
-        $this->dispatch(
-            'closeModal',
-            icon: "success",
-            message: $this->student_id ? 'Student Updated Successfully.' : 'Student Created Successfully.',
-        );
     }
 
     public function generateUserName()

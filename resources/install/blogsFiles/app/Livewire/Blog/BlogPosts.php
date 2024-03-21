@@ -4,13 +4,10 @@ namespace App\Livewire\Blog;
 
 use Carbon\Carbon;
 use App\Models\Post;
-use App\Models\Comment;
 use Livewire\Component;
 use App\Models\Category;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
 class BlogPosts extends Component
 {

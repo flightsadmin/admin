@@ -73,9 +73,12 @@ class Flights extends Component
             'scheduled_time_departure'  => 'required|date',
             'flight_type'               => 'required|in:arrival,departure'
         ]);
-        $flight = Flight::updateOrCreate(['id' => $this->flight_id], $validatedData);
-        $this->dispatch('closeModal');
-        session()->flash('message', $this->flight_id ? 'Flight Updated Successfully.' : 'Flight Created Successfully.');
+        Flight::updateOrCreate(['id' => $this->flight_id], $validatedData);
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $this->flight_id ? 'Flight Updated Successfully.' : 'Flight Created Successfully.',
+        );
         $this->reset(['airline_id', 'flight_no', 'registration', 'origin', 'destination', 'scheduled_time_arrival', 'scheduled_time_departure', 'flight_type']);
     }
 
@@ -96,7 +99,11 @@ class Flights extends Component
     public function destroy($id)
     {
         Flight::find($id)->delete();
-        session()->flash('message', 'Flight Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Flight Deleted Successfully.',
+        );
     }
 
     public function viewFlight($id)
@@ -154,14 +161,22 @@ class Flights extends Component
                 'finish' => $flight['finish'],
             ]);
         }
-        session()->flash('message', 'Service Added Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Service Created Successfully.',
+        );
         $this->reset(['ServiceTypes']);
     }
 
     public function destroyService($flight)
     {
         Service::where([['flight_id', $this->flight_id], ['service_id', $flight]])->delete();
-        session()->flash('message', 'Service Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Service Deleted Successfully.',
+        );
     }
 
     // Movement Methods
@@ -232,8 +247,11 @@ class Flights extends Component
             $message->subject('MVT '. $emailData['mvt']['flight']['flight_no']);
             $message->to(array_unique($emailData['recipients']));
         });
-        $this->dispatch('closeModal');
-        session()->flash('message', 'Movement Sent successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Movement Send Successfully.',
+        );
         $this->reset(['touchdown', 'onblocks', 'offblocks', 'airborne', 'passengers', 'remarks', 'delayCodes']);
     }
 

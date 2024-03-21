@@ -39,8 +39,11 @@ class Registrations extends Component
         ]);
 
         $this->reset();
-        $this->dispatch('closeModal');
-        session()->flash('message', $this->registration_id ? 'Registration Updated Successfully.' : 'Registration Created Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $this->registration_id ? 'Registration Updated Successfully.' : 'Registration Created Successfully.',
+        );
     }
 
     public function edit($id)
@@ -55,7 +58,11 @@ class Registrations extends Component
     public function destroy($id)
     {
         Registration::findOrFail($id)->delete();
-        session()->flash('message', 'Registration Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Registration Deleted Successfully.',
+        );
     }
 
     public function registrationSample()
@@ -127,7 +134,11 @@ class Registrations extends Component
             $importedRegistrations[] = $registrationNumber;
         }
     
-        session()->flash('message', 'Airlines Imported Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Registration Imported Successfully.',
+        );
         return $this->redirect(route('admin.registrations'), true);
     }
 }

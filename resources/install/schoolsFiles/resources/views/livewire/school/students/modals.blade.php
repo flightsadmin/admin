@@ -93,3 +93,11 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script type="module">
+        const genModal = new bootstrap.Modal('#dataModal');
+        window.addEventListener('closeModal', () => {
+            genModal.hide();
+        });
+    </script>
+@endpush

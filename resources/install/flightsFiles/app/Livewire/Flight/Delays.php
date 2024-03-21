@@ -42,8 +42,11 @@ class Delays extends Component
 
         AirlineDelayCode::create($validatedData);
 
-        $this->dispatch('closeModal');
-        session()->flash('message', 'Delay Code Created successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $this->delay_id ? 'Delay Updated Successfully.' : 'Delay Created Successfully.',
+        );
         $this->reset();
     }
 
@@ -122,7 +125,11 @@ class Delays extends Component
             $delay->save();
         }
 
-        session()->flash('message', 'Delays Imported Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Delays Imported Successfully.',
+        );
         return $this->redirect(route('admin.delays'), true);
     }
 }

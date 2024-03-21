@@ -57,8 +57,12 @@ class Schedules extends Component
     public function deleteSelected()
     {
         Timetable::whereIn('id', $this->selectedFlights)->delete();
-        $this->reset(['selectedFlights']);
-        session()->flash('message', 'Selected flights deleted successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Selected Flights Successfully.',
+        );
+        $this->reset(['selectedFlights']);        
     }
 
     public function createFlights()
@@ -81,7 +85,11 @@ class Schedules extends Component
                 $date = $date->next($day);
             }
         }
-        session()->flash('message', 'Schedule Created Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Schedule Created Successfully.',
+        );
         $this->reset(['selectedDays', 'flightNumbers', 'flightFields']);
     }
 }

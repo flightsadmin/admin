@@ -41,8 +41,11 @@ class Airlines extends Component
 
         Airline::updateOrCreate(['id' => $this->airline_id], $validatedData);
 
-        $this->dispatch('closeModal');
-        session()->flash('message', 'Airline created successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $this->airline_id ? 'Airline Updated Successfully.' : 'Airline Created Successfully.',
+        );
         $this->reset();
     }
 
@@ -59,7 +62,11 @@ class Airlines extends Component
     public function destroy($id)
     {
         Airline::findOrFail($id)->delete();
-        session()->flash('message', 'Airline Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Airline Deleted Successfully.',
+        );
     }
 
     public function addEmail($email)
@@ -96,8 +103,11 @@ class Airlines extends Component
                 'airline_id' => $validatedData['airline_id'],
             ]);
         }
-        $this->dispatch('closeModal');
-        session()->flash('message', $route->wasRecentlyCreated ? 'Route Created successfully.' : 'Route Updated successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $route->wasRecentlyCreated ? 'Route Created successfully.' : 'Route Updated successfully.',
+        );
         $this->reset();
     }
 
@@ -114,7 +124,11 @@ class Airlines extends Component
     public function deleteRoute($id)
     {
         Address::findOrFail($id)->delete();
-        session()->flash('message', 'Route Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Route Deleted Successfully.',
+        );
     }
 
     public function downloadAirlines()

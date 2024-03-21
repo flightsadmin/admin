@@ -47,8 +47,12 @@ class Products extends Component
         }
         $product = Product::updateOrCreate(['id' => $this->product_id], $validatedData);
         $product->categories()->sync($this->categories);
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $this->product_id ? 'Product Updated Successfully.' : 'Product Created Successfully.',
+        );
         $this->reset();
-        $this->dispatch('closeModal');
     }
 
     public function edit($id)
@@ -104,5 +108,10 @@ class Products extends Component
             Storage::disk('public')->delete($product->image);
         }
         $product->delete();
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Product Deleted Successfully.',
+        );
     }
 }

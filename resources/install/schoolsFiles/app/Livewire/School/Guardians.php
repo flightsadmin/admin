@@ -49,7 +49,11 @@ class Guardians extends Component
                     'address' => $validatedData['address'],
                 ]);
             });
-            $this->alert();
+            $this->dispatch(
+                'closeModal',
+                icon: 'success',
+                message: $this->parent_id ? 'Guardian Updated Successfully.' : 'Guardian Created Successfully.',
+            );
             $this->reset();
         } catch (\Throwable $th) {
             throw $th;
@@ -74,16 +78,7 @@ class Guardians extends Component
             'parent' => $parent
         ]);
     }
-
-    public function alert()
-    {
-        $this->dispatch(
-            'closeModal',
-            icon: "success",
-            message: $this->parent_id ? 'Guardian Updated Successfully.' : 'Guardian Created Successfully.',
-        );
-    }
-
+    
     public function destroy($id)
     {
         Guardian::findOrFail($id)->delete();

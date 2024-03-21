@@ -51,6 +51,11 @@ class Timetables extends Component
         )->validate();
 
         Timetable::findOrFail($id)->update($validated);
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Timetable Updated Successfully',
+        );
     }
 
     public function render()

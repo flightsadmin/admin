@@ -50,9 +50,12 @@ class Posts extends Component
         }
         $post = Post::updateOrCreate(['id' => $this->post_id], $validatedData);
         $post->categories()->sync($this->categories); 
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $this->post_id ? 'Post Updated Successfully.' : 'Post Created Successfully.',
+        );
         $this->reset();
-        $this->dispatch('closeModal');
-        session()->flash('message', $this->post_id ? 'Post Updated Successfully.' : 'Post Created Successfully.');
     }
 
     public function edit($id)
@@ -76,27 +79,10 @@ class Posts extends Component
             Storage::disk('public')->delete($post->image);
         }
         $post->delete();
-        session()->flash('message', 'Post Deleted Successfully.');
-    }
-
-    public function seedPosts() {
-        $faker = Factory::create();
-        $users = User::all();
-        foreach ($users as $user) {
-            for ($i=0; $i < $this->postCount; $i++) { 
-                $title = $faker->realText(20);
-                $post = Post::create([
-                    'user_id' => $user->id,
-                    'title' => preg_replace('/[^A-Za-z0-9 ]/', '', $title),
-                    'slug' => strtolower(str_replace(' ', '-', preg_replace('/[^A-Za-z0-9 ]/', '', $title))),
-                    'image' => 'posts/default.png',
-                    'body' => $faker->realTextBetween(2000, 5000, 2),
-                    'published_at' => $faker->dateTimeBetween('-1 Month', '+1 Month'),
-                    'featured' => $faker->boolean(10)
-                ]);
-                $post->categories()->attach($faker->randomElements(['1', '2', '3', '4', '5', '6', '7', '8', '9'], $faker->randomDigitNotNull()));
-            }
-        }
-        $this->reset('postCount');
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Post Deleted Successfully.',
+        );
     }
 }

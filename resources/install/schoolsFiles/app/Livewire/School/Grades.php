@@ -35,7 +35,11 @@ class Grades extends Component
 
         Grade::updateOrCreate(['id' => $this->grade_id], $validatedData);
 
-        $this->alert();
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: $this->grade_id ? 'Grade Updated Successfully.' : 'Grade Created Successfully.',
+        );
         $this->reset();
     }
 
@@ -74,18 +78,13 @@ class Grades extends Component
         ]);
     }
 
-    public function alert()
-    {
-        $this->dispatch(
-            'closeModal',
-            icon: "success",
-            message: $this->grade_id ? 'Class Updated Successfully.' : 'Class Created Successfully.',
-        );
-    }
-
     public function destroy($id)
     {
         Grade::findOrFail($id)->delete();
-        session()->flash('message', 'Grade Deleted Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Grade Deleted Successfully.',
+        );
     }
 }

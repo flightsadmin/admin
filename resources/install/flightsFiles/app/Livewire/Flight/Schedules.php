@@ -45,9 +45,13 @@ class Schedules extends Component
 
     public function deleteSelected()
     {
-        $deletedFlights = Flight::whereIn('id', $this->selectedFlights)->delete();
+        Flight::whereIn('id', $this->selectedFlights)->delete();
+        $this->dispatch(
+            'closeModal',
+            icon: 'warning',
+            message: 'Selected Flights Deleted Successfully.',
+        );
         $this->reset(['selectedFlights']);
-        session()->flash('message', 'Selected flights deleted successfully.');
     }
 
     public function createFlights()
@@ -76,9 +80,13 @@ class Schedules extends Component
                 $date = $date->next($day);
             }
         }
-        session()->flash('message', 'Schedule Created Successfully.');
-        return $this->redirect(route('admin.flights'), true);
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Schedule Created Successfully.',
+        );
         $this->reset(['selectedDays', 'flightNumbers', 'flightFields']);
+        return $this->redirect(route('admin.flights'), true);
     }
 
     public function import()
@@ -110,7 +118,11 @@ class Schedules extends Component
             $flight->save();
         }
 
-        session()->flash('message', 'Schedule Imported Successfully.');
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Schedule Imported Successfully.',
+        );
         return $this->redirect(route('admin.flights'), true);
     }
 

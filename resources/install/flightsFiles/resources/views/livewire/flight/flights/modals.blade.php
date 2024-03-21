@@ -345,3 +345,13 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script type="module">
+        const genModal = new bootstrap.Modal('#dataModal');
+        const mvtModal = new bootstrap.Modal('#mvtModal');
+        window.addEventListener('closeModal', () => {
+            genModal.hide();
+            mvtModal.hide();
+        });
+    </script>
+@endpush

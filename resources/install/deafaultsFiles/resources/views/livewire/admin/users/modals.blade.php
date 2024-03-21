@@ -8,7 +8,7 @@
             </div>
             <div class="modal-body">
                 @if ($userId)
-                <div class="col-12 bg-white px-3 mb-3 pb-3">
+                <div class="col-12 px-3 mb-3 pb-3">
                     <div class="d-flex flex-column align-items-center border-bottom">
                         <img class="profile-img mb-2" src="{{ asset('storage/' . $photo) }}"  style="height:100px; width:100px;"  alt="{{ $title }}">
                     </div>
@@ -143,3 +143,11 @@
         </div>
     </div>
 </div>
+@push('scripts')
+    <script type="module">
+        const genModal = new bootstrap.Modal('#dataModal');
+        window.addEventListener('closeModal', () => {
+            genModal.hide();
+        });
+    </script>
+@endpush

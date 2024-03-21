@@ -59,7 +59,11 @@ class Teachers extends Component
 
                 $teacher->classes()->sync($this->grades);
                 $teacher->subjects()->sync($this->subjects);
-                $this->alert();
+                $this->dispatch(
+                    'closeModal',
+                    icon: 'success',
+                    message: $this->teacher_id ? 'Teacher Updated Successfully.' : 'Teacher Created Successfully.',
+                );
                 $this->reset();
             });
         } catch (\Throwable $th) {

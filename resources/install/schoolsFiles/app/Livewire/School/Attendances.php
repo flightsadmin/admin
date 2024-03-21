@@ -40,11 +40,6 @@ class Attendances extends Component
                 'status' => $status,
             ]);
         }
-        $this->alert();
-    }
-
-    public function alert()
-    {
         $this->dispatch(
             'closeModal',
             icon: 'success',
