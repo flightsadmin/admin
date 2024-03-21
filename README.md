@@ -7,7 +7,8 @@ Get multiple admin panels using different branches of this package. Below Module
 
 | # | Module   |      Branch      |  Installation |
 |:------ |:----------|:-------------|:------|
-| ✅ | Flights Admin |  main | ` composer require flightsadmin/admin:dev-main ` |
+| ✅ | All Modules |  main | ` composer require flightsadmin/admin:dev-main ` |
+| ✅ | Flights Admin |  flight | ` composer require flightsadmin/admin:dev-flight ` |
 | ✅ | School Admin |  school | ` composer require flightsadmin/admin:dev-school ` |
 | ✅ | Shop Admin |  shop | ` composer require flightsadmin/admin:dev-shop  ` |
 | ✅ | Blog Admin |  blog | ` composer require flightsadmin/admin:dev-blog ` |
