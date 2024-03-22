@@ -29,9 +29,9 @@ class Rosters extends Component
     public function render()
     {
         $users = User::all();
-        $roster = Roster::fetchRoster()->groupBy('date');
-        $dates = $roster->keys()->all();
-        return view('livewire.admin.rosters.view', compact('users', 'roster', 'dates'))->extends('components.layouts.admin');
+        $rosters = Roster::fetchRoster()->groupBy('date');
+        $dates = $rosters->keys()->all();
+        return view('livewire.admin.rosters.view', compact('users', 'rosters', 'dates'))->extends('components.layouts.admin');
     }
     public function addRosters()
     {
