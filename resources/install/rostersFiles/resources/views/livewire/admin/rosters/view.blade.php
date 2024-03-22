@@ -99,44 +99,33 @@
                 <div class="table-responsive">
                     <table class="table table-bordered">
                         <thead>
-                            @php
-                                $uniqueDates = [];
-                                foreach ($roster as $rosters) {
-                                    foreach ($rosters as $roster) {
-                                        $uniqueDates[] = $roster['date'];
-                                    }
-                                }
-                                $uniqueDates = array_unique($uniqueDates);
-                            @endphp
                             <tr>
-
-                                <th class="text-center" colspan="100%">{{ date('M', strtotime($uniqueDates[0] ?? 'Month')) }}</th>
-                            </tr>
-                            <tr>
-                                <th>Name</th>
-
-                                @foreach ($uniqueDates as $date)
-                                    <th class="text-center">{{ date('d D', strtotime($date)) }}</th>
+                                <th>User</th>
+                                @foreach ($dates as $date)
+                                    <th>{{ date("D d-M", strtotime($date)) }}</th>
                                 @endforeach
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($roster as $userId => $rosters)
+                            @foreach ($users as $user)
                                 <tr>
-                                    {{-- TODO --}}
-                                    {{-- <td>{{ $rosters[0]['user']['name'] }}</td>
-                                    @foreach ($rosters as $roster)
-                                        <td class="text-center" >
-                                            {{ $roster['shift_start'] ? date('Hi', strtotime($roster['shift_start'])) . "-" : 'DOF' }}
-                                            {{ $roster['shift_end'] ? date('Hi', strtotime($roster['shift_end'])) : '' }}
+                                    <td>{{ $user->name }}</td>
+                                    @foreach ($dates as $date)
+                                        <td>
+                                            @foreach ($roster[$date] as $r)
+                                                @if ($r->user_id == $user->id)
+                                                    {{ $r->shift_start ? $r->shift_start->format('Hi') : '' }}-{{ $r->shift_end ? $r->shift_end->format('Hi') : '' }}
+                                                @endif
+                                            @endforeach
                                         </td>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
+            
         </div>
     </div>
 </div>

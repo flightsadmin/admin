@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Roster;
+namespace App\Livewire;
 
 use Carbon\Carbon;
 use App\Models\User;
@@ -11,9 +11,14 @@ use Livewire\WithPagination;
 class Rosters extends Component
 {
     use WithPagination;
+
     protected $paginationTheme = 'bootstrap';
     public $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-    public $staffRosters = [], $selectedDays = [], $rosterFields = [], $startDate, $endDate;
+    public $staffRosters = [];
+    public $selectedDays = [];
+    public $rosterFields = [];
+    public $startDate;
+    public $endDate;
 
     public function mount()
     {
@@ -24,10 +29,10 @@ class Rosters extends Component
     public function render()
     {
         $users = User::all();
-        $roster = Roster::fetchRoster();
-        return view('livewire.admin.rosters.view', compact('users', 'roster'))->extends('components.layouts.admin');
+        $roster = Roster::fetchRoster()->groupBy('date');
+        $dates = $roster->keys()->all();
+        return view('livewire.admin.rosters.view', compact('users', 'roster', 'dates'))->extends('components.layouts.admin');
     }
-
     public function addRosters()
     {
         $this->staffRosters[] = rand(100, 999);
@@ -41,44 +46,30 @@ class Rosters extends Component
 
     public function createRosters()
     {
-        foreach ($this->staffRosters as $index => $roster) {
+        foreach ($this->staffRosters as $rostered) {
             foreach ($this->days as $day) {
-                if (!in_array("$roster-$day", $this->selectedDays)) {
-                    $date = Carbon::parse($this->startDate)->next(strtolower($day));
+                $date = Carbon::parse($this->startDate)->next(strtolower($day));
 
-                    while ($date->lte($this->endDate)) {
-                        $rosterData = [
-                            'date' => $date,
-                            'user_id' => $this->rosterFields[$roster]['user_id'],
-                            'shift_start' => $date->format('Y-m-d ') . $this->rosterFields[$roster]['shift_start'],
-                            'shift_hours' => $this->rosterFields[$roster]['shift_hours'],
-                        ];
-                        $rosterData['shift_end'] = Carbon::parse($rosterData['shift_start'])->copy()->addHours($rosterData['shift_hours'])->toDateTimeString();
+                while ($date->lte($this->endDate)) {
+                    $rosterData = [
+                        'date' => $date,
+                        'user_id' => $this->rosterFields[$rostered]['user_id'] ?? null,
+                        'shift_start' => isset ($this->rosterFields[$rostered]['shift_start']) ? $date->format('Y-m-d ') . $this->rosterFields[$rostered]['shift_start'] : null,
+                        'shift_hours' => $this->rosterFields[$rostered]['shift_hours'] ?? 0,
+                    ];
 
-                        Roster::updateOrCreate(
-                            ['date' => $date, 'user_id' => $rosterData['user_id']],
-                            $rosterData
-                        );
-                        $date = $date->next(strtolower($day));
+                    if (in_array("$rostered-$day", $this->selectedDays)) {
+                        $rosterData['shift_start'] = null;
+                        $rosterData['shift_hours'] = 0;
                     }
-                } else {
-                    $date = Carbon::parse($this->startDate)->next(strtolower($day));
 
-                    while ($date->lte($this->endDate)) {
-                        $rosterData = [
-                            'date' => $date,
-                            'user_id' => $this->rosterFields[$roster]['user_id'],
-                            'shift_start' => null,
-                            'shift_hours' => 0,
-                        ];
-                        $rosterData['shift_end'] = null;
+                    $rosterData['shift_end'] = $rosterData['shift_start'] ? Carbon::parse($rosterData['shift_start'])->addHours($rosterData['shift_hours'])->toDateTimeString() : null;
 
-                        Roster::updateOrCreate(
-                            ['date' => $date, 'user_id' => $rosterData['user_id']],
-                            $rosterData
-                        );
-                        $date = $date->next(strtolower($day));
-                    }
+                    Roster::updateOrCreate(
+                        ['date' => $date, 'user_id' => $rosterData['user_id']],
+                        $rosterData
+                    );
+                    $date = $date->next(strtolower($day));
                 }
             }
         }
@@ -86,9 +77,8 @@ class Rosters extends Component
         $this->dispatch(
             'closeModal',
             icon: 'success',
-            message: 'Roster Created Successfully.',
+            message: 'Roster Created Successfully.'
         );
         $this->reset(['selectedDays', 'rosterFields']);
-        return $this->redirect(route('admin'), true);
     }
 }

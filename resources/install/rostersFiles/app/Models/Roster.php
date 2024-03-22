@@ -10,18 +10,18 @@ class Roster extends Model
     use HasFactory;
     protected $guarded = [];
 
+    protected $casts = [
+        'shift_start' => 'datetime',
+        'shift_end' => 'datetime',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function scopeFetchRoster($query)
+    public static function fetchRoster()
     {
-        return $query->with('user')
-            ->whereBetween('date', [now()->startOfMonth(), now()->endOfMonth()])
-            ->orderBy('date')
-            ->get()
-            ->groupBy('user_id')
-            ->toArray();
+        return self::with('user')->get();
     }
 }

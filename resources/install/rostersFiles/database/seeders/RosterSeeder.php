@@ -22,7 +22,7 @@ class RosterSeeder extends Seeder
                 $roster = new Roster;
                 $roster->date = $start_date->copy()->format('Y-m-d');
                 $roster->user_id = $value->id;
-                $roster->shift_start = $start_date->copy()->toDateTimeString();
+                $roster->shift_start = $start_date->copy()->startOfHour()->toDateTimeString();
                 $roster->shift_hours = rand(8, 12);
                 $roster->shift_end = Carbon::parse($roster->shift_start)->copy()->addHours($roster->shift_hours)->toDateTimeString();
                 $roster->save();
