@@ -45,6 +45,9 @@ class AdminSeeder extends Seeder
         foreach ($roles as $key => $roleData) {
             $role = Role::create(['name' => $roleData['name']]);
             $role->givePermissionTo($roleData['permissions']);
+
+            $username = setting('site_short_code') ?? config('admin.default.site_short_code') . '/' . date('Y') . '/' . str_pad(User::max('id') + 1, 5, 0, STR_PAD_LEFT);
+            
             User::create([
                 'name' => ucwords(explode('-', $roleData['name'])[0]) . ' User',
                 'email' => $roleData['name'] . '@flightadmin.info',
@@ -52,7 +55,8 @@ class AdminSeeder extends Seeder
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(30),
                 'phone' => '+2547000000' . $key,
-                'title' => 'Developer',
+                'title' => ucwords(str_replace('-' , ' ', $roleData['name'])),
+                'username' => $username,
                 'photo' => 'users/noimage.jpg',
             ])->assignRole($role);
         }

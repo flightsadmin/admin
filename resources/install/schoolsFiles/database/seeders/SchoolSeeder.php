@@ -38,6 +38,9 @@ class SchoolSeeder extends Seeder
         foreach ($roles as $key => $roleData) {
             $role = Role::create(['name' => $roleData['name']]);
             $role->givePermissionTo($roleData['permissions']);
+            
+            $username = setting('site_short_code') ?? config('admin.default.site_short_code') . '/' . date('Y') . '/' . str_pad(User::max('id') + 1, 5, 0, STR_PAD_LEFT);
+
             User::create([
                 'name' => ucwords(explode('-', $roleData['name'])[0]) . ' User',
                 'email' => $roleData['name'] . '@flightadmin.info',
@@ -45,7 +48,8 @@ class SchoolSeeder extends Seeder
                 'email_verified_at' => now(),
                 'remember_token' => Str::random(30),
                 'phone' => '+2547000000' . $key,
-                'title' => ucwords($roleData['name']),
+                'title' => ucwords(str_replace('-' , ' ', $roleData['name'])),
+                'username' => $username,
                 'photo' => 'users/noimage.jpg',
             ])->assignRole($role);
         }
@@ -113,8 +117,8 @@ class SchoolSeeder extends Seeder
             for ($i = 1; $i <= now()->endOfMonth()->format('d'); $i++) {
                 Timetable::create([
                     'name' => $value,
-                    'start_time' => now()->startOfMonth()->addDays($i),
-                    'end_time' => now()->startOfMonth()->addDays($i)->addMinutes(40),
+                    'start_time' => now()->startOfMonth()->addDays($i)->addHours(5),
+                    'end_time' => now()->startOfMonth()->addDays($i)->addHours(5)->addMinutes(40),
                     'grade_id' => Grade::inRandomOrder()->first()->id,
                 ]);
             }

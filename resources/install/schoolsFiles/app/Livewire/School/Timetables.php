@@ -29,6 +29,11 @@ class Timetables extends Component
         $timetable = Timetable::create(
             $validated
         );
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Timetable Created Successfully',
+        );
 
         return $timetable->id;
     }

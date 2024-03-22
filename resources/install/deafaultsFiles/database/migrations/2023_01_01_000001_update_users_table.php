@@ -15,6 +15,7 @@ return new class extends Migration
             $table->after('email', function ($table) {
                 $table->string('phone')->nullable();
                 $table->string('title')->nullable();
+                $table->string('username')->nullable();
                 $table->string('photo')->nullable();
             });
             $table->softDeletes();

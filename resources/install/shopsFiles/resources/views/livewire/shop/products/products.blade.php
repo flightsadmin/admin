@@ -62,7 +62,7 @@
                     <div class="position-sticky" style="top: 2rem;">
                         <div class="card-body">
                             <div class="p-4 mb-3 bg-body-tertiary rounded">
-                                @livewire('carts')
+                                @livewire('shop.carts')
                             </div>
                             <div>
                                 <h4 class="fst-italic">Featured Products</h4>

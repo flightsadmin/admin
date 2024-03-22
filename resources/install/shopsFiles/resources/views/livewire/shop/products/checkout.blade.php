@@ -5,7 +5,7 @@
         <div class="row g-3">
             <div class="col-md-6 col-lg-6 order-md-last">
                 <div class="bg-body-tertiary rounded">
-                    @livewire('carts')
+                    @livewire('shop.carts')
                 </div>
             </div>
             <div class="col-md-6 col-lg-6">
