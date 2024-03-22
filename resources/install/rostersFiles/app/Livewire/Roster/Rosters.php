@@ -63,7 +63,7 @@ class Rosters extends Component
                         $rosterData['shift_hours'] = 0;
                     }
 
-                    $rosterData['shift_end'] = $rosterData['shift_start'] ? Carbon::parse($rosterData['shift_start'])->addHours($rosterData['shift_hours'])->toDateTimeString() : null;
+                    $rosterData['shift_end'] = $rosterData['shift_start'] ? Carbon::parse($rosterData['shift_start'])->copy()->addHours(intval($rosterData['shift_hours']))->toDateTimeString() : null;
 
                     Roster::updateOrCreate(
                         ['date' => $date, 'user_id' => $rosterData['user_id']],
@@ -79,6 +79,6 @@ class Rosters extends Component
             icon: 'success',
             message: 'Roster Created Successfully.'
         );
-        $this->reset(['selectedDays', 'rosterFields']);
+        $this->reset(['selectedDays', 'rosterFields', 'staffRosters']);
     }
 }

@@ -111,7 +111,7 @@
                                 <tr>
                                     <td>{{ $user->name }}</td>
                                     @foreach ($dates as $date)
-                                        <td>
+                                        <td class="text-center">
                                             @foreach ($roster[$date] as $r)
                                                 @if ($r->user_id == $user->id)
                                                     {{ $r->shift_start ? $r->shift_start->format('Hi') : '' }}-{{ $r->shift_end ? $r->shift_end->format('Hi') : '' }}

@@ -34,11 +34,11 @@ class Install extends Command
             $this->defaultSetting();
             $this->defaultInstall();
             $this->updateComposer();
-            $this->rosterInstall();
             $this->flightInstall();
             $this->shopInstall();
             $this->blogInstall();
             $this->schoolInstall();
+            $this->rosterInstall();
             $this->socialLoginInstall();
 
             // Update Auth Routes
