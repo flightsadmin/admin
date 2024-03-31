@@ -8,20 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Roster extends Model
 {
     use HasFactory;
-    protected $guarded = [];
 
+    protected $guarded = [];
+    
     protected $casts = [
         'shift_start' => 'datetime',
         'shift_end' => 'datetime',
     ];
 
-    public function user()
+    public function employee()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public static function fetchRoster()
-    {
-        return self::with('user')->get();
+        return $this->belongsTo(Employee::class);
     }
 }

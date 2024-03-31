@@ -31,6 +31,7 @@ class Settings extends Component
             'settings.date_time_format' => ['nullable', 'string'],
             'settings.date_format' => ['nullable', 'string'],
             'settings.time_format' => ['nullable', 'string'],
+            'settings.week_start' => ['nullable', 'string'],
             'settings.site_description' => ['nullable', 'string'],
         ]);
 

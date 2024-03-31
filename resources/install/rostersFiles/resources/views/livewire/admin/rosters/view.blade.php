@@ -41,10 +41,10 @@
                                 @foreach ($staffRosters as $index => $roster)
                                     <tr wire:key="{{ $index }}">
                                         <td>
-                                            <select wire:model="rosterFields.{{ $roster }}.user_id"
+                                            <select wire:model="rosterFields.{{ $roster }}.employee_id"
                                                 class="form-select  form-select-sm">
                                                 <option value="">--Select User--</option>
-                                                @foreach ($users as $value)
+                                                @foreach ($employees as $value)
                                                     <option value="{{ $value->id }}">{{ $value->name }}</option>
                                                 @endforeach()
                                             </select>
@@ -107,7 +107,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $user)
+                            @foreach ($employees as $user)
                                 <tr>
                                     <td>{{ $user->name }}</td>
                                     @foreach ($dates as $date)
@@ -125,7 +125,6 @@
                     </table>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>

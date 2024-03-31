@@ -3,9 +3,10 @@
 namespace App\Livewire\Roster;
 
 use Carbon\Carbon;
-use App\Models\User;
-use Livewire\Component;
+use App\Models\Leave;
 use App\Models\Roster;
+use Livewire\Component;
+use App\Models\Employee;
 use Livewire\WithPagination;
 
 class Rosters extends Component
@@ -28,8 +29,8 @@ class Rosters extends Component
 
     public function render()
     {
-        $users = User::all();
-        $rosters = Roster::fetchRoster()->groupBy('date');
+        $employees = Employee::all();
+        $rosters = Roster::with('employee')->get()->groupBy('date');
         $dates = $rosters->keys()->all();
         return view('livewire.admin.rosters.view', compact('users', 'rosters', 'dates'))->extends('components.layouts.admin');
     }
@@ -51,14 +52,19 @@ class Rosters extends Component
                 $date = Carbon::parse($this->startDate)->next(strtolower($day));
 
                 while ($date->lte($this->endDate)) {
+                    $leave = Leave::where('employee_id', $this->rosterFields[$rostered]['employee_id'])
+                        ->whereDate('leave_start', '<=', $date)
+                        ->whereDate('leave_end', '>=', $date)
+                        ->first();
+
                     $rosterData = [
                         'date' => $date,
-                        'user_id' => $this->rosterFields[$rostered]['user_id'] ?? null,
-                        'shift_start' => isset ($this->rosterFields[$rostered]['shift_start']) ? $date->format('Y-m-d ') . $this->rosterFields[$rostered]['shift_start'] : null,
+                        'employee_id' => $this->rosterFields[$rostered]['employee_id'] ?? null,
+                        'shift_start' => isset($this->rosterFields[$rostered]['shift_start']) ? $date->toDateString() . $this->rosterFields[$rostered]['shift_start'] : null,
                         'shift_hours' => $this->rosterFields[$rostered]['shift_hours'] ?? 0,
                     ];
 
-                    if (in_array("$rostered-$day", $this->selectedDays)) {
+                    if (in_array("$rostered-$day", $this->selectedDays) || $leave) {
                         $rosterData['shift_start'] = null;
                         $rosterData['shift_hours'] = 0;
                     }
@@ -66,7 +72,7 @@ class Rosters extends Component
                     $rosterData['shift_end'] = $rosterData['shift_start'] ? Carbon::parse($rosterData['shift_start'])->copy()->addHours(intval($rosterData['shift_hours']))->toDateTimeString() : null;
 
                     Roster::updateOrCreate(
-                        ['date' => $date, 'user_id' => $rosterData['user_id']],
+                        ['date' => $date, 'employee_id' => $rosterData['employee_id']],
                         $rosterData
                     );
                     $date = $date->next(strtolower($day));

@@ -120,6 +120,17 @@
                             <span class="text-danger small">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="col-md-4 form-group">
+                        <label for="weekStart" class="form-label">Week Starts:</label>
+                        <select wire:model="settings.week_start" class="form-select form-select-sm" id="weekStart">
+                            <option value="">Choose an option...</option>
+                            <option value="sunday">Sunday</option>
+                            <option value="monday">Monday</option>
+                        </select>
+                        @error('settings.week_start')
+                            <span class="text-danger small">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div class="col-md-8 form-group">
                         <label for="siteDescription">Site Descripion</label>
                         <textarea class="form-control form-control-sm" wire:model="settings.site_description" rows="5" id="siteDescription"
