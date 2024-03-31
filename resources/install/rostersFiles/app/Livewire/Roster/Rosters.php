@@ -32,7 +32,7 @@ class Rosters extends Component
         $employees = Employee::all();
         $rosters = Roster::with('employee')->get()->groupBy('date');
         $dates = $rosters->keys()->all();
-        return view('livewire.admin.rosters.view', compact('users', 'rosters', 'dates'))->extends('components.layouts.admin');
+        return view('livewire.admin.rosters.view', compact('employees', 'rosters', 'dates'))->extends('components.layouts.admin');
     }
     public function addRosters()
     {
