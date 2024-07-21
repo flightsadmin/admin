@@ -14,7 +14,7 @@
         "laravel-vite-plugin": "^1.0",
         "lodash": "^4.17",
         "postcss": "^8.4",
-        "sass": "1.77",
+        "sass": "1.70",
         "trix": "^2.1",
         "vite": "^5.3",
         "sweetalert2": "^11.12"
