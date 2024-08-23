@@ -4,47 +4,58 @@ namespace App\Livewire;
 
 use App\Models\Setting;
 use Livewire\Component;
-use Illuminate\Support\Facades\Cache;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Cache;
 
 class Settings extends Component
 {
     use WithFileUploads;
-    public $state = [];
+    public $settings;
 
     public function mount()
     {
-        $setting = Setting::first();
-
-        if ($setting) {
-            $this->state = $setting->toArray();
-        }
+        $this->settings = Setting::pluck('value', 'key')->toArray();
     }
 
-    public function updateSetting()
+    public function updateSettings()
     {
-        try {
-            $setting = Setting::first();
+        $validatedData = $this->validate([
+            'settings.site_name' => ['required', 'string'],
+            'settings.site_short_code' => ['required', 'string'],
+            'settings.site_email' => ['required', 'email'],
+            'settings.site_phone' => ['nullable', 'string'],
+            'settings.footer_text' => ['nullable', 'string'],
+            'settings.site_logo' => ['nullable'],
+            'settings.site_theme' => ['nullable', 'string'],
+            'settings.site_currency' => ['nullable', 'string'],
+            'settings.date_time_format' => ['nullable', 'string'],
+            'settings.date_format' => ['nullable', 'string'],
+            'settings.time_format' => ['nullable', 'string'],
+            'settings.week_start' => ['nullable', 'string'],
+            'settings.site_description' => ['nullable', 'string'],
+        ]);
 
-            if (array_key_exists('site_logo', $this->state)) {
-                if (!is_string($this->state['site_logo'])) {
-                    $this->state['site_logo'] = $this->state['site_logo']->storeAs('sites', 'default.png', 'public');
-                }
+        if (array_key_exists('site_logo', $this->settings)) {
+            if (!is_string($this->settings['site_logo'])) {
+                $validatedData['settings']['site_logo'] = $this->settings['site_logo']->storeAs('sites', 'default.png', 'public');
             }
-
-            if ($setting) {
-                $setting->update($this->state);
-            } else {
-                Setting::create($this->state);
-            }
-
-            Cache::forget('setting');
-        } catch (\Throwable $th) {
-            throw $th;
         }
-        return redirect(route('admin.settings'));
-    }
 
+        foreach ($validatedData['settings'] as $key => $value) {
+            Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value],
+            );
+        }
+        $this->dispatch(
+            'closeModal',
+            icon: 'success',
+            message: 'Settings updated successfully',
+        );
+
+        Cache::flush();
+        return redirect(route('admin.settings'), true);
+    }
 
     public function render()
     {

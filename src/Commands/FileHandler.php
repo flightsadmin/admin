@@ -80,7 +80,7 @@ trait FileHandler
             } else {
                 $appFile = base_path('bootstrap/app.php');
                 $appFileData = $this->filesystem->get($appFile);
-                $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\$middleware->alias([\n\t\t'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class, \n\t\t'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class, \n\t\t'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,\n]);\n\t\t//End Spatie Permission Trait";
+                $kerneltemStub = "\t\t//Spatie Permission Traits\n\t\$middleware->alias([\n\t\t'role' => \Spatie\Permission\Middleware\RoleMiddleware::class, \n\t\t'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class, \n\t\t'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,\n]);\n\t\t//End Spatie Permission Trait";
                 $kernelItemHook = '->withMiddleware(function (Middleware $middleware) {';
 
                 if (!Str::contains($appFileData, $kerneltemStub)) {

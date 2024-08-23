@@ -9,13 +9,5 @@ class Setting extends Model
 {
     use HasFactory;
 
-    public $fillable = [
-        'site_email',
-        'site_name',
-        'site_title',
-        'site_short_code',
-        'site_description',
-        'site_theme',
-        'footer_text',
-    ];
+    protected $guarded = [];
 }

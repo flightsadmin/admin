@@ -8,6 +8,13 @@ return new class extends Migration
 {
     public function up()
     {
+        Schema::create('settings', function (Blueprint $table) {
+            $table->id();
+            $table->string('key', 50)->unique();
+            $table->string('value', 100)->nullable();
+            $table->timestamps();
+        });
+        
         Schema::create('airlines', function (Blueprint $table) {
             $table->id();
             $table->string('name');

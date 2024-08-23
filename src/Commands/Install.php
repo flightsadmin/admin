@@ -89,7 +89,8 @@ class Install extends Command
         $this->warn('Removing Dumped node_modules files. Please wait...');
 		
 		tap(new Filesystem, function ($npm) {
-            $npm->deleteDirectory(base_path('node_modules'));
+            exec('rm -r node_modules');
+            // $npm->deleteDirectory(base_path('node_modules'));
             $npm->deleteDirectory(base_path('resources/views/layouts'));
             $npm->delete(base_path('yarn.lock'));
             $npm->delete(base_path('webpack.mix.js'));
