@@ -15,6 +15,7 @@ return new class extends Migration
             $table->after('email', function ($table) {
                 $table->string('phone')->nullable();
                 $table->string('title')->nullable();
+                $table->string('username')->nullable();
                 $table->string('photo')->nullable();
             });
             $table->softDeletes();
@@ -29,6 +30,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('phone');
             $table->dropColumn('title');
+            $table->dropColumn('username');
             $table->dropColumn('photo');
         });
     }
