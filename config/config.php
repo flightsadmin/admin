@@ -4,7 +4,7 @@ return [
     'default' => [
         'site_name'         => config('app.name'),
         'site_short_code'   => 'DT',
-        'site_email'        => config('mail.from.address'),
+        'site_email'        => 'admin@site.com',
         'site_phone'        => '+254722000000',
         'site_logo'         => 'sites/default.png',
         'site_theme'        => 'light',
