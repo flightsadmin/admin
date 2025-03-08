@@ -7,7 +7,7 @@
     },
     "devDependencies": {
         "@popperjs/core": "^2.11",
-        "admin-lte": "^4.0.0-beta1",
+        "admin-lte": "^4.0.0-beta3",
         "axios": "^1.7",
         "bootstrap": "^5.3",
         "bootstrap-icons": "^1.11",
